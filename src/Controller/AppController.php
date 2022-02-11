@@ -23,6 +23,11 @@ class AppController extends AbstractController
      */
     public function admin(): Response
     {
+        $user = $this->getUser();
+
+        if(!$user){
+            return $this->redirect('login');
+        }
         return $this->render('backBase.html.twig', [
             'user' => $this->getUser(),
         ]);

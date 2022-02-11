@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset("front/css/nice-select.css") }}">
     <link rel="stylesheet" href="{{ asset("front/css/animate.css") }}">
     <link rel="stylesheet" href="{{ asset("front/css/style.css") }}">
+    {% block extraStyle %}{% endblock %}
 </head>
 
 <body>
@@ -50,13 +51,15 @@
                             <li class="menu_has_children"><a href="#0">Sections</a>
                                 <ul class="sub-menu">
                                     <li><a href="about-us.html">About Us</a></li>
-{#                                    add your section here just like in the commented exemple below#}
-{#                                    <li><a href="about-us.html">About Us</a></li>#}
-{#                                    <li><a href="about-us.html">About Us</a></li>#}
+                                    {# add your section here just like in the commented exemple below #}
+                                    {# <li><a href="about-us.html">About Us</a></li> #}
+                                    {# <li><a href="about-us.html">About Us</a></li> #}
                                 </ul>
                             </li>
-                            {% if "ROLE_ADMIN" in user.roles %}
-                                <li><a href="{{ path("admin") }}">Admin</a></li>
+                            {% if user is not null %}
+                                {% if "ROLE_ADMIN" in user.roles %}
+                                    <li><a href="{{ path("admin") }}">Admin</a></li>
+                                {% endif %}
                             {% endif %}
                         </ul>
                     </div>
@@ -115,7 +118,7 @@
                 <div class="row d-flex align-items-center justify-content-center">
                     <div class="col-lg-12 col-md-6">
                         <div class="left-area text-center">
-                            <p>Made with <span style="color:#e25555;font-size: 20px;"> ❤ </span> by WebDiggers</p>
+                            <p>Made with <span style="color:#e25555;font-size: 20px;"> ❤ </span> by WebDiggers.</p>
                         </div>
                     </div>
                 </div>
@@ -135,6 +138,7 @@
 <script src="{{ asset("front/js/jquery.magnific-popup.min.js") }}"></script>
 <script src="{{ asset("front/js/wow.js") }}"></script>
 <script src="{{ asset("front/js/main.js") }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 
 </body>
 </html>

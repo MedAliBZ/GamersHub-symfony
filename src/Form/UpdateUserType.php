@@ -10,30 +10,23 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegisterType extends AbstractType
+class UpdateUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-//            ->add('roles')
-            ->add('email')
+            ->setMethod('POST')
             ->add('name')
             ->add('secondName')
+            ->add('email')
             ->add('birthDate',DateType::class,[
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'html5'=>false,
-                'placeholder' => 'Select a value',
                 'attr' => ['class' => 'js-datepicker'],
             ])
-
-            ->add('password', PasswordType::class)
-            ->add('confirmPassword',PasswordType::class, array("mapped" => false,))
-            ->add('SignUp', SubmitType::class, ['attr'=>['class'=>'cmn-btn']])
-//            ->add('lastUpdated')
-//            ->add('createdAt')
-//            ->add('isEnabled')
+            ->add('oldPassword', PasswordType::class, array("mapped" => false,))
+            ->add('Update', SubmitType::class,['attr'=>['class'=>'cmn-btn']]);
         ;
     }
 
