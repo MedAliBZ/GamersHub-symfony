@@ -55,7 +55,7 @@ class AuthController extends AbstractController
             } else {
                 $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
                 $user->setCoins(0);
-                $user->setRoles(['USER_ROLE']);
+                $user->setRoles(['ROLE_USER']);
                 date_default_timezone_set('Europe/Paris');
                 $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
                 $user->setCreatedAt($dateTime);

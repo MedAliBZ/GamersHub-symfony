@@ -23,7 +23,7 @@ class AppController extends AbstractController
      */
     public function admin(): Response
     {
-        return $this->render('app/index.html.twig', [
+        return $this->render('backBase.html.twig', [
             'user' => $this->getUser(),
         ]);
     }
