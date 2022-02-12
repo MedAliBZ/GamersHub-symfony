@@ -116,4 +116,36 @@ class UserController extends AbstractController
             "user" => $user,
         ]);
     }
+
+    /**
+     * @Route("/admin/users", name="showUsers")
+     */
+    public function showUsers(): Response
+    {
+        $repo =$this->getDoctrine()->getRepository(User::class);
+        return $this->render("user/usersBack.html.twig", [
+            'user'=>$this->getUser(),
+            'usersList'=>$repo->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/users/{id}/delete", name="deleteUser")
+     */
+    public function deleteUser(User $usr): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($usr);
+        $em->flush();
+
+        $repo =$this->getDoctrine()->getRepository(User::class);
+        return $this->redirectToRoute("showUsers");
+    }
+    /**
+     * @Route("/admin/users/{id}/update", name="updateUser")
+     */
+    public function updateUser(User $user): Response{
+        return $this->redirectToRoute("showUsers");
+    }
+
 }
