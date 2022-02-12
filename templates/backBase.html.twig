@@ -12,23 +12,30 @@
   <title>GamersHub | {% block title %}{% endblock %}</title>
 
   <!-- Bootstrap -->
-  <link href="{{asset('../back/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{asset('/back/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
   <!-- NProgress -->
-  <link href="{{asset('../back/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+  <link href="{{asset('/back/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
   <!-- iCheck -->
-  <link href="{{asset('../back/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+  <link href="{{asset('/back/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
 
   <!-- bootstrap-progressbar -->
-  <link href="{{asset('../back/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+  <link href="{{asset('/back/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
   <!-- JQVMap -->
-  <link href="{{asset('../back/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('/back/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet" />
   <!-- bootstrap-daterangepicker -->
-  <link href="{{asset('../back/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+  <link href="{{asset('/back/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 
   <!-- Custom Theme Style -->
-  <link href="{{asset('../back/build/css/custom.min.css')}}" rel="stylesheet">
+  <link href="{{asset('/back/build/css/custom.min.css')}}" rel="stylesheet">
+
+  
+
+    
+    {% block addFilesHead %}{% endblock %}
+
+  
 </head>
 
 <body class="nav-md" style="overflow: auto;">
@@ -49,7 +56,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>John Doe</h2>
+              <h2>joe Doe</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -79,8 +86,8 @@
                 </li>
                 <li><a><i class="fa fa-shopping-cart"></i>Shop<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Products</a></li>
+                    <li><a href="{{path("categoryshow")}}">Categories</a></li>
+                    <li><a href="{{path("products")}}">Products</a></li>
                     <li><a href="#">Orders</a></li>
                   </ul>
                 </li>
@@ -219,7 +226,7 @@
 
   <!-- Custom Theme Scripts -->
   <script src="{{asset('back/build/js/custom.min.js')}}"></script>
-
+{% block addFilesBottom %}{% endblock %}
 </body>
 
 </html>

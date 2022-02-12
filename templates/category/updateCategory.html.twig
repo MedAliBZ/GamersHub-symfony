@@ -1,0 +1,88 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Categories{% endblock %}
+{% block addFilesHead %}
+
+{% endblock %}
+{% block content %}
+<!-- page content -->
+ <br>
+
+            <div class="col-md-12 col-sm-12 " style="width: fit-co;">
+                <div class="x_panel">
+                    
+                        <h2>Category Form </h2>
+                        <div class="x_title"></div>
+                   
+                    <div>
+                        <div class="x_content">
+                            {{ form_start(formCategory1) }}
+
+                            <form class="form-horizontal">
+
+                                <div class="item form-group">
+
+                                    <label class="col-form-label
+                                   col-md-3 col-sm-3 label-align">{{ form_label(formCategory1.nameCategory,"Category
+                                        Name") }}</label>
+
+                                    {{ form_widget(formCategory1.nameCategory,{'attr':{'class':'col-md-6 col-sm-6
+                                    form-control'}}) }}
+                                </div>
+                                <div class="item form-group">
+
+                                    
+                                    <label class="col-form-label
+                                   col-md-3 col-sm-3 label-align">{{ form_label(formCategory1.Description,"Description") }}</label>
+                                    {{ form_widget(formCategory1.Description,{'attr':{'class':'col-md-6 col-sm-6
+                                    form-control'}}) }}
+
+                                </div>
+                                <div class="item form-group">
+
+                                  
+                                    <label class="col-form-label
+                                   col-md-3 col-sm-3 label-align">{{ form_label(formCategory1.image,"Image") }}</label>
+                                    {{ form_widget(formCategory1.image,{'attr':{'class':'col-md-6 col-sm-6
+                                    form-control'}}) }}
+
+                                </div>
+
+
+
+                                <div class="item form-group" style="margin-left: 58%;">
+                                    <a href="{{path('categorycancel')}}"><button class="btn btn-primary" type="button">Cancel</button></a>
+                                    {{ form_row(formCategory1.update,{'attr':{'class':'btn btn-success'}} )}}
+
+                                </div>
+
+                            </form>
+                            {{ form_end(formCategory1, {render_rest: false}) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+
+            {% endblock %}
+            {% block addFilesBottom %}
+            <!-- bootstrap-wysiwyg -->
+            <script src="{{asset('back/vendors/bootstrap-wysiwyg/js')}}/bootstrap-wysiwyg.min.js')}}"></script>
+            <script src="{{asset('back/vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
+            <script src="{{asset('back/vendors/google-code-prettify/src/prettify.js')}}"></script>
+            <!-- jQuery Tags Input -->
+            <script src="{{asset('back/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script>
+            <!-- Switchery -->
+            <script src="{{asset('back/vendors/switchery/dist/switchery.min.js')}}"></script>
+            <!-- Select2 -->
+            <script src="{{asset('back/vendors/select2/dist/js')}}/select2.full.min.js')}}"></script>
+            <!-- Parsley -->
+            <script src="{{asset('back/vendors/parsleyjs')}}/dist/parsley.min.js')}}"></script>
+            <!-- Autosize -->
+            <script src="{{asset('back/vendors/autosize/dist/autosize.min.js')}}"></script>
+            <!-- jQuery autocomplete -->
+            <script src="{{asset('back/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
+            <!-- starrr -->
+            <script src="{{asset('back/vendors/starrr/dist/starrr.js')}}"></script>
+
+            {% endblock %}
