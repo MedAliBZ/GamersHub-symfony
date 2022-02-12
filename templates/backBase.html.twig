@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="{{asset('../back/images/logo.png')}}" />
 
-  <title>{% block title %}{% endblock %}</title>
+  <title>GamersHub | {% block title %}{% endblock %}</title>
 
   <!-- Bootstrap -->
   <link href="{{asset('../back/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -31,10 +31,10 @@
   <link href="{{asset('../back/build/css/custom.min.css')}}" rel="stylesheet">
 </head>
 
-<body class="nav-md">
+<body class="nav-md" style="overflow: auto;">
   <div class="container body">
     <div class="main_container">
-      <div class="col-md-3 left_col">
+      <div class="col-md-3 left_col" style="top: 0;bottom: 0;position: fixed;overflow-y: scroll;overflow-x: hidden;">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
             <a href="index.html" class="site_title"> <img src="{{asset('../back/images/logo.png')}}"> <span>Gaming
@@ -61,7 +61,7 @@
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-solid fa-chart-line"></i> Dashboard </a></li>
                 <li><a><i class="fa fa-solid fa-user"></i> User </a></li>
-                <li><a><i class="fa fa-solid fa-gamepad"></i> Games </a></li>
+                <li><a href="{{ path("gamesAdmin") }}"><i class="fa fa-solid fa-gamepad"></i> Games </a></li>
                 <li><a><i class="fa fa-gavel"></i>Matchs </a></li>
                 <li><a><i class="fa fa-users"></i> Teams </a></li>
 
@@ -106,11 +106,11 @@
 
       <!-- top navigation -->
       <div class="top_nav">
-        <div class="nav_menu">
+        <div class="nav_menu" style="position: fixed;z-index: 90;height: 55px;">
           <div class="nav toggle">
             <a id="menu_toggle"><i class="fa fa-bars"></i></a>
           </div>
-          <nav class="nav navbar-nav">
+          <nav class="nav navbar-nav" style="position: fixed;right: 0;">
             <ul class=" navbar-right">
               <li class="nav-item dropdown open" style="padding-left: 15px;">
                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
@@ -164,8 +164,8 @@
       <!-- /top navigation -->
 
       <!-- page content -->
-      <div class="right_col" role="main">
-        {% block body %}{% endblock %}
+      <div class="right_col" role="main" style="padding-top: 55px;">
+        {% block content %}{% endblock %}
       </div>
 
       <!-- /page content -->
@@ -180,45 +180,45 @@
   </div>
 
   <!-- jQuery -->
-  <script src="{{asset('../back/vendors/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{asset('back/vendors/jquery/dist/jquery.min.js')}}"></script>
   <!-- Bootstrap -->
-  <script src="{{asset('../back/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('back/vendors/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
   <!-- FastClick -->
-  <script src="{{asset('../back/vendors/fastclick/lib/fastclick.js')}}"></script>
+  <script src="{{asset('back/vendors/fastclick/lib/fastclick.js')}}"></script>
   <!-- NProgress -->
-  <script src="{{asset('../back/vendors/nprogress/nprogress.js')}}"></script>
+  <script src="{{asset('back/vendors/nprogress/nprogress.js')}}"></script>
   <!-- Chart.js -->
-  <script src="{{asset('../back/vendors/Chart.js/dist/Chart.min.js')}}"></script>
+  <script src="{{asset('back/vendors/Chart.js/dist/Chart.min.js')}}"></script>
   <!-- gauge.js -->
-  <script src="{{asset('../back/vendors/gauge.js/dist/gauge.min.js')}}"></script>
+  <script src="{{asset('back/vendors/gauge.js/dist/gauge.min.js')}}"></script>
   <!-- bootstrap-progressbar -->
-  <script src="{{asset('../back/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+  <script src="{{asset('back/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
   <!-- iCheck -->
-  <script src="{{asset('../back/vendors/iCheck/icheck.min.js')}}"></script>
+  <script src="{{asset('back/vendors/iCheck/icheck.min.js')}}"></script>
   <!-- Skycons -->
-  <script src="{{asset('../back/vendors/skycons/skycons.js')}}"></script>
+  <script src="{{asset('back/vendors/skycons/skycons.js')}}"></script>
   <!-- Flot -->
-  <script src="{{asset('../back/vendors/Flot/jquery.flot.js')}}"></script>
-  <script src="{{asset('../back/vendors/Flot/jquery.flot.pie.js')}}"></script>
-  <script src="{{asset('../back/vendors/Flot/jquery.flot.time.js')}}"></script>
-  <script src="{{asset('../back/vendors/Flot/jquery.flot.stack.js')}}"></script>
-  <script src="{{asset('../back/vendors/Flot/jquery.flot.resize.js')}}"></script>
+  <script src="{{asset('back/vendors/Flot/jquery.flot.js')}}"></script>
+  <script src="{{asset('back/vendors/Flot/jquery.flot.pie.js')}}"></script>
+  <script src="{{asset('back/vendors/Flot/jquery.flot.time.js')}}"></script>
+  <script src="{{asset('back/vendors/Flot/jquery.flot.stack.js')}}"></script>
+  <script src="{{asset('back/vendors/Flot/jquery.flot.resize.js')}}"></script>
   <!-- Flot plugins -->
-  <script src="{{asset('../back/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
-  <script src="{{asset('../back/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
-  <script src="{{asset('../back/vendors/flot.curvedlines/curvedLines.js')}}"></script>
+  <script src="{{asset('back/vendors/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
+  <script src="{{asset('back/vendors/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
+  <script src="{{asset('back/vendors/flot.curvedlines/curvedLines.js')}}"></script>
   <!-- DateJS -->
-  <script src="{{asset('../back/vendors/DateJS/build/date.js')}}"></script>
+  <script src="{{asset('back/vendors/DateJS/build/date.js')}}"></script>
   <!-- JQVMap -->
-  <script src="{{asset('../back/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
-  <script src="{{asset('../back/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-  <script src="{{asset('../back/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
+  <script src="{{asset('back/vendors/jqvmap/dist/jquery.vmap.js')}}"></script>
+  <script src="{{asset('back/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+  <script src="{{asset('back/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
   <!-- bootstrap-daterangepicker -->
-  <script src="{{asset('../back/vendors/moment/min/moment.min.js')}}"></script>
-  <script src="{{asset('../back/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+  <script src="{{asset('back/vendors/moment/min/moment.min.js')}}"></script>
+  <script src="{{asset('back/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
   <!-- Custom Theme Scripts -->
-  <script src="{{asset('../back/build/js/custom.min.js')}}"></script>
+  <script src="{{asset('back/build/js/custom.min.js')}}"></script>
 
 </body>
 
