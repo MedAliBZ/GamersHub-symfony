@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
-    console.log($('#datatable'))
-    $('#datatable').DataTable();
+    $('.js-datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+    });
 })

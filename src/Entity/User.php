@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -22,6 +23,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $username;
 
@@ -33,21 +35,26 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @Assert\Email(message="Wrong format.")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $secondName;
 
@@ -98,7 +105,7 @@ class User implements UserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
+     * A visual identifier that represents This user.
      *
      * @see UserInterface
      */
@@ -107,7 +114,7 @@ class User implements UserInterface
         return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -171,7 +178,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -183,7 +190,7 @@ class User implements UserInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -195,7 +202,7 @@ class User implements UserInterface
         return $this->secondName;
     }
 
-    public function setSecondName(string $secondName): self
+    public function setSecondName(?string $secondName): self
     {
         $this->secondName = $secondName;
 

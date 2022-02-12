@@ -46,11 +46,17 @@ class AuthController extends AbstractController
         $user->setBirthDate(\DateTime::createFromFormat('d/m/Y', '21/08/2000'));
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form["confirmPassword"]->getData() != $form["password"]->getData()) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$form["username"]->getData()])){
                 return $this->render('security/register.html.twig', [
                     "signupForm" => $form->createView(),
-                    "error" => "Passwords do not match!"
+                    "error" => "Invalid username!"
+                ]);
+            }
+            else if ($form["confirmPassword"]->getData() != $form["password"]->getData()) {
+                return $this->render('security/register.html.twig', [
+                    "signupForm" => $form->createView(),
+                    "error" => "Passwords does not match!"
                 ]);
             } else {
                 $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));

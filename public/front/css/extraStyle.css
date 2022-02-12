@@ -19,3 +19,8 @@
 .delete-btn::before{
     background: linear-gradient(351.09deg, #F029A0 4.36%, darkred 117.5%)!important;
 }
+
+.error-div ul li{
+    color: #ff8c8c;
+    list-style:none;
+}
