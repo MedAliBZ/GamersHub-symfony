@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/game")
- */
 class GameController extends AbstractController
 {
     /**
@@ -26,6 +23,47 @@ class GameController extends AbstractController
             'gamesList' => $gameRepository->findAll(),
             'user' => $this->getUser()
         ]);
+    }
+    /**
+     * @Route("/game/{id}", name="gameById", methods={"GET"})
+     */
+    public function showGame(Game $game): Response
+    {
+        return $this->render('game/show.html.twig', [
+            'game' => $game,
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * @Route("/games", name="games", methods={"GET"})
+     */
+    public function showGames(GameRepository $gameRepository): Response
+    {
+        return $this->render('game/index.html.twig', [
+            'gamesList' => $gameRepository->findAll(),
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * @Route("/game/follow/{id}", name="followGame", methods={"GET"})
+     */
+    public function followGame(EntityManagerInterface $entityManager, Game $game): Response
+    {
+        $game->addUser($this->getUser());
+        $entityManager->flush();
+        return $this->redirectToRoute("games");
+    }
+
+    /**
+     * @Route("/game/unfollow/{id}", name="unfollowGame", methods={"GET"})
+     */
+    public function unfollowGame(EntityManagerInterface $entityManager, Game $game): Response
+    {
+        $game->removeUser($this->getUser());
+        $entityManager->flush();
+        return $this->redirectToRoute("games");
     }
 
     /**
