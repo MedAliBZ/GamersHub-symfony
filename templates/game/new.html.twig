@@ -24,6 +24,17 @@
                 <br/>
                 <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                     {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin: 20px;">
+                        <div class="gameImage"
+                             style="margin-bottom: 10px;display:none;width: 150px;height: 200px;background-size: cover;background-position: center;'background-image:'{{ absolute_url(asset("/games/images/upload.png")) }}'"></div>
+                        <img class='defaultImage' style="width: 200px;margin-bottom: 10px;" src="{{ asset("games/images/upload.png") }}">
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.image,{'attr': {'class': 'form-control input-file'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.image) }}
+                        </div>
+                    </div>
                     <div class="item form-group">
                         {{ form_label(form.name,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
                         <div class="col-md-6 col-sm-6 ">
@@ -33,15 +44,7 @@
                             {{ form_errors(form.name) }}
                         </div>
                     </div>
-                    <div class="item form-group">
-                        {{ form_label(form.image,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
-                        <div class="col-md-6 col-sm-6 ">
-                            {{ form_widget(form.image,{'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="error-div">
-                            {{ form_errors(form.image) }}
-                        </div>
-                    </div>
+
                     <div class="item form-group">
                         {{ form_label(form.description,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
                         <div class="col-md-6 col-sm-6 ">
