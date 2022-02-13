@@ -1,11 +1,66 @@
-<!DOCTYPE html>
-
-<title>New Game</title>
-
-{% block body %}
-    <h1>Create new Game</h1>
-
-    {{ include('game/_form.html.twig') }}
-
-    <a href="{{ path('game_index') }}">back to list</a>
+{% extends 'backBase.html.twig' %}
+{% block title %}New Game{% endblock %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
+{% endblock %}
+{% block content %}
+    <div class="col-md-12 col-sm-12 " style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>New Game</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br/>
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                    <div class="item form-group">
+                        {{ form_label(form.name,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.name,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.name) }}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        {{ form_label(form.image,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.image,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.image) }}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        {{ form_label(form.description,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3" style="display: flex">
+                            <a class="btn btn-primary" href="{{ path("gamesAdmin") }}">Cancel</a>
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -74,6 +74,7 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
+                return $this->redirectToRoute("profile");
             }
         }
         return $this->render("user/updateProfileInfos.html.twig", [
@@ -166,12 +167,15 @@ class UserController extends AbstractController
         }
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $form["username"]->getData()])) {
+            if ($this->getDoctrine()->getRepository(User::class)->findByUsernameDiffId($form["username"]->getData(),$user->getId())) {
                 return $this->render('user/userUpdateBack.html.twig', [
                     "form" => $form->createView(),
                     "error" => "Invalid username!",
                     "user" => $this->getUser()
                 ]);
+            }
+            if($form['isAdmin']->getData() == true){
+                $user->setRoles(["ROLE_ADMIN"]);
             }
             date_default_timezone_set('Europe/Paris');
             $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
