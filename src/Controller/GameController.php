@@ -113,12 +113,12 @@ class GameController extends AbstractController
                 }
                 $file = $form["image"]->getData();
                 $fileName = md5(uniqid()) . '.jpg';
-                date_default_timezone_set('Europe/Paris');
-                $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-                $game->setUpdatedAt($dateTime);
                 $game->setImage($fileName);
                 $file->move($this->getParameter('game_image_directory'), $fileName);
             }
+            date_default_timezone_set('Europe/Paris');
+            $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
+            $game->setUpdatedAt($dateTime);
             $entityManager->persist($game);
             $entityManager->flush();
 
