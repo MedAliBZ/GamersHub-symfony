@@ -2,18 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\ProductsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Entity(repositoryClass=ProductsRepository::class)
  */
-class Category
+class Products
 {
     /**
      * @ORM\Id
@@ -29,20 +25,32 @@ class Category
      * @Assert\Length (max=20)
      * @Assert\Regex(pattern="/[a-zA-Z]/" , message="the name cannot contain a number")
      */
-    private $nameCategory;
+    private $nameProduct;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="float")
      * @Assert\NotBlank (message="this field is required")
-     * @Assert\Length (min=10)
-     * @Assert\Length (max=300)
+     * @Assert\PositiveOrZero
      */
+    private $price;
 
-    private $Description;
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @Assert\NotBlank (message="this field is required")
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank (message="this field is required")
+     * @Assert\PositiveOrZero
+     */
+    private $quantityStocked;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank (message="this field is required")
+     * @Assert\PositiveOrZero
      */
     private $image;
 
@@ -61,41 +69,55 @@ class Category
      */
     private $isEnabled;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Products::class, mappedBy="category")
-     */
-    private $products;
-
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNameCategory(): ?string
+    public function getNameProduct(): ?string
     {
-        return $this->nameCategory;
+        return $this->nameProduct;
     }
 
-    public function setNameCategory(string $nameCategory): self
+    public function setNameProduct(string $nameProduct): self
     {
-        $this->nameCategory = $nameCategory;
+        $this->nameProduct = $nameProduct;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getPrice(): ?float
     {
-        return $this->Description;
+        return $this->price;
     }
 
-    public function setDescription(?string $Description): self
+    public function setPrice(float $price): self
     {
-        $this->Description = $Description;
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getQuantityStocked(): ?int
+    {
+        return $this->quantityStocked;
+    }
+
+    public function setQuantityStocked(?int $quantityStocked): self
+    {
+        $this->quantityStocked = $quantityStocked;
 
         return $this;
     }
@@ -131,7 +153,6 @@ class Category
 
     public function setModificationDate(?\DateTimeInterface $modificationDate): self
     {
-        
         $this->modificationDate = $modificationDate;
 
         return $this;
@@ -147,38 +168,5 @@ class Category
         $this->isEnabled = $isEnabled;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Products[]
-     */
-    public function getProducts(): Collection
-    {
-        return $this->products;
-    }
-
-    public function addProduct(Products $product): self
-    {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Products $product): self
-    {
-        if ($this->products->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
-        } 
-
-        return $this;
-    }
-    public function __toString() {
-        return $this->nameCategory;
     }
 }

@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
            $value=$category->getIsEnabled();
         
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
            
             $category->setIsEnabled($value);
             $category->setCreationDate($date);
