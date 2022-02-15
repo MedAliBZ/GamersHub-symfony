@@ -43,15 +43,18 @@
                         <div class="col-lg-8">
                             <div class="section-header text-center">
                                 <h2 class="title">{{ game.name }}</h2>
-                                <div><img style="width: 390px;height: 500px;margin-bottom: 40px;border: 10px;border-radius: 20px;"
-                                          src="{{ '../games/images'~asset(game.image) }}" alt="image"></div>
+                                <div>
+                                    <img style="width: 390px;height: 500px;margin-bottom: 40px;border: 10px;border-radius: 20px;"
+                                         src="{{ '../games/images'~asset(game.image) }}" alt="image"></div>
                                 <p>{{ game.description }}</p>
-                                {% if user.username in game.users %}
-                                    <a href="{{ path('unfollowGame', {"id":game.id}) }}"
-                                       class="cmn-btn">Unfollow</a>
-                                {% else %}
-                                    <a href="{{ path('followGame', {"id":game.id}) }}"
-                                       class="cmn-btn">Follow</a>
+                                {% if user is not null %}
+                                    {% if user.username in game.users %}
+                                        <a href="{{ path('unfollowGame', {"id":game.id}) }}"
+                                           class="cmn-btn">Unfollow</a>
+                                    {% else %}
+                                        <a href="{{ path('followGame', {"id":game.id}) }}"
+                                           class="cmn-btn">Follow</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>

@@ -82,6 +82,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
+        if (!$user->getIsEnabled())
+            return false;
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -95,6 +97,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $request->request->get('username')]);
+        if (in_array("ROLE_ADMIN", $user->getRoles()))
+            return new RedirectResponse($this->urlGenerator->generate("admin"));
         return new RedirectResponse($this->urlGenerator->generate("home"));
     }
 
