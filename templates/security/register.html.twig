@@ -1,0 +1,49 @@
+{% extends 'authBase.html.twig ' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block auth %}
+    <h4>Let's get started</h4>
+    <div class="form-area">
+        {% if signupForm is defined %}
+            {{ form_start(signupForm) }}
+            <div class="form-group">
+                {{ form_label(signupForm.username) }}
+                {{ form_widget(signupForm.username) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(signupForm.email) }}
+                {{ form_widget(signupForm.email) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(signupForm.name) }}
+                {{ form_widget(signupForm.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(signupForm.secondName) }}
+                {{ form_widget(signupForm.secondName) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(signupForm.birthDate) }}
+                {{ form_widget(signupForm.birthDate) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(signupForm.password) }}
+                {{ form_widget(signupForm.password) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(signupForm.confirmPassword) }}
+                {{ form_widget(signupForm.confirmPassword) }}
+            </div>
+            <div class="form-group">
+                {# <button type="submit" class="cmn-btn">Sign Up Free</button> #}
+                {{ form_row(signupForm.SignUp) }}
+            </div>
+            {{ form_end(signupForm) }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block otherAuth %}
+    <p>Already have an account? <a href="{{ path("app_login") }}">Sign In</a></p>
+{% endblock %}

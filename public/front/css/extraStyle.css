@@ -1,0 +1,21 @@
+.profile-btn{
+    background: linear-gradient(351.09deg, #F029A0 4.36%, #4609c3 117.5%)!important;
+    cursor: pointer;
+}
+.profile-btn::before{
+    background: linear-gradient(351.09deg, #4609c3 4.36%, #F029A0 117.5%)!important;
+}
+.passwd-btn{
+    background: linear-gradient(351.09deg, #4609c3 4.36%, #F029A0 117.5%)!important;
+    cursor: pointer;
+}
+.passwd-btn::before{
+    background: linear-gradient(351.09deg, #F029A0 4.36%, #4609c3 117.5%)!important;
+}
+.delete-btn{
+    background: linear-gradient(351.09deg, darkred 4.36%, #F029A0 117.5%)!important;
+    cursor: pointer;
+}
+.delete-btn::before{
+    background: linear-gradient(351.09deg, #F029A0 4.36%, darkred 117.5%)!important;
+}

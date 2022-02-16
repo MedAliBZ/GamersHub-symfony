@@ -1,0 +1,35 @@
+{% extends 'authBase.html.twig ' %}
+
+{% block title %}Register coach{% endblock %}
+
+{% block auth %}
+    <h4>Let's get started</h4>
+    <div class="form-area">
+        {% if formcoach is defined %}
+            {{ form_start(formcoach,{'attr':{'novalidate':'novalidate'}}) }}
+            <h5>
+                {{ user.username }}
+            </h5>
+
+            <div class="form-group">
+                {{ form_label(formcoach.description) }}
+                {{ form_widget(formcoach.description) }}
+
+                {{ form_errors(formcoach.description) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(formcoach.game) }}
+                {{ form_widget(formcoach.game) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(formcoach.Submit) }}
+            </div>
+
+            {{ form_rest(formcoach) }}
+            {{ form_end(formcoach) }}
+        {% endif %}
+    </div>
+
+{% endblock %}
