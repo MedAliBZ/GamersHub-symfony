@@ -27,9 +27,11 @@
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
             See https://symfony.com/doc/current/security/remember_me.html
             #}
-            <div class="checkbox mb-3" style="width: min-content;display: flex;justify-content: center;align-items: center;">
+            <div class="checkbox mb-3"
+                 style="width: min-content;display: flex;justify-content: center;align-items: center;">
                 <input type="checkbox" name="_remember_me" style="width: 15px;height:15px;">
-                <label style="width: max-content;margin-left: 10px;margin-bottom: 0;font-size: 17px;">Remember me </label>
+                <label style="width: max-content;margin-left: 10px;margin-bottom: 0;font-size: 17px;">Remember
+                    me </label>
             </div>
             <div class="form-group">
                 <button class="cmn-btn" type="submit">
@@ -41,6 +43,11 @@
 {% endblock %}
 
 {% block otherAuth %}
-    <p>Don't have an account? <a href="{{ path("register") }}">Sign Up</a></p>
-    <p>Forgot Password? <a href="{{ path('app_forgot_password_request') }}">Reset It</a></p>
+    <div style="display: flex;flex-direction: column;">
+        <p style="font-size: 17px;margin: 10px">Don't have an account? <a style="font-size: 17px;" href="{{ path("register") }}">Sign
+                Up</a></p>
+        <p style="font-size: 17px;">Forgot Password? <a style="font-size: 17px;"
+                                                         href="{{ path('app_forgot_password_request') }}">Reset
+                It</a></p>
+    </div>
 {% endblock %}

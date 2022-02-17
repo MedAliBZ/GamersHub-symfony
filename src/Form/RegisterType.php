@@ -18,15 +18,15 @@ class RegisterType extends AbstractType
             ->add('username')
 //            ->add('roles')
             ->add('email')
-            ->add('name')
-            ->add('secondName')
-            ->add('birthDate',DateType::class,[
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'html5'=>false,
-                'placeholder' => 'Select a value',
-                'attr' => ['class' => 'js-datepicker'],
-            ])
+//            ->add('name')
+//            ->add('secondName')
+//            ->add('birthDate',DateType::class,[
+//                'widget' => 'single_text',
+//                'format' => 'dd-MM-yyyy',
+//                'html5'=>false,
+//                'placeholder' => 'Select a value',
+//                'attr' => ['class' => 'js-datepicker'],
+//            ])
 
             ->add('password', PasswordType::class)
             ->add('confirmPassword',PasswordType::class, array("mapped" => false,))

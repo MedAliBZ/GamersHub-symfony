@@ -1,7 +1,39 @@
+{% extends 'authBase.html.twig ' %}
+{% block title %}Reset Password{% endblock %}
 
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+{% block auth %}
+    <h1 class="h3 mb-3 font-weight-normal">Please Check Your Email</h1>
+    <div class="form-area">
+        <div class="form-group" style="margin: 20px">
+            <p>
+                If an account matching your email exists, then an email was just sent that contains a link that you
+                can use to reset your password.
+                This link will expire
+                in
+                <span style="color: #ff8c8c">{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}</span>.
+            </p>
+        </div>
 
+        <div class="form-group" style="margin: 20px">
+            <p style="color: #ff8c8c">
+                The link is only usable once!
+            </p>
+        </div>
+
+        <div class="form-group" style="margin: 20px">
+            <p>If you don't receive an email please check your spam folder or
+                <a style="color: #00FADF" href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block otherAuth %}
+    <div style="display: flex;flex-direction: column;">
+        <div class="form-group" style="margin: 20px">
+            <p style="color: #ff8c8c">
+                Please do not share your link.
+            </p>
+        </div>
+    </div>
+{% endblock %}

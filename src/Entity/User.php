@@ -40,26 +40,24 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank(message="This field cannot be blank.")
      * @Assert\Email(message="Wrong format.")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $secondName;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $birthDate;
 
@@ -111,7 +109,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     public function setUsername(?string $username): self

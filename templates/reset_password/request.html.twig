@@ -1,18 +1,37 @@
+{% extends 'authBase.html.twig ' %}
+{% block title %}Reset Password{% endblock %}
 
-    {% for flashError in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
+{% block auth %}
+    <h1 class="h3 mb-3 font-weight-normal">Reset your password</h1>
+    <div class="form-area">
         <div>
-            <small>
-                Enter your email address and we will send you a
-                link to reset your password.
-            </small>
+            {% for flashError in app.flashes('reset_password_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+            {{ form_start(requestForm) }}
+            <div class="form-group">
+                {{ form_label(requestForm.email) }}
+                {{ form_widget(requestForm.email) }}
+            </div>
+
+            <div class="form-group">
+                <button class="cmn-btn" type="submit">
+                    Send Email
+                </button>
+
+            </div>
+            {{ form_end(requestForm) }}
         </div>
+    </div>
+{% endblock %}
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
-
+{% block otherAuth %}
+    <div style="display: flex;flex-direction: column;">
+        <p style="font-size: 17px;margin: 10px">Don't have an account?
+            <a style="font-size: 17px;" href="{{ path("register") }}">Sign Up</a>
+        </p>
+        <p style="font-size: 17px;margin: 10px">Already have an account?
+            <a style="font-size: 17px;" href="{{ path("app_login") }}">Login</a>
+        </p>
+    </div>
+{% endblock %}
