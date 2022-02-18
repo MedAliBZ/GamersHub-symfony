@@ -25,5 +25,7 @@ $(document).ready(function () {
                                 </div>
                             </div>`)
         $("#all-articles").append(html);
+    }).fail((res)=>{
+        $("#all-articles").append("<p>No articles to display.</p>");
     });
 })
