@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Form;
-
+ 
 use App\Entity\Products;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -18,8 +18,12 @@ class ProductsFormType extends AbstractType
         $builder
             ->add('nameProduct')
             ->add('price')
-            ->add('quantityStocked')
-            ->add('image',FileType::class)
+            ->add('quantityStocked') 
+            ->add('image',FileType::class,[
+               'mapped'=> false,
+               'label'=>'please upload pictures',
+               'multiple'=>true
+            ])
             ->add('creationDate')
             ->add('modificationDate')
             ->add('isEnabled')

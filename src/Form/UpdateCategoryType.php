@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +17,10 @@ class UpdateCategoryType extends AbstractType
         $builder
             ->add('nameCategory')
             ->add('Description')
-            ->add('image')
+            ->add('image',FileType::class,array('data_class' => null))
             ->add('creationDate')
             ->add('modificationDate')
-            ->add('isEnabled')
+            ->add('isEnabled',CheckboxType::class)
             ->add('update',SubmitType::class)
         ;
     }

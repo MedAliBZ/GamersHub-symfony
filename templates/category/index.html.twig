@@ -53,26 +53,21 @@
                   <td>
                      <picture>
                      
-                      <img src="{{category.getImage()}}" alt="image" width="40%">
+                      <img src="{{asset('shop/images/'~category.image)}}" alt="image" style="width: 80px;">
                      </picture>
                   </td>
                   <td>{{ category.getCreationDate()| date }}</td>
                   <td>{{ category.getModificationDate()| date }}</td>
                   <td>{% if category.getIsEnabled() == 0 %}
-                    False
+                    <span class="badge badge-danger">isDisabled</span>
                     {% else %}
-                    True
+                    <span class="badge badge-success">isEnabled</span>
                     {% endif %}
                   </td>
-                  <td>
-                    <span>
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false"></a>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{path('categoryupdate',{ id:category.getId() })}}">Update</a>
-                        <a class="dropdown-item" href="{{path('categorydelete',{ id:category.getId() })}}"> Delete </a>
-                      </div>
-                    </span>
+                  <td >
+                        <a class="fa fa-pencil" href="{{path('categoryupdate',{ id:category.getId() })}}"></a>
+                        <br>
+                        <a class="fa fa-trash" href="{{path('categorydelete',{ id:category.getId() })}}"></a>
                   </td>
                 </tr>
                 {% endfor %}

@@ -19,7 +19,11 @@ class UpdateProductType extends AbstractType
             ->add('nameProduct')
             ->add('price')
             ->add('quantityStocked')
-            ->add('image',FileType::class)
+            ->add('image',FileType::class,[
+                'mapped'=> false,
+                'label'=>'please upload pictures',
+                'multiple'=>true   
+            ],array('data_class' => null),) 
             ->add('creationDate')
             ->add('modificationDate')
             ->add('isEnabled')

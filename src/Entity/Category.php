@@ -42,7 +42,6 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank (message="this field is required")
      */
     private $image;
 

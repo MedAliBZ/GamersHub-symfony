@@ -53,30 +53,29 @@
                   <td>{{ product.getPrice() }}</td>
                   <td>{{ product.getCategory()}}</td>
                   <td>{{ product.getQuantityStocked()}}</td>
-                 
-                  <td>
-                     <picture>
-                     
-                      <img src="{{product.getImage()}}" alt="image" width="40%">
-                     </picture>
+
+                  <td >
+
+                    {% set images = product.image| trim('*') | split("*") %}
+                    <picture>
+                      {% for image in images %}
+                      <img src="{{asset('shop/images/'~image)}}" alt="image" style="width:100px ;margin-bottom:20%" >
+                      
+                      {% endfor %}
+
+                    </picture>
                   </td>
                   <td>{{ product.getCreationDate()| date }}</td>
                   <td>{{ product.getModificationDate()| date }}</td>
                   <td>{% if product.getIsEnabled() == 0 %}
-                    False
+                    <span class="badge badge-danger">isDisabled</span>
                     {% else %}
-                    True
+                    <span class="badge badge-success">isEnabled</span>
                     {% endif %}
                   </td>
                   <td>
-                    <span>
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                        aria-expanded="false"></a>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{path('productsupdate',{ id:product.getId() })}}">Update</a>
-                        <a class="dropdown-item" href="{{path('productsdelete',{ id:product.getId() })}}"> Delete </a>
-                      </div>
-                    </span>
+                    <a class="fa fa-pencil" href="{{path('productsupdate',{ id:product.getId() })}}"></a>
+                    <a class="fa fa-trash" href="{{path('productsdelete',{ id:product.getId() })}}"></a>
                   </td>
                 </tr>
                 {% endfor %}

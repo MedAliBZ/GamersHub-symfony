@@ -3,7 +3,7 @@
 <head>
     <title>GamersHub | {% block title %}{% endblock %}</title>
 
-    <link rel="shortcut icon" href="{{ asset("front/images/fav.png") }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset("front/images/fav.png") }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset("front/css/bootstrap.min.css") }}">
     <link rel="stylesheet" href="{{ asset("front/css/fontawesome.min.css") }}">
     <link rel="stylesheet" href="{{ asset("front/css/slick.css") }}">
@@ -45,9 +45,9 @@
                                     <li><a href="tournaments.html">Coachs</a></li>
                                     <li><a href="tournaments-single.html">Sessions</a></li>
                                 </ul>
-                            </li>
+                            </li> 
                             <li><a href="contact.html">Tournaments</a></li>
-                            <li><a href="contact.html">shop</a></li>
+                            <li><a href="{{ path('categoryshow_front') }}">shop</a </li>
                             <li class="menu_has_children"><a href="#0">Sections</a>
                                 <ul class="sub-menu">
                                     <li><a href="about-us.html">About Us</a></li>
