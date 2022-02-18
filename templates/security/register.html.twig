@@ -45,15 +45,15 @@
 {#                </div>#}
 {#            </div>#}
             <div class="form-group">
-                {{ form_label(signupForm.password) }}
-                {{ form_widget(signupForm.password) }}
+                {{ form_label(signupForm.password.first) }}
+                {{ form_widget(signupForm.password.first) }}
                 <div class="error-div">
-                    {{ form_errors(signupForm.password) }}
+                    {{ form_errors(signupForm.password.first) }}
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(signupForm.confirmPassword) }}
-                {{ form_widget(signupForm.confirmPassword) }}
+                {{ form_label(signupForm.password.second) }}
+                {{ form_widget(signupForm.password.second) }}
             </div>
             {% if error is defined %}
                 <p style="color: #ff8c8c;">

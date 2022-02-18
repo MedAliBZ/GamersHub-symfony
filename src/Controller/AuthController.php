@@ -50,15 +50,16 @@ class AuthController extends AbstractController
             if($this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$form["username"]->getData()])){
                 return $this->render('security/register.html.twig', [
                     "signupForm" => $form->createView(),
-                    "error" => "Invalid username!"
+                    "error" => "This username is already used!"
                 ]);
             }
-            else if ($form["confirmPassword"]->getData() != $form["password"]->getData()) {
+            else if($this->getDoctrine()->getRepository(User::class)->findOneBy(["email"=>$form["email"]->getData()])){
                 return $this->render('security/register.html.twig', [
                     "signupForm" => $form->createView(),
-                    "error" => "Passwords does not match!"
+                    "error" => "This email is already used!"
                 ]);
-            } else {
+            }
+            else {
                 $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
                 $user->setCoins(0);
                 $user->setRoles(['ROLE_USER']);

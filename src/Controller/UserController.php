@@ -89,28 +89,28 @@ class UserController extends AbstractController
     public function passUpdate(Request $request): Response
     {
         $user = $this->getUser();
-        $newUser = new User();
-        $form = $this->createForm(UpdatePasswordType::class, $newUser);
+        $form = $this->createForm(UpdatePasswordType::class, $this->getUser());
+        $oldPassword = $user->getPassword();
+
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $oldPassword = $user->getPassword();
+//        dump($form);
+//        die();
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
             if (!password_verify($request->request->get('update_password')["oldPassword"], $oldPassword)) {
+
                 return $this->render('user/updatePassword.html.twig', [
                     "updatePassForm" => $form->createView(),
-                    "error" => "wrong pass",
+                    "error" => "Wrong Password!",
                     "user" => $user
                 ]);
-            } else if ($request->request->get('update_password')["confirmPassword"] != $request->request->get('update_password')["password"]) {
-                return $this->render('user/updatePassword.html.twig', [
-                    "updatePassForm" => $form->createView(),
-                    "error" => "Passwords does not match!",
-                    "user" => $user
-                ]);
-            } else {
+            }
+            else {
                 date_default_timezone_set('Europe/Paris');
                 $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
                 $user->setLastUpdated($dateTime);
-                $user->setPassword(password_hash($newUser->getPassword(), PASSWORD_DEFAULT));
+                $user->setPassword(password_hash($form['password']->getData(), PASSWORD_DEFAULT));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
