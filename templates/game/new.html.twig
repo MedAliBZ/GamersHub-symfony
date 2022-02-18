@@ -27,7 +27,8 @@
                     <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin: 20px;">
                         <div class="gameImage"
                              style="margin-bottom: 10px;display:none;width: 150px;height: 200px;background-size: cover;background-position: center;'background-image:'{{ absolute_url(asset("/games/images/upload.png")) }}'"></div>
-                        <img class='defaultImage' style="width: 200px;margin-bottom: 10px;" src="{{ asset("games/images/upload.png") }}">
+                        <img class='defaultImage' style="width: 200px;margin-bottom: 10px;"
+                             src="{{ asset("games/images/upload.png") }}">
                         <div class="col-md-6 col-sm-6 ">
                             {{ form_widget(form.image,{'attr': {'class': 'form-control input-file'}}) }}
                         </div>
@@ -66,4 +67,22 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block extraScripts %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor.editorConfig = function (config) {
+            // misc options
+            config.height = '350px';
+        };
+        ClassicEditor
+            .create(document.querySelector('#game_description'), {
+                    removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']
+                }
+            )
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
 {% endblock %}

@@ -40,3 +40,7 @@
     padding: 30px;
     margin-top: 20px;
 }
+
+.ck-editor__editable_inline {
+    min-height: 200px;
+}

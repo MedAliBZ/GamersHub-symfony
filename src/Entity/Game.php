@@ -33,11 +33,11 @@ class Game
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", length=65535, nullable=true)
      * @Assert\NotBlank(message="Image cannot be empty!")
      * @Assert\Length(
      *      min = 50,
-     *      max = 255,
+     *      max = 65530,
      *      minMessage = "Description must be at least {{ limit }} characters long",
      *      maxMessage = "Description cannot be longer than {{ limit }} characters"
      * )

@@ -46,7 +46,7 @@
                     <div class="col col-lg-7 align-items-center d-flex">
                         <div style="display: flex;flex-direction: column;align-items: center;">
                             <h3>Description</h3>
-                            <p style="margin: 30px 0;text-align: center;">{{ game.description }}</p>
+                            <p style="margin: 30px 0;text-align: center;min-width: 600px;">{{ game.description | raw}}</p>
                             <div style="margin-top: 20px">
                                 {% if user is not null %}
                                     {% if user.username in game.users %}
