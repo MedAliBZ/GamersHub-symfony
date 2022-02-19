@@ -6,7 +6,6 @@ use App\Entity\Category;
 use App\Form\CategoryFormType;
 use App\Form\UpdateCategoryType;
 use App\Repository\CategoryRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
