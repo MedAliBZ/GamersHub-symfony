@@ -17,6 +17,7 @@ class UpdateProductType extends AbstractType
     {
         $builder
             ->add('nameProduct')
+            ->add('description') 
             ->add('price')
             ->add('quantityStocked')
             ->add('image',FileType::class,[

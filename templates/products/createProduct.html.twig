@@ -35,6 +35,21 @@
                         {{ form_errors (formProduct.nameProduct) }}
                     </div>
 
+                    <div class="item form-group">
+
+
+                        <label class="col-form-label
+                                   col-md-3 col-sm-3 label-align">{{ form_label (formProduct.description,"
+                                   description") }}</label>
+
+                        {{ form_widget (formProduct.description,{'attr':{'class':'col-md-6 col-sm-6
+                        form-control'}}) }}
+
+                    </div>
+                    <div style="margin-left:25% ;color:red;">
+                        {{ form_errors (formProduct.description) }}
+                    </div>
+
                     <div class="item form-group" style="margin-left:14% ;">
                         <div class="col-md-6 col-sm-6">
 

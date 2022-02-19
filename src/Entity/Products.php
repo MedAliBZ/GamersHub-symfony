@@ -52,6 +52,15 @@ class Products
      */
     private $image;
 
+      /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank (message="this field is required")
+     * @Assert\Length (min=10)
+     * @Assert\Length (max=300)
+     */
+
+    private $description;
+
     /**
      * @ORM\Column(type="date", nullable=true)
      */
@@ -95,7 +104,19 @@ class Products
 
         return $this;
     }
+     
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+    
     public function getCategory(): ?Category
     {
         return $this->category;

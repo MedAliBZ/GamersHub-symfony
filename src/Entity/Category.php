@@ -30,7 +30,7 @@ class Category
      * @Assert\Regex(pattern="/[a-zA-Z]/" , message="the name cannot contain a number")
      */
     private $nameCategory;
-
+ 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\NotBlank (message="this field is required")

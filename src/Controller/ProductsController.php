@@ -141,4 +141,16 @@ class ProductsController extends AbstractController
         
     }
 
+     /**
+     * @Route("/detailProduct/{id}", name="detailProduct")
+     */
+    public function detailProduct(ProductsRepository $repo,$id):Response
+    {
+        return $this->render('products/detailProduct_front.html.twig', [
+            'product' => $repo->find($id),
+            'user' => $this->getUser()
+        ]);
+        
+    }
+
 }

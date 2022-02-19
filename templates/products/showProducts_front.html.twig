@@ -7,9 +7,9 @@
 <!-- banner-section start -->
 <section id="banner-section" class="inner-banner profile features shop">
     <div class="ani-img">
-        <img class="img-1" src="images/banner-circle-1.png" alt="icon">
-        <img class="img-2" src="images/banner-circle-2.png" alt="icon">
-        <img class="img-3" src="images/banner-circle-2.png" alt="icon">
+        <img class="img-1" src="{{asset('front/images/banner-circle-1.png')}}" alt="icon">
+        <img class="img-2" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+        <img class="img-3" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
     </div>
     <div class="banner-content d-flex align-items-center">
         <div class="container">
@@ -51,10 +51,12 @@
             {% for product in products %}
             <div class="col-lg-4 col-md-6">
                 
-                <div class="single-item">
+                <div class="single-item"> 
+                    <a href="{{path('productsdetailProduct',{ id:product.getId() })}}">
                     <span class="new">New</span>
                     <div class="img-area text-center">
-                        <img src="images/featured-products-2.png" alt="image">
+                        {% set images = product.image| trim('*') | split("*") %}
+                        <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%">
                     </div>
                     <div class="bottom-item text-center">
                         <a href="shop-details.html"><h6>{{ product.getNameProduct() }}</h6></a>
@@ -72,6 +74,7 @@
                             <a href="#" class="cmn-btn">Add to Basket</a>
                         </div>
                     </div>
+                </a>
                 </div>
             </div>
             {% endfor %} 
