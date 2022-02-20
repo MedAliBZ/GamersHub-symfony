@@ -52,13 +52,13 @@ class CoachController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="coach_show", methods={"GET"})
+     * @Route("/admin/coachs", name="showcoachs", methods={"GET"})
      */
-    public function show(Coach $coach): Response
+    public function show(CoachRepository $coachRepository): Response
     {
-        return $this->render('coach/show.html.twig', [
-            'coach' => $coach,
-            'user' => $this->getUser()
+        return $this->render('coach/coachBack.html.twig', [
+            'coachs' => $coachRepository->findAll(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -92,5 +92,37 @@ class CoachController extends AbstractController
           $em->remove($coach);
           $em->flush();
         return $this->redirectToRoute('coach_index');
+    }
+
+    /**
+     * @Route("/admin/{id}/edit", name="coach_edit_back", methods={"GET", "POST"})
+     */
+    public function editBack(Request $request, Coach $coach, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CoachType::class, $coach);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('showcoachs', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('coach/coacheditback.html.twig', [
+            'coach' => $coach,
+            'formcoachback' => $form->createView(),
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{id}/delete", name="coach_delete_back", methods={"GET"})
+     */
+    public function deleteback(Coach $coach): Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($coach);
+        $em->flush();
+        return $this->redirectToRoute('showcoachs');
     }
 }

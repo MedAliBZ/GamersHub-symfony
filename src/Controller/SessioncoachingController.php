@@ -57,15 +57,7 @@ class SessioncoachingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="sessioncoaching_show", methods={"GET"})
-     */
-    public function show(Sessioncoaching $sessioncoaching): Response
-    {
-        return $this->render('sessioncoaching/show.html.twig', [
-            'sessioncoaching' => $sessioncoaching,
-        ]);
-    }
+
 
     /**
      * @Route("/{id}/edit", name="sessioncoaching_edit", methods={"GET", "POST"})
@@ -97,6 +89,52 @@ class SessioncoachingController extends AbstractController
         $em->remove($sessioncoaching);
         $em->flush();
         return $this->redirectToRoute('sessioncoaching_index');
+
+    }
+
+    /**
+     * @Route("/admin/sessioncoaching", name="showsession", methods={"GET"})
+     */
+    public function show(SessioncoachingRepository $sessioncoachingRepository,CoachRepository $repository): Response
+    {
+        $coach=$repository->findOneBy(array('user'=>$this->getUser()));
+        return $this->render('sessioncoaching/sessionback.html.twig', [
+            'sessioncoachings' => $sessioncoachingRepository->findAll(),
+            'user' => $this->getUser(),
+            'coach' =>$coach]);
+    }
+
+    /**
+     * @Route("/admin/{id}/edit", name="session_edit_back", methods={"GET", "POST"})
+     */
+    public function editBack(Request $request, Sessioncoaching $sessioncoaching, EntityManagerInterface $entityManager,CoachRepository $repository): Response
+    {   $coach=$repository->findOneBy(array('user'=>$this->getUser()));
+        $form = $this->createForm(SessioncoachingType::class, $sessioncoaching);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('showsession', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('sessioncoaching/sessioneditback.html.twig', [
+            'sessioncoaching' => $sessioncoaching,
+            'formsessionback' => $form->createView(),
+            'coach'=>$coach,
+            'user' => $this->getUser()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/{id}/delete", name="session_delete_back", methods={"GET"})
+     */
+    public function deleteBack(Sessioncoaching $sessioncoaching): Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($sessioncoaching);
+        $em->flush();
+        return $this->redirectToRoute('showsession');
 
     }
 }
