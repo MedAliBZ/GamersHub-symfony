@@ -59,6 +59,7 @@ class UserController extends AbstractController
         }
         $form = $this->createForm(UpdateUserType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             date_default_timezone_set('Europe/Paris');
             $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));

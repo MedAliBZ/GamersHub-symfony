@@ -78,6 +78,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Coins cannot be negative.",
+     * )
      */
     private $coins;
 
@@ -149,7 +153,7 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -217,7 +221,7 @@ class User implements UserInterface
         return $this->birthDate;
     }
 
-    public function setBirthDate(\DateTimeInterface $birthDate): self
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
 
@@ -229,7 +233,7 @@ class User implements UserInterface
         return $this->lastUpdated;
     }
 
-    public function setLastUpdated(\DateTimeInterface $lastUpdated): self
+    public function setLastUpdated(?\DateTimeInterface $lastUpdated): self
     {
         $this->lastUpdated = $lastUpdated;
 
@@ -241,7 +245,7 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -253,7 +257,7 @@ class User implements UserInterface
         return $this->isEnabled;
     }
 
-    public function setIsEnabled(bool $isEnabled): self
+    public function setIsEnabled(?bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
 
@@ -265,7 +269,7 @@ class User implements UserInterface
         return $this->coins;
     }
 
-    public function setCoins(int $coins): self
+    public function setCoins(?int $coins): self
     {
         $this->coins = $coins;
 
@@ -277,7 +281,7 @@ class User implements UserInterface
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setIsVerified(?bool $isVerified): self
     {
         $this->isVerified = $isVerified;
 
@@ -321,7 +325,7 @@ class User implements UserInterface
         return $this->oauth;
     }
 
-    public function setOauth(bool $oauth): self
+    public function setOauth(?bool $oauth): self
     {
         $this->oauth = $oauth;
 

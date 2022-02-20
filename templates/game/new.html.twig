@@ -41,9 +41,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             {{ form_widget(form.name,{'attr': {'class': 'form-control'}}) }}
                         </div>
-                        <div class="error-div">
-                            {{ form_errors(form.name) }}
-                        </div>
+                    </div>
+                    <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
+                        {{ form_errors(form.name) }}
                     </div>
 
                     <div class="item form-group">
@@ -51,9 +51,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
                         </div>
-                        <div class="error-div">
-                            {{ form_errors(form.description) }}
-                        </div>
+                    </div>
+                    <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
+                        {{ form_errors(form.description) }}
                     </div>
                     <div class="ln_solid"></div>
                     <div class="item form-group">

@@ -34,7 +34,7 @@ class Game
 
     /**
      * @ORM\Column(type="text", length=65535, nullable=true)
-     * @Assert\NotBlank(message="Image cannot be empty!")
+     * @Assert\NotBlank(message="Description cannot be empty!")
      * @Assert\Length(
      *      min = 50,
      *      max = 65530,

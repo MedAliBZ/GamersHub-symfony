@@ -66,6 +66,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             {{ form_widget(form.coins,{'attr': {'class': 'form-control'}}) }}
                         </div>
+                        <div class="error-div">
+                            {{ form_errors(form.coins) }}
+                        </div>
                     </div>
                     <div class="item form-group">
                         {{ form_label(form.isEnabled,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
