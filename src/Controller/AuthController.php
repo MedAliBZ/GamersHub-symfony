@@ -38,13 +38,14 @@ class AuthController extends AbstractController
             ->getQuery()
             ->getOneOrNullResult();
         if ($user) {
-            if ($user->getEmail() == $owner->toArray()['email'])
+            if ($user->getOauth() == true)
+                return $user;
+            else if ($user->getEmail() == $owner->toArray()['email'])
                 throw new AuthenticationException('Email is already registered!');
             else if ($user->getUsername() == $owner->toArray()['login'])
                 throw new AuthenticationException('Username is already registered!');
 
-            else if ($user->getOauth() == true)
-                return $user;
+
         }
         date_default_timezone_set('Europe/Paris');
         $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
