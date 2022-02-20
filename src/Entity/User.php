@@ -91,9 +91,15 @@ class User implements UserInterface
      */
     private $coach;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sessioncoaching::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $sessioncoachings;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->sessioncoachings = new ArrayCollection();
     }
 
 
@@ -319,6 +325,36 @@ class User implements UserInterface
         }
 
         $this->coach = $coach;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sessioncoaching[]
+     */
+    public function getSessioncoachings(): Collection
+    {
+        return $this->sessioncoachings;
+    }
+
+    public function addSessioncoaching(Sessioncoaching $sessioncoaching): self
+    {
+        if (!$this->sessioncoachings->contains($sessioncoaching)) {
+            $this->sessioncoachings[] = $sessioncoaching;
+            $sessioncoaching->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessioncoaching(Sessioncoaching $sessioncoaching): self
+    {
+        if ($this->sessioncoachings->removeElement($sessioncoaching)) {
+            // set the owning side to null (unless already changed)
+            if ($sessioncoaching->getUser() === $this) {
+                $sessioncoaching->setUser(null);
+            }
+        }
 
         return $this;
     }

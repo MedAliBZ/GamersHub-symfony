@@ -44,7 +44,7 @@ class CoachController extends AbstractController
             return $this->redirectToRoute('coach_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('coach/new.html.twig', [
+        return $this->render('coach/_form.html.twig', [
             'coach' => $coach,
             'user' => $this->getUser(),
             'formcoach' => $form->createView(),
@@ -76,7 +76,7 @@ class CoachController extends AbstractController
             return $this->redirectToRoute('coach_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('coach/edit.html.twig', [
+        return $this->render('coach/_form.html.twig', [
             'coach' => $coach,
             'formcoach' => $form->createView(),
             'user' => $this->getUser()

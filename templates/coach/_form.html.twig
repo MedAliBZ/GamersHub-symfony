@@ -14,7 +14,6 @@
             <div class="form-group">
                 {{ form_label(formcoach.description) }}
                 {{ form_widget(formcoach.description) }}
-
                 {{ form_errors(formcoach.description) }}
             </div>
 
@@ -30,6 +29,7 @@
             {{ form_rest(formcoach) }}
             {{ form_end(formcoach) }}
         {% endif %}
+        <a href="{{ path('coach_index') }}">back to Coachs list</a>
     </div>
 
 {% endblock %}
