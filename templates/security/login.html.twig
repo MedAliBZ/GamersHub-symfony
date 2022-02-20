@@ -7,7 +7,13 @@
     <div class="form-area">
         <form method="post">
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">
+                    {% if error.message == 'Username is already registered!' or error.message == 'Email is already registered!' %}
+                        {{ error.message }}
+                    {% else %}
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    {% endif %}
+                </div>
             {% endif %}
             <div class="form-group">
                 <label for="inputUsername">Username</label>
@@ -40,14 +46,28 @@
             </div>
         </form>
     </div>
+    <div class="or">
+        <p>OR</p>
+    </div>
+    <div class="sign-in">
+        <p>Sign in with your</p>
+    </div>
+    <div class="reg-with">
+        <div class="social-area d-flex justify-content-center">
+            <a href="{{ path('connect_github') }}"><i class="fab fa-github" style="font-size: 30px;"></i></a>
+            {# <a class="twitch" href="javascript:void(0)"><img src="images/social-icon-2.png" alt="image"></a> #}
+            {# <a class="google" href="javascript:void(0)"><img src="images/social-icon-3.png" alt="image"></a> #}
+        </div>
+    </div>
 {% endblock %}
 
 {% block otherAuth %}
     <div style="display: flex;flex-direction: column;">
-        <p style="font-size: 17px;margin: 10px">Don't have an account? <a style="font-size: 17px;" href="{{ path("register") }}">Sign
-                Up</a></p>
-        <p style="font-size: 17px;">Forgot Password? <a style="font-size: 17px;"
-                                                         href="{{ path('app_forgot_password_request') }}">Reset
-                It</a></p>
+        <p style="font-size: 17px;margin: 10px">Don't have an account?
+            <a style="font-size: 17px;" href="{{ path("register") }}">Sign Up</a>
+        </p>
+        <p style="font-size: 17px;">Forgot Password?
+            <a style="font-size: 17px;" href="{{ path('app_forgot_password_request') }}">Reset It</a>
+        </p>
     </div>
 {% endblock %}

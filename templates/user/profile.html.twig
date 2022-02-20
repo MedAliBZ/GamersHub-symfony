@@ -1,5 +1,6 @@
 {% extends 'frontBase.html.twig' %}
-{% block extraStyle %}<link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
 {% block title %}Profile{% endblock %}
 
 {% block content %}
@@ -34,7 +35,8 @@
                     <div class="col-md-6">
                         <div class="profile-area d-flex align-items-center">
                             <div class="photo">
-                                <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg" style="width: 70px;height: 70px;" alt="Image">
+                                <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg"
+                                     style="width: 70px;height: 70px;" alt="Image">
                             </div>
                             <div style="display: flex;flex-direction: column;">
                                 <div style="display: flex;align-items: last baseline;">
@@ -70,14 +72,16 @@
         <div class="container">
             <div class="tab-content">
                 <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="overview-tab">
-                    <div class="row" style="margin-left: 40px;">
-                        <div class="col-sm">
+                    <div class="row">
+                        <div class="col-sm" style="display: flex;justify-content: center;">
                             <a href="{{ path("updateProfileInfo") }}" class="cmn-btn profile-btn">Update Profile</a>
                         </div>
-                        <div class="col-sm">
-                            <a href="{{ path("updatePass") }}" class="cmn-btn passwd-btn">Update Password</a>
-                        </div>
-                        <div class="col-sm">
+                        {% if user.oauth == false %}
+                            <div class="col-sm" style="display: flex;justify-content: center;">
+                                <a href="{{ path("updatePass") }}" class="cmn-btn passwd-btn">Update Password</a>
+                            </div>
+                        {% endif %}
+                        <div class="col-sm" style="display: flex;justify-content: center;">
                             <a href="{{ path("deleteProfile") }}" class="cmn-btn delete-btn">Delete account</a>
                         </div>
                     </div>

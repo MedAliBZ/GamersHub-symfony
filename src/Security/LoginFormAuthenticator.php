@@ -82,7 +82,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
-        if (!$user->getIsEnabled())
+        if (!$user->getIsEnabled() || $user->getOauth() == true)
             return false;
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }

@@ -60,22 +60,13 @@ class UserController extends AbstractController
         $form = $this->createForm(UpdateUserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $oldPassword = $user->getPassword();
-            if (!password_verify($request->request->get('update_user')["oldPassword"], $oldPassword)) {
-                return $this->render('user/updateProfileInfos.html.twig', [
-                    "updateForm" => $form->createView(),
-                    "error" => "wrong pass",
-                    "user" => $user
-                ]);
-            } else {
-                date_default_timezone_set('Europe/Paris');
-                $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-                $user->setLastUpdated($dateTime);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-                return $this->redirectToRoute("profile");
-            }
+            date_default_timezone_set('Europe/Paris');
+            $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
+            $user->setLastUpdated($dateTime);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute("profile");
         }
         return $this->render("user/updateProfileInfos.html.twig", [
             "updateForm" => $form->createView(),
@@ -93,8 +84,6 @@ class UserController extends AbstractController
         $oldPassword = $user->getPassword();
 
         $form->handleRequest($request);
-//        dump($form);
-//        die();
         if ($form->isSubmitted() && $form->isValid()) {
 
 
@@ -105,8 +94,7 @@ class UserController extends AbstractController
                     "error" => "Wrong Password!",
                     "user" => $user
                 ]);
-            }
-            else {
+            } else {
                 date_default_timezone_set('Europe/Paris');
                 $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
                 $user->setLastUpdated($dateTime);
@@ -167,14 +155,14 @@ class UserController extends AbstractController
         }
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->getDoctrine()->getRepository(User::class)->findByUsernameDiffId($form["username"]->getData(),$user->getId())) {
+            if ($this->getDoctrine()->getRepository(User::class)->findByUsernameDiffId($form["username"]->getData(), $user->getId())) {
                 return $this->render('user/userUpdateBack.html.twig', [
                     "form" => $form->createView(),
                     "error" => "Invalid username!",
                     "user" => $this->getUser()
                 ]);
             }
-            if($form['isAdmin']->getData() == true){
+            if ($form['isAdmin']->getData() == true) {
                 $user->setRoles(["ROLE_ADMIN"]);
             }
             date_default_timezone_set('Europe/Paris');

@@ -34,13 +34,13 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable= true)
      * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      * @Assert\NotBlank(message="This field cannot be blank.")
      * @Assert\Email(message="Wrong format.")
      */
@@ -90,6 +90,11 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="users")
      */
     private $games;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $oauth;
 
     public function __construct()
     {
@@ -309,6 +314,18 @@ class User implements UserInterface
     public function __toString(): string
     {
         return $this->username;
+    }
+
+    public function getOauth(): ?bool
+    {
+        return $this->oauth;
+    }
+
+    public function setOauth(bool $oauth): self
+    {
+        $this->oauth = $oauth;
+
+        return $this;
     }
 
 }

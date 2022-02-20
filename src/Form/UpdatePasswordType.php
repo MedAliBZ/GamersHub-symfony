@@ -39,15 +39,26 @@ class UpdatePasswordType extends AbstractType
                 'second_options' => [
                     'attr' => ['autocomplete' => 'new-password'],
                     'label' => 'Repeat Password',
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'This Field cannot be blank!',
+                        ]),
+                    ]
                 ],
                 'invalid_message' => 'The password fields must match.',
-                'mapped'=>false
+                'mapped' => false
             ])
 //            ->add('password',PasswordType::class, array("label" => "New Password"))
 //            ->add('confirmPassword', PasswordType::class, array("mapped" => false,))
-            ->add('oldPassword', PasswordType::class, array("mapped" => false,))
-            ->add('Update', SubmitType::class,['attr'=>['class'=>'cmn-btn']]);
-        ;
+            ->add('oldPassword', PasswordType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'This Field cannot be blank!',
+                    ]),
+                ]
+            ])
+            ->add('Update', SubmitType::class, ['attr' => ['class' => 'cmn-btn']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

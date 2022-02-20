@@ -63,7 +63,7 @@ class GameController extends AbstractController
     {
         $game->removeUser($this->getUser());
         $entityManager->flush();
-        return $this->redirectToRoute("games");
+        return $this->redirectToRoute("gameById",['id'=>$game->getId()]);
     }
 
     /**
