@@ -49,11 +49,11 @@ class GameController extends AbstractController
     /**
      * @Route("/game/follow/{id}", name="followGame", methods={"GET"})
      */
-    public function followGame(EntityManagerInterface $entityManager, Game $game): Response
+    public function followGame(EntityManagerInterface $entityManager, Game $game, Request $req): Response
     {
         $game->addUser($this->getUser());
         $entityManager->flush();
-        return $this->redirectToRoute("games");
+        return $this->redirectToRoute("gameById",['id'=>$game->getId()]);
     }
 
     /**
