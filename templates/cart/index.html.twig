@@ -80,30 +80,32 @@
                                     </th>
                                     <td style="margin-bottom: 5%;">{{ item.product.getPrice() }} TDN</td>
                                     <td>
-
+                                        <form action="{{ path('cartupdate')}}" method="get">
                                         <div class="qtySelector text-center">
-                                            <a href="{{path('cartminus',{ id:item.product.getId() })}}"><i
-                                                    class="fas fa-minus decreaseQty"></i> </a>
-
-                                            <a href=""><input type="text" class="qtyValue" value="{{ item.quantity }}"></a>
-                                            <a href="{{path('cartplus',{ id:item.product.getId() })}}"> <i
-                                                    class="fas fa-plus increaseQty "> </i> </a>
+                                            
+                                            <i class="fas fa-minus decreaseQty"></i> </a>
+                                                <input type="text" class="qtyValue" value="{{ item.quantity }}" name="data[]">
+                                                <i class="fas fa-plus increaseQty "> </i>
                                         </div>
                                     </td>
                                     <td>
                                         <button type="button" class="cart-dismiss" style="margin-bottom: 5%;">
                                             <a href="{{ path('cartremove',{ id:item.product.getId() })}}"> <i
-                                                    class="fas fa-times"></i></i></a>
+                                                    class="fas fa-times"></i></a>
                                         </button>
                                     </td>
 
                                 </tr>
                                 {% endfor %}
-
+                               
+                               
+                                
                             </tbody>
                         </table>
+                     
                     </div>
-                 
+                    <input type="submit"  class="cmn-btn" value=" Update Cart" style="color: white;width:fit-content">
+                </form>
                 </div>
                 <div class="col-lg-4">
                     <div class="right-sidebar">
@@ -115,31 +117,19 @@
                         <div class="bottom-side text-center">
                             <ul>
                                 <li>
-                                    <span>Subtotal</span>
-                                    <span>€49.90</span>
+                                    <span>UserName</span>
+                                    <span>{{user.userName}}</span>
                                 </li>
-                                <li>
-                                    <span class="text-sm">Delivery (Standard)</span>
-                                    <span class="text-sm">€1.80</span>
-                                </li>
-                                <li>
-                                    <span class="text-sm">Taxes & Fees</span>
-                                    <span class="text-sm">€7.30</span>
-                                </li>
+
                             </ul>
-                            <form action="#">
-                                <div class="apply d-flex">
-                                    <input type="text" placeholder="Enter pomo Code">
-                                    <button class="cmn-btn">Apply</button>
-                                </div>
-                            </form>
+
                             <ul>
                                 <li class="d-flex align-items-center">
                                     <span>Total Order</span>
-                                    <h4>{{total}} TDN</h4>
+                                    <h4> {{ total }} TDN</h4>
                                 </li>
                             </ul>
-                            <a href="#" class="cmn-btn checkout">proceed to checkout</a>
+                            <a href="{{ path('orderadd') }}" class="cmn-btn checkout">proceed to checkout</a>
                         </div>
                     </div>
                 </div>

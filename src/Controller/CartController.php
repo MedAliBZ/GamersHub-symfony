@@ -20,6 +20,7 @@ class CartController extends AbstractController
     {
         $cart = $session->get('cart', []);
         $cartWithData = [];
+
         foreach ($cart as $id => $quantity) {
             $cartWithData[] = [
                 'product' => $repo->find($id),
@@ -76,36 +77,57 @@ class CartController extends AbstractController
         $session->set('cart', $cart);
 
 
-        return $this->redirect($this->generateUrl('cartshow'));
+        return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
     }
+
     /**
-     * @Route("/minus/{id}", name="minus")
+     * @Route("/update", name="update")
      */
-    public function minus(SessionInterface $session, $id)
+    public function update(SessionInterface $session, ProductsRepository $repo)
     {
-        $cart = $session->get('cart', []);
-        if (!empty($cart[$id])&& $cart[$id]!=1 ) {
-            $cart[$id]--;
-        } else {
-            $cart[$id] = 1;
-        }
-        $session->set('cart', $cart);
+        $result = $_GET['data'];
 
-        return $this->redirect($this->generateUrl('cartshow'));
+        $cart = $session->get('cart', []);
+        $cartWithData = [];
+        $i = 0;
+       
+        foreach ($cart as $id => $quantity) {
+            $quantity=$result[$i];
+            $cart[$id]=$quantity;
+            $cartWithData[] = [
+                'product' => $repo->find($id),
+                'quantity' => $quantity
+
+            ];
+
+            $i++;
+        }
+
+        $total = 0;
+        foreach ($cartWithData as $item) {
+            $totalItem = $item['product']->getPrice() * $item['quantity'];
+            $total += $totalItem;
+        }
+
+        $session->set('cart', $cart);
+        
+
+        return $this->render('cart/index.html.twig', [
+            'items' =>  $cartWithData,
+            'total' => $total,
+            'user' => $this->getUser()
+        ]);
     }
-       /**
-     * @Route("/plus/{id}", name="plus")
+ 
+      /**
+     * @Route("/delete", name="delete")
      */
-    public function plus(SessionInterface $session, $id)
-    {
-        $cart = $session->get('cart', []);
-        if (!empty($cart[$id])) {
-            $cart[$id]++;
-        } else {
-            $cart[$id] = 1;
-        }
-        $session->set('cart', $cart);
-
-        return $this->redirect($this->generateUrl('cartshow'));
-    }
+    public function delete(SessionInterface $session)
+    {  
+        ///we put the coin condition here
+      $session->clear();
+  
+    
+    return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
+}
 }

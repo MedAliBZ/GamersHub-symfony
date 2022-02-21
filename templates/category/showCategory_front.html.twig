@@ -52,8 +52,8 @@
             </div>
             <div class="testimonials-slider mp-none">
                 {% for category in categories %}
-                <div class="single"><a href="{{path('productsshowProducts',{ category:category.getId()})}}">
-                    <div class="single-item text-center">
+                <div class="single" ><a href="{{path('productsshowProducts',{ category:category.getId()})}}">
+                    <div class="single-item text-center" >
                         <div class="img">
                             <div class="img-area">
                                 <img src="{{asset('shop/images/'~category.image)}}" alt="image">
