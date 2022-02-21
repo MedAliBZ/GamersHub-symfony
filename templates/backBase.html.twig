@@ -69,8 +69,8 @@
 
                 <li><a><i class="fa fa-trophy"></i>Tournaments<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">Tournaments</a></li>
-                    <li><a href="#">prizes</a></li>
+                    <li><a href="{{ path('backTournaments')}}">Tournaments</a></li>
+                    <li><a href="{{ path('rewards_new')}}">Rewards</a></li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-puzzle-piece"></i>Recruitment<span class="fa fa-chevron-down"></span></a>
@@ -117,7 +117,7 @@
               <li class="nav-item dropdown open" style="padding-left: 15px;">
                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
                   data-toggle="dropdown" aria-expanded="false">
-                  <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg" alt="">{{ user.username }}
+                  <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ path('profile') }}"> <i class="fa fa-user"></i> Profile</a>
@@ -201,8 +201,6 @@
   <script src="{{ asset('back/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('back/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
   <script src="{{ asset('back/vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
-  <script src="{{ asset("back/js/main.js") }}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 </body>
 
 </html>

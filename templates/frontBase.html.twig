@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="{{ asset("front/css/animate.css") }}">
     <link rel="stylesheet" href="{{ asset("front/css/style.css") }}">
     {% block extraStyle %}{% endblock %}
-</head>
-
-<body>
 
 <!-- start preloader -->
 <div class="preloader" id="preloader"></div>
@@ -46,7 +43,7 @@
                                     <li><a href="tournaments-single.html">Sessions</a></li>
                                 </ul>
                             </li>
-                            <li><a href="contact.html">Tournaments</a></li>
+                            <li><a href="{{ path("tournaments_new")}}">Tournaments</a></li>
                             <li><a href="contact.html">shop</a></li>
                             <li class="menu_has_children"><a href="#0">Sections</a>
                                 <ul class="sub-menu">

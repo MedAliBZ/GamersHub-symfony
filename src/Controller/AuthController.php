@@ -26,7 +26,7 @@ class AuthController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error, 'user' => $this->getUser()]);
     }
 
     /**
@@ -46,17 +46,11 @@ class AuthController extends AbstractController
         $user->setBirthDate(\DateTime::createFromFormat('d/m/Y', '21/08/2000'));
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if($this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$form["username"]->getData()])){
+        if ($form->isSubmitted()) {
+            if ($form["confirmPassword"]->getData() != $form["password"]->getData()) {
                 return $this->render('security/register.html.twig', [
                     "signupForm" => $form->createView(),
-                    "error" => "Invalid username!"
-                ]);
-            }
-            else if ($form["confirmPassword"]->getData() != $form["password"]->getData()) {
-                return $this->render('security/register.html.twig', [
-                    "signupForm" => $form->createView(),
-                    "error" => "Passwords does not match!"
+                    "error" => "Passwords do not match!"
                 ]);
             } else {
                 $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
