@@ -46,17 +46,27 @@
                     <div class="col col-lg-7 align-items-center d-flex">
                         <div style="display: flex;flex-direction: column;align-items: center;">
                             <h3>Description</h3>
-                            <p style="margin: 30px 0;text-align: center;min-width: 600px;">{{ game.description | raw}}</p>
-                            <div style="margin-top: 20px">
+                            <p style="margin: 30px 0;text-align: center;min-width: 600px;">{{ game.description | raw }}</p>
+                            <div style="margin-top: 20px;display: flex;justify-content: center;align-items: center;">
                                 {% if user is not null %}
                                     {% if user.username in game.users %}
-                                        <a href="{{ path('unfollowGame', {"id":game.id}) }}"
-                                           class="cmn-btn">Unfollow</a>
+                                        <a href="{{ path('unfollowGame', {"id":game.id}) }}">
+                                            <i class="fas fa-heart" style="color: #d50000;font-size: 40px"></i>
+                                        </a>
                                     {% else %}
-                                        <a href="{{ path('followGame', {"id":game.id}) }}"
-                                           class="cmn-btn">Follow</a>
+                                        <a href="{{ path('followGame', {"id":game.id}) }}">
+                                            <i class="far fa-heart" style="color: #d50000;font-size: 40px"></i>
+                                        </a>
                                     {% endif %}
+                                    <p style="font-size: 25px;margin-left: 10px;color: #d50000">{{ game.users | length }}
+                                        {% if game.users | length == 1 %}
+                                            {{ " like" }}
+                                        {% else %}
+                                            {{ " likes" }}
+                                        {% endif %}
+                                    </p>
                                 {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -65,19 +75,19 @@
                     <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
                         <h2 style="margin-bottom: 50px">Articles</h2>
                         <div id="all-articles">
-{#                            <div class="articles-game">#}
-{#                                <h3>title here</h3>#}
-{#                                <p>2022-02-16</p>#}
-{#                                <div style="display: flex;justify-content: space-between;align-items: center;width: 100%;">#}
-{#                                    <div style="display: flex;">#}
-{#                                        <h6 style="margin-right: 10px">Source: </h6> <h6 id="article-source">Dot#}
-{#                                            Esports</h6>#}
-{#                                    </div>#}
-{#                                    <div style="display: flex;">#}
-{#                                        <a href="https://www.test.com">Visit Article <i class="fas fa-arrow-right"></i></a>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
+                            {# <div class="articles-game"> #}
+                            {# <h3>title here</h3> #}
+                            {# <p>2022-02-16</p> #}
+                            {# <div style="display: flex;justify-content: space-between;align-items: center;width: 100%;"> #}
+                            {# <div style="display: flex;"> #}
+                            {# <h6 style="margin-right: 10px">Source: </h6> <h6 id="article-source">Dot #}
+                            {# Esports</h6> #}
+                            {# </div> #}
+                            {# <div style="display: flex;"> #}
+                            {# <a href="https://www.test.com">Visit Article <i class="fas fa-arrow-right"></i></a> #}
+                            {# </div> #}
+                            {# </div> #}
+                            {# </div> #}
                         </div>
                     </div>
                 </div>
