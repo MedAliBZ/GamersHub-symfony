@@ -70,7 +70,6 @@ class OrderController extends AbstractController
         $order->setIsCanceled(0);
         $order->setTotalPrice($total);
         $order->setUser($this->getUser());
-
         $em->persist($order);
         $em->flush();
         $id = $order->getId();

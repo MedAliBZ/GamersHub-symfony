@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
         $form = $this->createForm(UpdateCategoryType::class, $category);
         $img=$category->getImage();
 
-        
+    
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

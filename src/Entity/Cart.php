@@ -26,7 +26,7 @@ class Cart
      * @ORM\Column(type="integer", nullable=true)
      */
     private $quantity;
-
+ 
     /**
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="carts")
      */

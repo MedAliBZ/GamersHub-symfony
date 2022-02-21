@@ -31,12 +31,12 @@ class Order
     private $isCanceled;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
      */
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="myOrder")
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="myOrder",cascade={"remove"})
      */
     private $carts;
 

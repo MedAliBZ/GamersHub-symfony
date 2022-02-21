@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ProductsRepository::class)
@@ -22,10 +23,10 @@ class Products
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank (message="this field is required")
+     * @Assert\NotBlank(message="this field is required")
      * @Assert\Length (min=5)
      * @Assert\Length (max=20)
-     * @Assert\Regex(pattern="/[a-zA-Z]/" , message="the name cannot contain a number")
+     * @Assert\Regex(pattern="/[a-zA-Z]/" , message="the name cannot be a number")
      */
     private $nameProduct;
 
@@ -37,7 +38,7 @@ class Products
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=Category::class,inversedBy="products")
      * @Assert\NotBlank (message="this field is required")
      */
     private $category;
@@ -64,12 +65,14 @@ class Products
     private $description;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="create")
      */
     private $creationDate;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="update")
      */
     private $modificationDate;
 
@@ -79,7 +82,7 @@ class Products
     private $isEnabled;
 
     /**
-     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="product",cascade={"remove"})
      */
     private $carts;
 

@@ -86,9 +86,15 @@ class User implements UserInterface
      */
     private $games;
 
+     /**
+      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="user")
+      */
+    private $orders;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
 

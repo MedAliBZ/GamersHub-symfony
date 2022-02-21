@@ -19,6 +19,7 @@ class CartController extends AbstractController
     public function index(SessionInterface $session, ProductsRepository $repo): Response
     {
         $cart = $session->get('cart', []);
+        
         $cartWithData = [];
 
         foreach ($cart as $id => $quantity) {
@@ -28,7 +29,6 @@ class CartController extends AbstractController
 
             ];
         }
-       
 
         $total = 0;
         foreach ($cartWithData as $item) {
