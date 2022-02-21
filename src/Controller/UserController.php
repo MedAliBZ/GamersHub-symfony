@@ -61,9 +61,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            date_default_timezone_set('Europe/Paris');
-            $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-            $user->setLastUpdated($dateTime);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -96,9 +93,6 @@ class UserController extends AbstractController
                     "user" => $user
                 ]);
             } else {
-                date_default_timezone_set('Europe/Paris');
-                $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-                $user->setLastUpdated($dateTime);
                 $user->setPassword(password_hash($form['password']->getData(), PASSWORD_DEFAULT));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
@@ -166,9 +160,6 @@ class UserController extends AbstractController
             if ($form['isAdmin']->getData() == true) {
                 $user->setRoles(["ROLE_ADMIN"]);
             }
-            date_default_timezone_set('Europe/Paris');
-            $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-            $user->setLastUpdated($dateTime);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

@@ -47,16 +47,12 @@ class AuthController extends AbstractController
 
 
         }
-        date_default_timezone_set('Europe/Paris');
-        $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
         $user = (new User())
             ->setUsername($owner->toArray()['login'])
             ->setEmail($owner->toArray()['email'])
             ->setPassword(password_hash("test", PASSWORD_DEFAULT))
             ->setCoins(0)
             ->setRoles(['ROLE_USER'])
-            ->setCreatedAt($dateTime)
-            ->setLastUpdated($dateTime)
             ->setIsEnabled(true)
             ->setIsVerified(false)
             ->setOauth(true);
@@ -112,13 +108,9 @@ class AuthController extends AbstractController
                     "error" => "This email is already used!"
                 ]);
             } else {
-                date_default_timezone_set('Europe/Paris');
-                $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
                 $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT))
                     ->setCoins(0)
                     ->setRoles(['ROLE_USER'])
-                    ->setCreatedAt($dateTime)
-                    ->setLastUpdated($dateTime)
                     ->setIsEnabled(true)
                     ->setIsVerified(false)
                     ->setOauth(false);
