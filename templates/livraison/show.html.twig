@@ -1,0 +1,49 @@
+{% extends 'backBase.html.twig' %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    
+{% endblock %}
+{% block title %}Livraison show{% endblock %}
+
+
+{% block content %}
+    <h1>Livraison</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ livraison.id }}</td>
+            </tr>
+            <tr>
+                <th>Adress</th>
+                <td>{{ livraison.adress }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ livraison.ville }}</td>
+            </tr>
+            <tr>
+                <th>Code_postal</th>
+                <td>{{ livraison.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ livraison.etat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('livraison_index') }}">back to list</a>
+
+    <a href="{{ path('livraison_edit', {'id': livraison.id}) }}">edit</a>
+
+    {{ include('livraison/_delete_form.html.twig') }}
+{% endblock %}
