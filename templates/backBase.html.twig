@@ -10,6 +10,8 @@
   <link rel="icon" href="{{asset('back/images/logo.png')}}" />
 
   <title>GamersHub | {% block title %}{% endblock %}</title>
+  
+
 
   <!-- Bootstrap -->
   <link href="{{asset('back/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -64,8 +66,8 @@
                 <li><a><i class="fa fa-solid fa-chart-line"></i> Dashboard </a></li>
                 <li><a href="{{ path("showUsers") }}"><i class="fa fa-solid fa-user"></i> User </a></li>
                 <li><a href="{{ path("gamesAdmin") }}"><i class="fa fa-solid fa-gamepad"></i> Games </a></li>
-                <li><a><i class="fa fa-gavel"></i>Matchs </a></li>
-                <li><a><i class="fa fa-users"></i> Teams </a></li>
+                <li><a href="{{ path("matchs_show") }}"><i class="fa fa-gavel"></i>Matchs </a></li>
+                <li><a href="{{ path("teams_show") }}"><i class="fa fa-users"></i> Teams </a></li>
 
                 <li><a><i class="fa fa-trophy"></i>Tournaments<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">

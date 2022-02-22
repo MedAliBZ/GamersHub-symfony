@@ -1,0 +1,70 @@
+{#<!DOCTYPE html>
+
+<title>New Teams</title>
+
+{% block body %}
+    <h1>Create new Teams</h1>
+
+    {{ include('teams/_form.html.twig') }}
+
+    <a href="{{ path('teams_index') }}">back to list</a>
+{% endblock %}
+#}
+
+{% extends 'authBase.html.twig ' %}
+
+{% block title %}Sign Up{% endblock %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
+{% endblock %}
+{% block auth %}
+    <h4>Let's get started</h4>
+    <div class="form-area">
+        {% if form is defined %}
+            {{ form_start(form,{'attr':{'class':'form-control'}}) }}
+            <div class="form-group">
+                {{ form_label(form.Team_name) }}
+                {{ form_widget(form.Team_name) }}
+                <div class="error-div">
+                    {{ form_errors(form.Team_name) }}
+                </div>
+            </div>
+           
+           
+          
+            
+            <div class="form-group">
+                {{ form_label(form.gamersNb) }}
+                {{ form_widget(form.gamersNb) }}
+                <div class="error-div">
+                    {{ form_errors(form.gamersNb) }}
+                </div>
+            </div>
+
+           
+             <div class="form-group">
+                {{ form_label(form.rank) }}
+                {{ form_widget(form.rank) }}
+                <div class="error-div">
+                    {{ form_errors(form.rank) }}
+                </div>
+            </div>
+
+             <div class="form-group">
+                {{ form_label(form.matchs) }}
+                {{ form_widget(form.matchs) }}
+                <div class="error-div">
+                    {{ form_errors(form.matchs) }}
+                </div>
+            </div>
+          
+           
+            <div class="form-group">
+                                <button type="submit" class="cmn-btn" href="teams.html.twig">Create Team</button> 
+                
+                                </div>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
+{% endblock %}
+

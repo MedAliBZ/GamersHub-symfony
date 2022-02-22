@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<title>Teams index</title>
+
+{% block body %}
+    <h1>Teams index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Team_name</th>
+                <th>GamersNb</th>
+                <th>Rank</th>
+                <th>Verified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.id }}</td>
+                <td>{{ team.TeamName }}</td>
+                <td>{{ team.gamersNb }}</td>
+                <td>{{ team.rank }}</td>
+                <td>{{ team.verified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('teams_show', {'id': team.id}) }}">show</a>
+                    <a href="{{ path('teams_edit', {'id': team.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('teams_new') }}">Create new</a>
+{% endblock %}
