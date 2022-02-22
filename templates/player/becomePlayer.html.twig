@@ -1,0 +1,24 @@
+{% extends 'authBase.html.twig ' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block auth %}
+    <h4>To the next level !</h4>
+    <div class="form-area">
+        {% if form is defined %}
+            {{ form_start(form)}}
+            <div class="form-group">
+                {{ form_label(form.rank) }}
+                {{ form_widget(form.rank,{'attr':{'class':'form-control'}}) }}
+            </div>
+            
+            
+            <div class="form-group">
+                 <button type="submit" class="cmn-btn" href="frontBase.html">Become a player</button> 
+                
+            </div>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
+{% endblock %}
+
