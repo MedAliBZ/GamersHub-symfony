@@ -56,13 +56,10 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
-        $category = $repo->find($id)->getCategory();
-        $idCat = $category->getId();
-
-        return $this->redirect($this->generateUrl('productsshowProducts', [
-            'category' => $idCat,
-            'user' => $this->getUser()
-        ]));
+        
+        
+        return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
+        
     }
 
     /**
@@ -119,15 +116,4 @@ class CartController extends AbstractController
         ]);
     }
  
-      /**
-     * @Route("/delete", name="delete")
-     */
-    public function delete(SessionInterface $session)
-    {  
-        ///we put the coin condition here
-      $session->clear();
-  
-    
-    return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
-}
 }

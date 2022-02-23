@@ -69,6 +69,7 @@ class OrderController extends AbstractController
 
         $order->setIsCanceled(0);
         $order->setTotalPrice($total);
+        $order->setIsPaid(0);
         $order->setUser($this->getUser());
         $em->persist($order);
         $em->flush();
@@ -80,19 +81,19 @@ class OrderController extends AbstractController
         ]));
     }
 
-    
+
     /**
      * @Route("/cancel/{id}", name="cancel")
      */
-    public function cancel($id,OrderRepository $orderRepo)
+    public function cancel($id, OrderRepository $orderRepo)
     {
         $order = $orderRepo->find($id);
         $em = $this->getDoctrine()->getManager();
         $order->setIsCanceled(1);
         $em->flush();
-      
 
-        return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
+
+        return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
     }
 
     /**
@@ -116,6 +117,46 @@ class OrderController extends AbstractController
         $em->remove($order);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('ordershowBack',['user' => $this->getUser()]));
+        return $this->redirect($this->generateUrl('ordershowBack', ['user' => $this->getUser()]));
+    }
+
+    /**
+     * @Route("/validate/{id}", name="validate")
+     */
+    public function validate(SessionInterface $session, $id, OrderRepository $orderRepo)
+    {
+        $order = $orderRepo->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $coins=$this->getUser()->getCoins() ;
+        $totalPrice=$order->getTotalprice();
+        if ($coins>= $totalPrice) {
+            $this->getUser()->setCoins($coins- $totalPrice);
+            $order->setIsPaid(1);
+            $em->flush();
+            $session->remove('cart');
+            return $this->redirect($this->generateUrl('showMyOrders', ['user' => $this->getUser()]));
+        }
+        else
+        {
+            return $this->render('order/notPaid.html.twig', [
+                'coins' => $coins,
+                'totalPrice'=>$totalPrice,
+                'user' => $this->getUser(),
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/showMyOrders/{user}", name="showMyOrders")
+     */
+    public function showMyOrders(OrderRepository $repo,$user): Response
+    {   
+        $orders=$repo->findByUser($user);
+        $order=new Order();
+       //find a way to bring the products of each order 
+        return $this->render('order/myOrders.html.twig', [
+            'myOrders' => $orders,
+            'user' => $this->getUser(),
+        ]);
     }
 }

@@ -83,7 +83,7 @@ class Category
         return $this->nameCategory;
     }
 
-    public function setNameCategory(string $nameCategory): self
+    public function setNameCategory(?string $nameCategory): self
     {
         $this->nameCategory = $nameCategory;
 

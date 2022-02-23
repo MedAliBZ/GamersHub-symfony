@@ -103,7 +103,7 @@ class Products
         return $this->nameProduct;
     }
 
-    public function setNameProduct(string $nameProduct): self
+    public function setNameProduct(?string $nameProduct): self
     {
         $this->nameProduct = $nameProduct;
 
@@ -115,7 +115,7 @@ class Products
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(?float $price): self
     {
         $this->price = $price;
 
