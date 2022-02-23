@@ -93,6 +93,9 @@
                         <div class="col-md-6 col-sm-6 ">
                             {{ form_widget(form.birthDate) }}
                         </div>
+                        <div class="error-div">
+                            {{ form_errors(form.birthDate) }}
+                        </div>
                     </div>
                     {% if error is defined %}
                         <div style="display: flex;justify-content: center;align-items: center;color: #d20808;">{{ error }}</div>

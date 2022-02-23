@@ -70,6 +70,9 @@
                                 <div class="form-group">
                                     {{ form_label(updateForm.birthDate) }}
                                     {{ form_widget(updateForm.birthDate) }}
+                                    <div class="error-div">
+                                        {{ form_errors(updateForm.birthDate) }}
+                                    </div>
                                 </div>
                                 {% if error is defined %}
                                     <p style="color: #ff8c8c;margin:-20px 0 20px 0;">

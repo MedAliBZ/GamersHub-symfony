@@ -59,6 +59,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Assert\LessThanOrEqual("-13 years", message="You should be at least 13 years old.")
      */
     private $birthDate;
 

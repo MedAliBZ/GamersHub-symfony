@@ -82,7 +82,7 @@
                                                         <p><span style="font-size: 15px;font-weight: bold">Name: </span><span>{{ usr.name }}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Second Name: </span><span>{{ usr.secondName }}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Email: </span><span>{{ usr.email }}</span></p>
-                                                        <p><span style="font-size: 15px;font-weight: bold">Birthdate: </span><span>{{ usr.birthDate | date('d/m/Y') }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Birthdate: </span><span>{% if usr.birthDate is not null %}{{ usr.birthDate | date('d/m/Y') }}{% endif %}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Role: </span><span>{{ usr.roles | join('') | split('_') | last }}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Coins: </span><span>{{ usr.coins }}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Is Enabled: </span><span>{{ usr.isEnabled ? 'True' : 'False' }}</span></p>
