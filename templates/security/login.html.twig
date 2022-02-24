@@ -54,9 +54,9 @@
     </div>
     <div class="reg-with">
         <div class="social-area d-flex justify-content-center">
-            <a href="{{ path('connect_github') }}"><i class="fab fa-github" style="font-size: 30px;"></i></a>
+            <a style="background-color: #4d4d4d;padding-left: 2px;" href="{{ path('connect_github') }}"><i class="fab fa-github" style="font-size: 25px;"></i></a>
             {# <a class="twitch" href="javascript:void(0)"><img src="images/social-icon-2.png" alt="image"></a> #}
-            {# <a class="google" href="javascript:void(0)"><img src="images/social-icon-3.png" alt="image"></a> #}
+            <a class="google" href="{{ path('connect_google') }}"><img src="{{ asset('front/images/social-icon-3.png') }}" alt="image"></a>
         </div>
     </div>
 {% endblock %}

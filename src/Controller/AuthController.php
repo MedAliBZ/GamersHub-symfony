@@ -26,6 +26,50 @@ class AuthController extends AbstractController
         $client = $clientRegistry->getClient('github');
         return $client->redirect(['read:user', 'user:email']);
     }
+    /**
+     * @Route("/connect/google", name="connect_google")
+     */
+    public function connectGoogle(ClientRegistry $clientRegistry): Response
+    {
+        $client = $clientRegistry->getClient('google');
+        return $client->redirect();
+    }
+
+    public function registerGoogle(ResourceOwnerInterface $owner)
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->createQueryBuilder('u')
+            ->where('u.username = :username')
+            ->orWhere('u.email = :email')
+            ->setParameter('username', join('_',explode(' ',$owner->toArray()['name'])))
+            ->setParameter('email', $owner->toArray()['email'])
+            ->getQuery()
+            ->getOneOrNullResult();
+        if ($user) {
+            if ($user->getOauth() == true)
+                return $user;
+            else if ($user->getEmail() == $owner->toArray()['email'])
+                throw new AuthenticationException('Email is already registered!');
+            else if ($user->getUsername() == join('_',explode(' ',$owner->toArray()['name'])))
+                throw new AuthenticationException('Username is already registered!');
+        }
+        $user = (new User())
+            ->setUsername(join('_',explode(' ',$owner->toArray()['name'])))
+            ->setEmail($owner->toArray()['email'])
+            ->setPassword(null)
+            ->setName($owner->toArray()['given_name'])
+            ->setSecondName(array_key_exists('family_name',$owner->toArray())?$owner->toArray()['family_name']:null)
+            ->setCoins(0)
+            ->setRoles(['ROLE_USER'])
+            ->setIsEnabled(true)
+            ->setIsVerified(false)
+            ->setOauth(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        return $user;
+    }
 
     public function registerGithub(ResourceOwnerInterface $owner)
     {
@@ -44,13 +88,11 @@ class AuthController extends AbstractController
                 throw new AuthenticationException('Email is already registered!');
             else if ($user->getUsername() == $owner->toArray()['login'])
                 throw new AuthenticationException('Username is already registered!');
-
-
         }
         $user = (new User())
             ->setUsername($owner->toArray()['login'])
             ->setEmail($owner->toArray()['email'])
-            ->setPassword(password_hash("test", PASSWORD_DEFAULT))
+            ->setPassword(null)
             ->setCoins(0)
             ->setRoles(['ROLE_USER'])
             ->setIsEnabled(true)
@@ -59,7 +101,6 @@ class AuthController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-
         return $user;
     }
 

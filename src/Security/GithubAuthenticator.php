@@ -36,19 +36,28 @@ class GithubAuthenticator extends SocialAuthenticator
 
     public function supports(Request $request)
     {
-        return 'oauth_check' == $request->attributes->get('_route') && $request->get('service') == 'github';
+        return 'oauth_check' == $request->attributes->get('_route') && ($request->get('service') == 'github' || $request->get('service') == 'google');
     }
 
     public function getCredentials(Request $request)
     {
+        if($request->get('service') == 'google')
+            return $this->fetchAccessToken($this->clientRegistry->getClient('google'));
+        else
+            return $this->fetchAccessToken($this->getClient());
 
-        return $this->fetchAccessToken($this->getClient());
+
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $oauthUser = $this->getClient()->fetchUserFromToken($credentials);
-        if ($oauthUser instanceof GithubResourceOwner) {
+
+        if(in_array('googleapis',explode('.',$credentials->getValues()["scope"]))){
+            $oauthUser = $this->clientRegistry->getClient('google')->fetchUserFromToken($credentials);
+            return $this->authController->registerGoogle($oauthUser);
+        }
+        else{
+            $oauthUser = $this->getClient()->fetchUserFromToken($credentials);
             $response = HttpClient::create()->request(
                 'GET',
                 'https://api.github.com/user/emails',
@@ -66,8 +75,8 @@ class GithubAuthenticator extends SocialAuthenticator
                     $oauthUser = new GithubResourceOwner($data);
                 }
             }
+            return $this->authController->registerGithub($oauthUser);
         }
-        return $this->authController->registerGithub($oauthUser);
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
