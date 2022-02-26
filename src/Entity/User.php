@@ -104,9 +104,15 @@ class User implements UserInterface
      */
     private $oauth;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MissionsDone::class, mappedBy="user")
+     */
+    private $missions;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
 
@@ -319,6 +325,38 @@ class User implements UserInterface
     public function setOauth(?bool $oauth): self
     {
         $this->oauth = $oauth;
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return Collection|MissionsDone[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMissions(MissionsDone $missions): self
+    {
+        if (!$this->missions->contains($missions)) {
+            $this->missions[] = $missions;
+            $missions->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMissions(MissionsDone $missions): self
+    {
+        if ($this->missions->removeElement($missions)) {
+            // set the owning side to null (unless already changed)
+            if ($missions->getUser() === $this) {
+                $missions->setUser(null);
+            }
+        }
 
         return $this;
     }
