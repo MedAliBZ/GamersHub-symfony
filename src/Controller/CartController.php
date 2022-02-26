@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +20,7 @@ class CartController extends AbstractController
     public function index(SessionInterface $session, ProductsRepository $repo): Response
     {
         $cart = $session->get('cart', []);
-        
+
         $cartWithData = [];
 
         foreach ($cart as $id => $quantity) {
@@ -56,10 +57,9 @@ class CartController extends AbstractController
             $cart[$id] = 1;
         }
         $session->set('cart', $cart);
-        
-        
-        return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
-        
+
+
+        return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
     }
 
     /**
@@ -74,40 +74,45 @@ class CartController extends AbstractController
         $session->set('cart', $cart);
 
 
-        return $this->redirect($this->generateUrl('cartshow',['user' => $this->getUser()]));
+        return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
     }
 
     /**
      * @Route("/update", name="update")
      */
-    public function update(SessionInterface $session, ProductsRepository $repo)
+    public function update(SessionInterface $session, ProductsRepository $repo, Request $req)
     {
+
         $result = $_GET['data'];
 
         $cart = $session->get('cart', []);
         $cartWithData = [];
         $i = 0;
-       
+
         foreach ($cart as $id => $quantity) {
-            $quantity=$result[$i];
-            $cart[$id]=$quantity;
-            $cartWithData[] = [
-                'product' => $repo->find($id),
-                'quantity' => $quantity
+            $quantity = $result[$i];
+            if ($quantity > 0) {
+                $cart[$id] = $quantity;
+                $cartWithData[] = [
+                    'product' => $repo->find($id),
+                    'quantity' => $quantity
 
-            ];
+                ];
 
-            $i++;
+                $i++;
+            }
         }
 
         $total = 0;
         foreach ($cartWithData as $item) {
-            $totalItem = $item['product']->getPrice() * $item['quantity'];
-            $total += $totalItem;
+            if ($item['quantity'] > 0) {
+                $totalItem = $item['product']->getPrice() * $item['quantity'];
+                $total += $totalItem;
+            }
         }
 
         $session->set('cart', $cart);
-        
+
 
         return $this->render('cart/index.html.twig', [
             'items' =>  $cartWithData,
@@ -115,5 +120,4 @@ class CartController extends AbstractController
             'user' => $this->getUser()
         ]);
     }
- 
 }

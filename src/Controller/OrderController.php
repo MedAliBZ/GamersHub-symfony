@@ -127,20 +127,18 @@ class OrderController extends AbstractController
     {
         $order = $orderRepo->find($id);
         $em = $this->getDoctrine()->getManager();
-        $coins=$this->getUser()->getCoins() ;
-        $totalPrice=$order->getTotalprice();
-        if ($coins>= $totalPrice) {
-            $this->getUser()->setCoins($coins- $totalPrice);
+        $coins = $this->getUser()->getCoins();
+        $totalPrice = $order->getTotalprice();
+        if ($coins >= $totalPrice) {
+            $this->getUser()->setCoins($coins - $totalPrice);
             $order->setIsPaid(1);
             $em->flush();
             $session->remove('cart');
-            return $this->redirect($this->generateUrl('showMyOrders', ['user' => $this->getUser()]));
-        }
-        else
-        {
+            return $this->redirect($this->generateUrl('ordershowMyOrders',['user'=>$this->getUser()->getid()]));
+        } else {
             return $this->render('order/notPaid.html.twig', [
                 'coins' => $coins,
-                'totalPrice'=>$totalPrice,
+                'totalPrice' => $totalPrice,
                 'user' => $this->getUser(),
             ]);
         }
@@ -149,13 +147,18 @@ class OrderController extends AbstractController
     /**
      * @Route("/showMyOrders/{user}", name="showMyOrders")
      */
-    public function showMyOrders(OrderRepository $repo,$user): Response
-    {   
-        $orders=$repo->findByUser($user);
-        $order=new Order();
-       //find a way to bring the products of each order 
+    public function showMyOrders(OrderRepository $repo, $user): Response
+    {
+        $orders = $repo->findByUser($user);
+        $productOrdered = [];
+        foreach ($orders as $order) {
+            $productOrdered[] = [
+                'order' =>$order,
+            ];
+        }
+
         return $this->render('order/myOrders.html.twig', [
-            'myOrders' => $orders,
+            'productOrdered' => $productOrdered,
             'user' => $this->getUser(),
         ]);
     }

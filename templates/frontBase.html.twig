@@ -51,7 +51,9 @@
                                 <ul class="sub-menu">
                                     <li><a  href="{{ path('categoryshow_front') }}">Categories</a></li>
                                     <li><a  href="{{ path('cartshow') }}">Cart</a></li>
+                                    {% if user is not null %}
                                     <li><a  href="{{ path('ordershowMyOrders',{ user:user.id} )}}">My Orders</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
                             <li class="menu_has_children"><a href="#0">Sections</a>

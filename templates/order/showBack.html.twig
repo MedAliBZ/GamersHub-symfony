@@ -33,6 +33,7 @@
                   <th>Price</th>
                   <th>userName</th>
                   <th>isCanceled</th>
+                  <th>isPaid</th>
                   <th></th>
                 </tr>
               </thead>
@@ -47,9 +48,15 @@
                  
                  
                   <td>{% if order.isCanceled() == 0 %}
-                    <span class="badge badge-danger" style="color: white;font-size:unset">Canceled</span>
-                    {% else %}
                     <span class="badge badge-success" style="color: white;font-size:unset">notCanceled</span>
+                    {% else %}
+                    <span class="badge badge-danger" style="color: white;font-size:unset">Canceled</span>
+                    {% endif %}
+                  </td>
+                  <td>{% if order.isPaid() == 0 %}
+                    <span class="badge badge-danger" style="color: white;font-size:unset">notPaid</span>
+                    {% else %}
+                    <span class="badge badge-success" style="color: white;font-size:unset">Paid</span>
                     {% endif %}
                   </td>
                   <td >
