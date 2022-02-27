@@ -68,20 +68,20 @@
     </div>
 {% endblock %}
 {% block extraScripts %}
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor.editorConfig = function (config) {
-            // misc options
-            config.height = '350px';
-        };
-        ClassicEditor
-            .create(document.querySelector('#mission_description'), {
-                    removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']
-                }
-            )
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+{#    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>#}
+{#    <script>#}
+{#        ClassicEditor.editorConfig = function (config) {#}
+{#            // misc options#}
+{#            config.height = '350px';#}
+{#        };#}
+{#        ClassicEditor#}
+{#            .create(document.querySelector('#mission_description'), {#}
+{#                    removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed']#}
+{#                }#}
+{#            )#}
+{#            .catch(error => {#}
+{#                console.error(error);#}
+{#            });#}
+{#    </script>#}
 
 {% endblock %}

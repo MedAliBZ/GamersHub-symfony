@@ -32,7 +32,7 @@
         <div class="container">
             <div class="heading-area">
                 <div class="row justify-content-between">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="flex: 1 1 0!important;">
                         <div class="profile-area d-flex align-items-center">
                             <div class="photo">
                                 <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg"
@@ -55,7 +55,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end">
+                    <div style="display: flex;justify-content: flex-start;align-items: center;flex: 1 1 0;">
+                        {% for mission in missionsDone %}
+                            <div>
+                                <img class='defaultImage' style="height:auto;"
+                                     src="{{ asset("missions/badges/"~mission.mission.badge) }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end" style="flex: 1 1 0;">
                         <div class="right d-flex align-items-center">
                             <div class="d-flex align-items-center justify-content-center">
                                 <p style="margin-right: 5px">{{ user.coins }}</p>
@@ -89,4 +97,29 @@
             </div>
         </div>
     </section>
+    {# <section id="available-game-section"> #}
+    {# <div class="overlay pb-120"> #}
+    {# <div class="container wow fadeInUp"> #}
+    {# <div class="main-container"> #}
+    {# <div class="row justify-content-between"> #}
+    {# <div class="col-lg-10"> #}
+    {# <div class="section-header"> #}
+    {# <h2 class="title">Badges Earned</h2> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# <div class="available-game-carousel"> #}
+    {# {% for mission in missionsDone %} #}
+    {# <div class="single-item"> #}
+    {# <div> #}
+    {# <img class='defaultImage' style="height:auto;" #}
+    {# src="{{ asset("missions/badges/"~mission.mission.badge) }}"> #}
+    {# </div> #}
+    {# </div> #}
+    {# {% endfor %} #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </section> #}
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MissionsDone;
 use App\Entity\User;
 use App\Form\UpdatePasswordType;
 use App\Form\UpdateUserBackType;
@@ -23,9 +24,11 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+        $missionsDone = $this->getDoctrine()->getRepository(MissionsDone::class)->findDoneMissions($user->getUsername());
 
         return $this->render('user/profile.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'missionsDone' => $missionsDone
         ]);
     }
 

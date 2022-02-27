@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Mission;
+use App\Entity\MissionsDone;
 use App\Form\MissionType;
 use App\Form\MissionUpdateType;
 use App\Repository\GameRepository;
 use App\Repository\MissionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +17,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MissionController extends AbstractController
 {
+    /**
+     * @Route("/missions", name="missions", methods={"GET"})
+     */
+    public function missionsFront(MissionRepository $missionRepository): Response
+    {
+        //all missions list
+        $missionsList = $missionRepository->findAll();
+        //missions done by the connected user (claimed and unclaimed)
+        $missionsDone = $this->getUser()->getMissions();
+        //unclaimed missions list
+        $missionsUnclaimed = [];
+        //remove missions done from missions list and fill missionsUnclaimed array
+        foreach ($missionsDone as $missionDone) {
+            if(!$missionDone->getIsClaimed()){
+                array_push($missionsUnclaimed,$missionDone);
+            }
+            unset($missionsList[array_search($missionDone->getMission(), $missionsList)]);
+        }
+        //check the undone missions and update them if they are done
+
+
+        return $this->render('mission/index.html.twig', [
+            'missionsList' => $missionsList,
+            'missionsUnclaimed' => $missionsUnclaimed,
+            'user' => $this->getUser()
+        ]);
+    }
+
+
     /**
      * @Route("/admin/missions", name="missionsAdmin", methods={"GET"})
      */
@@ -26,7 +57,6 @@ class MissionController extends AbstractController
         ]);
     }
 
-    
 
     /**
      * @Route("/admin/missions/new", name="mission_new", methods={"GET", "POST"})
@@ -98,5 +128,21 @@ class MissionController extends AbstractController
         $entityManager->remove($mission);
         $entityManager->flush();
         return $this->redirectToRoute('missionsAdmin');
+    }
+
+    /**
+     * @Route("/mission/claim/{id}", name="mission_claim")
+     */
+    public function claim(MissionsDone $missionsDone,EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        if($missionsDone->getUser() == $user){
+            $user->setCoins($user->getCoins() + $missionsDone->getMission()->getPrize());
+            $missionsDone->setIsClaimed(true);
+            $entityManager->persist($user);
+            $entityManager->persist($missionsDone);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('missions');
     }
 }
