@@ -24,11 +24,13 @@ class CartController extends AbstractController
         $cartWithData = [];
 
         foreach ($cart as $id => $quantity) {
+            $product=$repo->find($id);
+            if($product){
             $cartWithData[] = [
-                'product' => $repo->find($id),
+                'product' => $product,
                 'quantity' => $quantity
 
-            ];
+            ];}
         }
 
         $total = 0;

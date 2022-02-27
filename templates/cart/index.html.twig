@@ -67,7 +67,7 @@
                             <tbody>
                                 {% for item in items %}
                                 <tr>
-
+                                 {% if item.product is not null %}
                                     <th scope="row" style="margin-bottom: 5%;display:flex;">
 
                                         {% set images = item.product.image| trim('*') | split("*") %}
@@ -96,6 +96,7 @@
                                     </td>
 
                                 </tr>
+                                {% endif %}
                                 {% endfor %}
                                
                                

@@ -40,7 +40,10 @@
 
                     {% for order in productOrdered %}
 
-                    {% if order['order'].isCanceled == 0 and order['order'].isPaid == 1 %}
+                     {% if order['order'].isCanceled == 0 and order['order'].isPaid == 1 %}
+                       {% set carts = order['order'].getCarts() %}
+                       {% if carts %}
+                       {% for cart in carts %}
                     <div class="col-lg-3">
 
                         <div class="sidebar-area" style="margin-bottom: 2em;">
@@ -48,21 +51,20 @@
                                 <h5>My Order</h5>
                                 <p class="text-sm">{{user.username}}</p>
                             </div>
-                            <ul>
+                            <ul>  
                                 <li>
                                     <span><img src="{{asset('front/images/my-statistics-icon-1.png')}}"
                                             alt="image">Order ID:</span>
                                     <span>{{order['order'].id}}</span>
                                 </li>
-                                {% set carts = order['order'].getCarts() %}
-                                {% for cart in carts %}
-                                {% set product = cart.product %}
+                              
+                                 {% set product = cart.product %}
                                 <li>
                                     <span><img src="{{asset('front/images/my-statistics-icon-2.png')}}" alt="image">
                                         {{product.nameProduct}}  </span>
                                     <span>{{product.price}} * {{cart.quantity}} </span>
                                 </li>
-                                {% endfor %}
+                               
                                 <li >
                                     <i class="fas fa-coins" style="margin-right: -15px;"></i> <span
                                         style="font-weight: bold;font-size: 15px;margin-right:initial">Total
@@ -75,6 +77,8 @@
                         </div>
 
                     </div>
+                    {% endfor %}
+                    {% endif %}
                     {% endif %}
                     {% endfor %}
                 </div>
