@@ -39,7 +39,7 @@
                 {% if missionsUnclaimed is not empty %}
                     <h3 style="align-self: center;">Unclaimed Missions</h3>
                     {% for mission in missionsUnclaimed %}
-                        <div class="missions">
+                        <div class="missions" style="margin-bottom: 40px">
                             <div style="flex: 1 1 0;justify-content: center;align-items: center;display: flex;">
                                 <img class='defaultImage' style="height:auto;"
                                      src="{{ asset("missions/badges/"~mission.mission.badge) }}">

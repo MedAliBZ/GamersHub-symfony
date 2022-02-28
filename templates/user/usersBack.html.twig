@@ -45,16 +45,11 @@
                                 {% if(usersList is not null) %}
                                     {% for usr in usersList %}
                                         <tr class="odd parent">
-                                            {# <td>{{ usr.id }}</td> #}
                                             <td>{{ usr.username }}</td>
-                                            {# <td>{{ usr.name }}</td> #}
-                                            {# <td>{{ usr.secondName }}</td> #}
                                             <td>{{ usr.email }}</td>
-                                            <td>{{ usr.roles | join('') | split('_') | last }}</td>
-                                            {# <td>{{ usr.birthDate | date('d/m/Y') }}</td> #}
-{#                                            <td>{{ usr.isEnabled ? 'True' : 'False' }}</td>#}
+                                            <td>{{ usr.roles | join('') | split('_') | last == 'ADMIN' ? '<span class="badge bg-warning text-light" style="font-size: 12px;">Admin</span>' : '<span class="badge bg-secondary text-light" style="font-size: 12px;">User</span>' }}</td>
                                             <td>{{ usr.coins }}</td>
-                                            <td>{{ usr.isVerified ? 'True' : 'False' }}</td>
+                                            <td>{{ usr.isVerified ? '<span class="badge bg-success text-light" style="font-size: 12px;">True</span>' : '<span class="badge bg-danger text-light" style="font-size: 12px;">False</span>' }}</td>
                                             <td>{{ usr.createdAt | date }}</td>
                                             <td>{{ usr.lastUpdated | date }}</td>
                                             <td>

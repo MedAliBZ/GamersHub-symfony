@@ -33,7 +33,7 @@
         </div>
     </section>
     <!-- banner-section end -->
-
+    <p id="username" style="display: none">{{ user.username }}</p>
     <!-- Game start -->
     <section id="features-section" style="padding: 70px">
         <div class="container wow fadeInUp">
@@ -50,15 +50,15 @@
                             <div style="margin-top: 20px;display: flex;justify-content: center;align-items: center;">
                                 {% if user is not null %}
                                     {% if user.username in game.users %}
-                                        <a href="{{ path('unfollowGame', {"id":game.id}) }}">
-                                            <i class="fas fa-heart" style="color: #d50000;font-size: 40px"></i>
-                                        </a>
+{#                                        <a id="like" href="{{ path('unfollowGame', {"id":game.id}) }}">#}
+                                            <i class="fas fa-heart" id="like" style="color: #d50000;font-size: 40px;cursor:pointer;"></i>
+{#                                        </a>#}
                                     {% else %}
-                                        <a href="{{ path('followGame', {"id":game.id}) }}">
-                                            <i class="far fa-heart" style="color: #d50000;font-size: 40px"></i>
-                                        </a>
+{#                                        <a id="like" href="{{ path('followGame', {"id":game.id}) }}">#}
+                                            <i class="far fa-heart" id="like" style="color: #d50000;font-size: 40px;cursor:pointer;"></i>
+{#                                        </a>#}
                                     {% endif %}
-                                    <p style="font-size: 25px;margin-left: 10px;color: #d50000">{{ game.users | length }}
+                                    <p id="numberLikes" style="font-size: 25px;margin-left: 10px;color: #d50000">{{ game.users | length }}
                                         {% if game.users | length == 1 %}
                                             {{ " like" }}
                                         {% else %}

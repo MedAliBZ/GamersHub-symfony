@@ -29,7 +29,7 @@ class UserAPIController extends AbstractController
         if (!($request->request->get('password') && $request->request->get('username')))
             return new Response(
                 '{"error": "Missing username or password or both."}',
-                403, ['Accept' => 'application/json',
+                400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->findOneBy(['username' => $request->request->get('username'), 'oauth' => false]);
@@ -62,7 +62,7 @@ class UserAPIController extends AbstractController
         if (!($request->request->get('password') && $request->request->get('username') && $request->request->get('email') && $request->request->get('confirmPassword')))
             return new Response(
                 '{"error": "Missing username or email or password or confirmPassword."}',
-                403, ['Accept' => 'application/json',
+                400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->findOneBy(['username' => $request->request->get('username')]);
@@ -114,7 +114,7 @@ class UserAPIController extends AbstractController
         if (!$request->request->get('username'))
             return new Response(
                 '{"error": "Missing username."}',
-                403, ['Accept' => 'application/json',
+                400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->request->get('username')]);
         if ($user == null)
@@ -130,4 +130,22 @@ class UserAPIController extends AbstractController
             200, ['Accept' => 'application/json',
             'Content-Type' => 'application/json']);
     }
+
+//    /**
+//     * @Route("/user", name="api_update", methods={"PATCH"})
+//     */
+//    public function update(Request $request): Response
+//    {
+//        if (!$request->request->get('username'))
+//            return new Response(
+//                '{"error": "Missing username."}',
+//                403, ['Accept' => 'application/json',
+//                'Content-Type' => 'application/json']);
+//        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->request->get('username')]);
+//        if ($user == null)
+//            return new Response(
+//                '{"error": "User not found."}',
+//                401, ['Accept' => 'application/json',
+//                'Content-Type' => 'application/json']);
+//    }
 }

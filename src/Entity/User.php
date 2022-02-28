@@ -39,7 +39,6 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string", nullable= true)
-     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $password;
 

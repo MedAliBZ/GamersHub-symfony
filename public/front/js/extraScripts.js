@@ -25,7 +25,39 @@ $(document).ready(function () {
                                 </div>
                             </div>`)
         $("#all-articles").append(html);
-    }).fail((res)=>{
+    }).fail((res) => {
         $("#all-articles").append("<p>No articles to display.</p>");
     });
+
+    $('#like').click((e) => {
+        let likes = $('#numberLikes').html().split(' ')[0] * 1;
+        if ($('#like').attr('class') === "fas fa-heart") {
+            $.post("http://127.0.0.1:8000/api/game/unlike",
+                {
+                    username: $('#username').html(),
+                    gameName: $("#gameName").html()
+                },
+                () => {
+                    $('#like').removeClass('fas fa-heart').addClass('far fa-heart');
+                    if(likes === 2){
+                        $('#numberLikes').html('1 like');
+                    }else
+                        $('#numberLikes').html(`${likes-1} likes`);
+                });
+        } else {
+            $.post("http://127.0.0.1:8000/api/game/like",
+                {
+                    username: $('#username').html(),
+                    gameName: $("#gameName").html()
+                },
+                () => {
+                    $('#like').removeClass('far fa-heart').addClass('fas fa-heart');
+                    if(likes === 0){
+                        $('#numberLikes').html('1 like');
+                    }else
+                        $('#numberLikes').html(`${likes+1} likes`);
+                });
+        }
+
+    })
 })

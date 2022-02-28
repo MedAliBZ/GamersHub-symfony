@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GameRepository::class)
@@ -18,24 +19,28 @@ class Game
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("api:game")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="This field cannot be empty!")
+     * @Groups("api:game")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Image cannot be empty!")
+     * @Groups("api:game")
      */
     private $image;
 
     /**
      * @ORM\Column(type="text", length=65535, nullable=true)
      * @Assert\NotBlank(message="Description cannot be empty!")
+     * @Groups("api:game")
      * @Assert\Length(
      *      min = 50,
      *      max = 65530,
