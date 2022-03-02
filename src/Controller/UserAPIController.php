@@ -21,6 +21,20 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 class UserAPIController extends AbstractController
 {
     /**
+     * @Route("/users", name="api_users", methods={"GET"})
+     */
+    public function allUsers(NormalizerInterface $normalizer): Response
+    {
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $jsonContent = $normalizer->normalize($users, 'json', ['groups' => 'post:read']);
+        return new Response(
+            json_encode($jsonContent),
+            200,
+            ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+    }
+
+    /**
      * @Route("/login", name="api_login", methods={"POST"})
      */
     public function index(Request $request, NormalizerInterface $normalizer): Response
