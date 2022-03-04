@@ -53,16 +53,24 @@ class OrderController extends AbstractController
 
         $total = 0;
         foreach ($myCart as $id => $quantity) {
-
+            $product=$repo->find($id);
+        if($product->getQuantityStocked()>=$quantity){
+          
             $cart = new Cart();
             $cart->setProduct($repo->find($id));
             $cart->setQuantity($quantity);
+            
+            $product->setQuantityStocked($product->getQuantityStocked()-$quantity);
 
             $totalItem = $repo->find($id)->getPrice() * $quantity;
             $total += $totalItem;
 
             $em->persist($cart);
             $order->addCart($cart);
+        }
+        else{
+            return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
+        }
         }
 
 

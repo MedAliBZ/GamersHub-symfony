@@ -58,20 +58,23 @@
                         {% set images = product.image| trim('*') | split("*") %}
                         <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%">
                     </div>
-                    <div class="bottom-item text-center">
-                        <a href="shop-details.html"><h6>{{ product.getNameProduct() }}</h6></a>
+                    <div class="bottom-item text-center js-like">
+                        <div style="display: flex;justify-content:space-around;">
+                          
+                            <p id="productId" style="display: none;">{{product.getId()}}</p>
+                       
+                            <a href="shop-details.html"  ><h6>{{ product.getNameProduct() }}</h6></a>
+                        <!-- <a href="{{path('wishListadd',{ id:product.getId() })}}" >  -->
+                            <i class="fas fa-heart" id="heart" style="cursor: pointer;" ></i>
+                         <!-- </a>   -->
+                    </div>
                         <p class="text-sm">{{ product.getCategory()}}</p>
-                        <div class="review">
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star-half-alt"></i></a>
-                            <span class="text-sm">4.3 (79)</span>
-                        </div>
+                          
                         <div class="bottom-area d-flex align-items-center justify-content-between">
                             <h5>{{ product.getPrice() }} COINS</h5>
-                            <a href="{{path('cartadd',{ id:product.getId() })}}" class="cmn-btn">Add to Cart</a>
+                            {% if  user is not null %}
+                            <a href="{{path('cartadd',{ id:product.getId()})}}" class="cmn-btn">Add to Cart</a>
+                            {% endif %}
                         </div>
                     </div>
                 </a>
@@ -132,4 +135,16 @@
 <!-- Policy End -->
 
 
+{% endblock %}
+{% block extraScripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('#heart').click((e)=>{
+        if ($('#heart').attr('class') === "fas fa-heart") {
+            console.log($("#productId").html());
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}`,$('#heart').css('color','red'))
+
+        }
+    })
+</script>
 {% endblock %}

@@ -59,9 +59,10 @@
                                 <li class="menu_has_children"><a href="{{path('categoryshow_front') }}"> Shop</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{path('categoryshow_front') }}">Categories</a></li>
-                                        <li><a href="{{path('cartshow') }}">Cart</a></li>
                                         {% if user is not null %}
+                                        <li><a href="{{path('cartshow') }}">Cart</a></li>
                                         <li><a href="{{path('ordershowMyOrders',{ user:user.id} )}}">My Orders</a></li>
+                                        <li><a href="{{path('wishListshow')}}">My WishList</a></li>
                                         {% endif %}
                                     </ul>
                                 </li>
@@ -159,7 +160,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
     <!-- i added this  -->
     {% block extraScripts %}{% endblock %}
-    >
+    
 
 </body>
 

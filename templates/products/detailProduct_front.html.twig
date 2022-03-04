@@ -86,7 +86,9 @@
                         </div>
                         <div class="bottom-area d-flex align-items-center">
                             <h5>{{ product.getPrice() }} COINS</h5>
+                            {% if  user is not null %}
                             <a href="{{path('cartadd',{ id:product.getId() })}}" class="cmn-btn">Add to Cart</a>
+                            {% endif %}
                         </div>
                         <div class="social d-flex align-items-center">
                             <p>Share:</p>
