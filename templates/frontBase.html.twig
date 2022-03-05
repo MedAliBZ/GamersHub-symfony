@@ -44,19 +44,19 @@
                     <button class="navbar-toggler ml-auto collapsed" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <nav class="navbar navbar-expand-lg p-0">
-                        <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav main-menu ml-auto">
-                                <li class="menu_has_children"><a href="#0">Coaching</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="tournaments.html">Coachs</a></li>
-                                        <li><a href="tournaments-single.html">Sessions</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Tournaments</a></li>
-                                <li class="menu_has_children"><a href="{{path('categoryshow_front') }}"> Shop</a>
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="navbar navbar-expand-lg p-0">
+                    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav main-menu ml-auto">
+                            <li class="menu_has_children"><a href="#0">Coaching</a>
+                                <ul class="sub-menu">
+                                    <li><a href="tournaments.html">Coachs</a></li>
+                                    <li><a href="tournaments-single.html">Sessions</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contact.html">Tournaments</a></li>
+                            <li class="menu_has_children"><a href="{{path('categoryshow_front') }}"> Shop</a>
                                     <ul class="sub-menu">
                                         <li><a href="{{path('categoryshow_front') }}">Categories</a></li>
                                         {% if user is not null %}
@@ -66,14 +66,16 @@
                                         {% endif %}
                                     </ul>
                                 </li>
-                                <li class="menu_has_children"><a href="#0">Sections</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        {# add your section here just like in the commented exemple below #}
-                                        {# <li><a href="about-us.html">About Us</a></li> #}
-                                    </ul>
-                                </li>
-                                {% if user is not null %}
+                            <li class="menu_has_children"><a href="#0">Sections</a>
+                                <ul class="sub-menu">
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="{{ path("games") }}">Games</a></li>
+                                    <li><a href="{{ path("missions") }}">Missions</a></li>
+                                    {# add your section here just like in the commented exemple below #}
+                                    {# <li><a href="about-us.html">About Us</a></li> #}
+                                </ul>
+                            </li>
+                            {% if user is not null %}
                                 {% if "ROLE_ADMIN" in user.roles %}
                                 <li><a href="{{ path("admin") }}">Admin</a></li>
                                 {% endif %}
@@ -102,20 +104,25 @@
 
     {% endblock %}
 
-    <!-- footer-section start -->
-    <footer id="footer-section">
-        <div class="footer-mid pt-120">
-            <div class="container">
-                <div class="row d-flex">
-                    <div
-                        class="col-lg-8 col-md-8 d-flex justify-content-md-between justify-content-center align-items-center cus-grid">
-                        <div class="logo-section">
-                            <a class="site-logo site-title" href="index-2.html"><img src="{{ asset("front/images/logo.png") }}" alt="site-logo"></a>
-                        </div>
-                        <ul class="menu-side d-flex align-items-center">
-                            <li><a href="index-2.html" class="active">Home</a></li>
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+
+<!-- footer-section start -->
+<footer id="footer-section">
+    <div class="footer-mid pt-120">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-lg-8 col-md-8 d-flex justify-content-md-between justify-content-center align-items-center cus-grid">
+                    <div class="logo-section">
+                        <a class="site-logo site-title" href="{{ path('home') }}"><img
+                                    src="{{ asset("front/images/logo.png") }}" alt="site-logo"></a>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-4 d-flex align-items-center justify-content-center justify-content-md-end">
+                    <div class="right-area">
+                        <ul class="d-flex">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                         </ul>
                     </div>
                     <div
@@ -147,21 +154,21 @@
     </footer>
     <!-- footer-section end -->
 
-    <script src="{{ asset("front/js/jquery-3.5.1.min.js") }}"></script>
-    <script src="{{ asset("front/js/bootstrap.min.js") }}"></script>
-    <script src="{{ asset("front/js/slick.js") }}"></script>
-    <script src="{{ asset("front/js/jquery.nice-select.min.js") }}"></script>
-    <script src="{{ asset("front/js/fontawesome.js") }}"></script>
-    <script src="{{ asset("front/js/jquery.counterup.min.js") }}"></script>
-    <script src="{{ asset("front/js/jquery.waypoints.min.js") }}"></script>
-    <script src="{{ asset("front/js/jquery.magnific-popup.min.js") }}"></script>
-    <script src="{{ asset("front/js/wow.js") }}"></script>
-    <script src="{{ asset("front/js/main.js") }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
-    <!-- i added this  -->
-    {% block extraScripts %}{% endblock %}
-    
 
+<script src="{{ asset("front/js/jquery-3.5.1.min.js") }}"></script>
+<script src="{{ asset("front/js/bootstrap.min.js") }}"></script>
+<script src="{{ asset("front/js/slick.js") }}"></script>
+<script src="{{ asset("front/js/jquery.nice-select.min.js") }}"></script>
+<script src="{{ asset("front/js/fontawesome.js") }}"></script>
+<script src="{{ asset("front/js/jquery.counterup.min.js") }}"></script>
+<script src="{{ asset("front/js/jquery.waypoints.min.js") }}"></script>
+<script src="{{ asset("front/js/jquery.magnific-popup.min.js") }}"></script>
+<script src="{{ asset("front/js/wow.js") }}"></script>
+<script src="{{ asset("front/js/main.js") }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+{% block extraScript %}
+
+{% endblock %}
 </body>
 
 </html>

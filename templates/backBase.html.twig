@@ -7,35 +7,30 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{asset('../back/images/logo.png')}}" />
+  <link rel="icon" href="{{asset('back/images/logo.png')}}" />
 
   <title>GamersHub | {% block title %}{% endblock %}</title>
 
   <!-- Bootstrap -->
-  <link href="{{asset('/back/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{asset('back/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="{{asset('/back/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
   <!-- NProgress -->
-  <link href="{{asset('/back/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+  <link href="{{asset('back/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
   <!-- iCheck -->
-  <link href="{{asset('/back/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+  <link href="{{asset('back/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
 
   <!-- bootstrap-progressbar -->
-  <link href="{{asset('/back/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
+  <link href="{{asset('back/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet">
   <!-- JQVMap -->
-  <link href="{{asset('/back/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('back/vendors/jqvmap/dist/jqvmap.min.css')}}" rel="stylesheet" />
   <!-- bootstrap-daterangepicker -->
-  <link href="{{asset('/back/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+  <link href="{{asset('back/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 
   <!-- Custom Theme Style -->
-  <link href="{{asset('/back/build/css/custom.min.css')}}" rel="stylesheet">
-
-  
-
-    
-    {% block addFilesHead %}{% endblock %}
-
-  
+  <link href="{{asset('back/build/css/custom.min.css')}}" rel="stylesheet">
+  {% block extraStyle %}
+  {% endblock %}
 </head>
 
 <body class="nav-md" style="overflow: auto;">
@@ -43,8 +38,8 @@
     <div class="main_container">
       <div class="col-md-3 left_col" style="top: 0;bottom: 0;position: fixed;overflow-y: scroll;overflow-x: hidden;">
         <div class="left_col scroll-view">
-          <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"> <img src="{{asset('../back/images/logo.png')}}"> <span>Gaming
+          <div class="navbar nav_title" style="border: 0;margin-left: 10px;">
+            <a href="index.html" class="site_title"> <img src="{{asset('back/images/logo.png')}}"> <span>Gaming
                 Hub</span></a>
           </div>
           <div class="clearfix"></div>
@@ -56,7 +51,7 @@
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
-              <h2>joe Doe</h2>
+              <h2>{{ user.username }}</h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -67,9 +62,10 @@
             <div class="menu_section">
               <ul class="nav side-menu">
                 <li><a><i class="fa fa-solid fa-chart-line"></i> Dashboard </a></li>
-                <li><a><i class="fa fa-solid fa-user"></i> User </a></li>
+                <li><a href="{{ path("showUsers") }}"><i class="fa fa-solid fa-user"></i> User </a></li>
                 <li><a href="{{ path("gamesAdmin") }}"><i class="fa fa-solid fa-gamepad"></i> Games </a></li>
-                <li><a><i class="fa fa-gavel"></i>Matchs </a></li>
+                <li><a href="{{ path("missionsAdmin") }}"><i class="fa fa-list-ul"></i> Missions </a></li>
+                <li><a><i class="fa fa-gavel"></i> Matchs </a></li>
                 <li><a><i class="fa fa-users"></i> Teams </a></li>
 
                 <li><a><i class="fa fa-trophy"></i>Tournaments<span class="fa fa-chevron-down"></span></a>
@@ -122,48 +118,15 @@
               <li class="nav-item dropdown open" style="padding-left: 15px;">
                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown"
                   data-toggle="dropdown" aria-expanded="false">
-                  <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg" alt="">John Doe
+                  <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg" alt="">{{ user.username }}
                 </a>
                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="javascript:;"> Profile</a>
-                  <a class="dropdown-item" href="javascript:;">
-                    <span class="badge bg-red pull-right">50%</span>
-                    <span>Settings</span>
-                  </a>
-                  <a class="dropdown-item" href="javascript:;">Help</a>
-                  <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  <a class="dropdown-item" href="{{ path('profile') }}"> <i class="fa fa-user"></i> Profile</a>
+                  <a class="dropdown-item" href="{{ path("app_logout") }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                 </div>
               </li>
 
-              <li role="presentation" class="nav-item dropdown open">
-                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown"
-                  aria-expanded="false">
-                  <i class="fa fa-envelope-o"></i>
-                  <span class="badge bg-green">6</span>
-                </a>
-                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                  <li class="nav-item">
-                    <a class="dropdown-item">
-                      <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                      <span>
-                        <span>John Smith</span>
-                        <span class="time">3 mins ago</span>
-                      </span>
-                      <span class="message">
-                        ..........
-                      </span>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <div class="text-center">
-                      <a class="dropdown-item">
-                        <strong>See All Alerts</strong>
-                        <i class="fa fa-angle-right"></i>
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
+
             </ul>
           </nav>
         </div>
@@ -171,7 +134,7 @@
       <!-- /top navigation -->
 
       <!-- page content -->
-      <div class="right_col" role="main" style="padding-top: 55px;">
+      <div class="right_col" role="main" style="padding-top: 55px;padding-left: 0;padding-right: 0;">
         {% block content %}{% endblock %}
       </div>
 
@@ -226,7 +189,23 @@
 
   <!-- Custom Theme Scripts -->
   <script src="{{asset('back/build/js/custom.min.js')}}"></script>
-{% block addFilesBottom %}{% endblock %}
+
+  <!-- DataTables -->
+  <script src="{{ asset('back/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+  <script src="{{ asset('back/vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+  <script src="{{ asset("back/js/main.js") }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+{% block extraScripts %}{% endblock %}
 </body>
 
 </html>

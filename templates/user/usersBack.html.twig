@@ -1,0 +1,103 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Profiles{% endblock %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">{% endblock %}
+{% block content %}
+    <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Users Table</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    {# <th>Id</th> #}
+                                    <th>Username</th>
+                                    {# <th>Name</th> #}
+                                    {# <th>Second Name</th> #}
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    {# <th>Birthdate</th> #}
+{#                                    <th>Is Enabled</th>#}
+                                    <th>Coins</th>
+                                    <th>Is Verified</th>
+                                    <th>Created At</th>
+                                    <th>Last Update</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if(usersList is not null) %}
+                                    {% for usr in usersList %}
+                                        <tr class="odd parent">
+                                            <td>{{ usr.username }}</td>
+                                            <td>{{ usr.email }}</td>
+                                            <td>{{ usr.roles | join('') | split('_') | last == 'ADMIN' ? '<span class="badge bg-warning text-light" style="font-size: 12px;">Admin</span>' : '<span class="badge bg-secondary text-light" style="font-size: 12px;">User</span>' }}</td>
+                                            <td>{{ usr.coins }}</td>
+                                            <td>{{ usr.isVerified ? '<span class="badge bg-success text-light" style="font-size: 12px;">True</span>' : '<span class="badge bg-danger text-light" style="font-size: 12px;">False</span>' }}</td>
+                                            <td>{{ usr.createdAt | date }}</td>
+                                            <td>{{ usr.lastUpdated | date }}</td>
+                                            <td>
+                                                <a href="{{ path("updateUser", {'id': usr.id}) }}"><i
+                                                            class="fa fa-pencil"></i></a>
+                                                <a href="{{ path("deleteUser", {'id': usr.id}) }}"><i
+                                                            class="fa fa-trash-o"></i></a>
+                                                <a href="" class="show" data-toggle="modal" data-target="{{ '#'~usr.username }}">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="{{ usr.username }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="exampleModalLabel">User</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><span style="font-size: 15px;font-weight: bold">Id: </span><span>{{ usr.id }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Username: </span><span>{{ usr.username }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Name: </span><span>{{ usr.name }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Second Name: </span><span>{{ usr.secondName }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Email: </span><span>{{ usr.email }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Birthdate: </span><span>{% if usr.birthDate is not null %}{{ usr.birthDate | date('d/m/Y') }}{% endif %}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Role: </span><span>{{ usr.roles | join('') | split('_') | last }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Coins: </span><span>{{ usr.coins }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Is Enabled: </span><span>{{ usr.isEnabled ? 'True' : 'False' }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Is Verified: </span><span>{{ usr.isVerified ? 'True' : 'False' }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Oauth: </span><span>{{ usr.oauth ? 'True' : 'False' }}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
