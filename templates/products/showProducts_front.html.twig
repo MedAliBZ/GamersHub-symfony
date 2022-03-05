@@ -64,9 +64,9 @@
                             <p id="productId" style="display: none;">{{product.getId()}}</p>
                        
                             <a href="shop-details.html"  ><h6>{{ product.getNameProduct() }}</h6></a>
-                        <!-- <a href="{{path('wishListadd',{ id:product.getId() })}}" >  -->
+                         {# <a href="{{path('wishListadd',{ id:product.getId() })}}" >  #}
                             <i class="fas fa-heart" id="heart" style="cursor: pointer;" ></i>
-                         <!-- </a>   -->
+                      </a>  
                     </div>
                         <p class="text-sm">{{ product.getCategory()}}</p>
                           
@@ -137,7 +137,7 @@
 
 {% endblock %}
 {% block extraScripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $('#heart').click((e)=>{
         if ($('#heart').attr('class') === "fas fa-heart") {

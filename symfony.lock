@@ -1,6 +1,12 @@
 {
+    "bacon/bacon-qr-code": {
+        "version": "2.0.6"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
+    },
+    "dasprid/enum": {
+        "version": "1.0.3"
     },
     "doctrine/annotations": {
         "version": "1.13",
@@ -84,6 +90,15 @@
     },
     "egulias/email-validator": {
         "version": "3.1.2"
+    },
+    "endroid/installer": {
+        "version": "1.4.0"
+    },
+    "endroid/qr-code": {
+        "version": "4.4.7"
+    },
+    "endroid/qr-code-bundle": {
+        "version": "4.0.7"
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"

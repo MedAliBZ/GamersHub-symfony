@@ -86,6 +86,11 @@ class Products
      */
     private $carts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="product")
+     */
+    private $wishList;
+
     public function __construct()
     {
         $this->carts = new ArrayCollection();
@@ -235,6 +240,8 @@ class Products
 
         return $this;
     }
+
+   
 
    
 }

@@ -91,10 +91,16 @@ class User implements UserInterface
       */
     private $orders;
 
+    /**
+     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="user")
+     */
+    private $wishList;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->wishList = new ArrayCollection();
     }
 
 
@@ -306,5 +312,8 @@ class User implements UserInterface
 
         return $this;
     }
+
+
+  
 
 }

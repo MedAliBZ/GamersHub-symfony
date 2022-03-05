@@ -7,10 +7,14 @@ use App\Entity\Order;
 use App\Repository\CartRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductsRepository;
+use Endroid\QrCode\Writer\Result\ResultInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Endroid\QrCodeBundle\Response\QrCodeResponse;
+
 
 /**
  * @Route("/order", name="order")
@@ -53,24 +57,23 @@ class OrderController extends AbstractController
 
         $total = 0;
         foreach ($myCart as $id => $quantity) {
-            $product=$repo->find($id);
-        if($product->getQuantityStocked()>=$quantity){
-          
-            $cart = new Cart();
-            $cart->setProduct($repo->find($id));
-            $cart->setQuantity($quantity);
-            
-            $product->setQuantityStocked($product->getQuantityStocked()-$quantity);
+            $product = $repo->find($id);
+            if ($product->getQuantityStocked() >= $quantity) {
 
-            $totalItem = $repo->find($id)->getPrice() * $quantity;
-            $total += $totalItem;
+                $cart = new Cart();
+                $cart->setProduct($repo->find($id));
+                $cart->setQuantity($quantity);
 
-            $em->persist($cart);
-            $order->addCart($cart);
-        }
-        else{
-            return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
-        }
+                $product->setQuantityStocked($product->getQuantityStocked() - $quantity);
+
+                $totalItem = $repo->find($id)->getPrice() * $quantity;
+                $total += $totalItem;
+
+                $em->persist($cart);
+                $order->addCart($cart);
+            } else {
+                return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
+            }
         }
 
 
@@ -142,7 +145,7 @@ class OrderController extends AbstractController
             $order->setIsPaid(1);
             $em->flush();
             $session->remove('cart');
-            return $this->redirect($this->generateUrl('ordershowMyOrders',['user'=>$this->getUser()->getid()]));
+            return $this->redirect($this->generateUrl('ordershowMyOrders', ['user' => $this->getUser()->getid()]));
         } else {
             return $this->render('order/notPaid.html.twig', [
                 'coins' => $coins,
@@ -161,7 +164,7 @@ class OrderController extends AbstractController
         $productOrdered = [];
         foreach ($orders as $order) {
             $productOrdered[] = [
-                'order' =>$order,
+                'order' => $order,
             ];
         }
 
@@ -170,4 +173,15 @@ class OrderController extends AbstractController
             'user' => $this->getUser(),
         ]);
     }
+    /**
+     * @Route("/qrCode/{id}", name="qrCode")
+     */
+    // public function QrCode(OrderRepository $repo,$id,ResultInterface $r)
+    // {
+          
+    //     $order=$repo->find($id);
+    //      $r="".$order->getId().$order->getTotalprice();
+    //     $response = new QrCodeResponse($r);
+    //     return $response;
+    // }
 }
