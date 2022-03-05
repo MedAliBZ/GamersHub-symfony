@@ -12,8 +12,12 @@
                 <td>{{ match.id }}</td>
             </tr>
             <tr>
+                <th>Name</th>
+                <td>{{ match.MatchName}}</td>
+            </tr>
+            <tr>
                 <th>Match_date</th>
-                <td>{{ match.matchDate ? match.matchDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ match.matchDate ? match.matchDate | date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>Result</th>

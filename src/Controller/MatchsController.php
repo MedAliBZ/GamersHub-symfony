@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Matchs;
 use App\Form\MatchsType;
 use App\Repository\MatchsRepository;
+use App\Repository\TeamsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,17 +21,23 @@ class MatchsController extends AbstractController
     /**
      * @Route("/", name="matchs_index")
      */
-    public function index(MatchsRepository $matchsRepository): Response
+    public function index(Request $request,MatchsRepository $matchsRepository,PaginatorInterface $paginator): Response
     {
-        $match = new Matchs();
-        $repo =$this->getDoctrine()->getRepository(Matchs::class);
+
+        $repo =$this->getDoctrine()->getRepository(Matchs::class)->findBy([],['match_date' => 'desc']);
+        $match = $paginator->paginate(
+            $repo, // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            3 // Nombre de résultats par page
+        );
         return $this->render('matchs/Match.html.twig', [
             'user' => $this->getUser(),
-            'match'=>$match,
-            'MatchsList'=> $repo->findAll()
+
+            'MatchsList'=> $match
         ]);
         
     }
+
 
     /**
      * @Route("/new", name="matchs_new", methods={"GET", "POST"})
@@ -43,6 +51,11 @@ class MatchsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($match);
             $entityManager->flush();
+
+            $this->addFlash(
+                'info',
+                'Added succefully!'
+            );
 
             return $this->redirectToRoute('matchs_show', [], Response::HTTP_SEE_OTHER);
         }
@@ -61,6 +74,8 @@ class MatchsController extends AbstractController
     {
         $match = new Matchs();
         $repo =$this->getDoctrine()->getRepository(Matchs::class);
+        
+        
         return $this->render('matchs/MatchsBack.html.twig', [
             'user' => $this->getUser(),
             'match' => $match,
@@ -79,6 +94,10 @@ class MatchsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash(
+                'info',
+                'Updated succefully!'
+            );
 
             return $this->redirectToRoute('matchs_show', [], Response::HTTP_SEE_OTHER);
         }
@@ -100,6 +119,10 @@ class MatchsController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($match);
         $em->flush();
+        $this->addFlash(
+            'info',
+            'Deleted succefully!'
+        );
 
         $repo =$this->getDoctrine()->getRepository(Matchs::class);
         return $this->redirectToRoute("matchs_show");

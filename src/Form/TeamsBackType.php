@@ -3,36 +3,33 @@
 namespace App\Form;
 
 use App\Entity\Matchs;
-
 use App\Entity\Teams;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
-class MatchsType extends AbstractType
+class TeamsBackType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('MatchName')
-            ->add('match_date', DateType::class)
-            ->add('result')
-            ->add('teams',EntityType::class,[
-                'class'=>Teams::class,
-                'choice_label'=>'TeamName'
+            ->add('Team_name')
+            ->add('gamersNb')
+            ->add('rank')
+            ->add('verified')
+            ->add('matchs',EntityType::class,[
+                'class'=>Matchs::class,
+                'choice_label'=>'MatchName'
             ])
-            ->add('second')
-            
-            
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Matchs::class,
+            'data_class' => Teams::class,
         ]);
     }
 }

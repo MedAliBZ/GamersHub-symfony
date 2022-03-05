@@ -9,9 +9,10 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Match Name</th>
                 <th>Match_date</th>
                 <th>Result</th>
-                  <th>Team</th>
+                <th>Team</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,9 +20,11 @@
         {% for match in matchs %}
             <tr>
                 <td>{{ match.id }}</td>
-                <td>{{ match.matchDate ? match.matchDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ match.MatchName }}</td>
+                <td>{{ match.matchDate ? match.matchDate|date('Y-m-d')}}</td>
                 <td>{{ match.result }}</td>
-                 <td>{{ match.Team }}</td>
+                 <td>{{ match.teams | join(", ")}}</td>
+                <td>{{ match.second | join(", ")}}</td>
                 <td>
                     <a href="{{ path('matchs_show', {'id': match.id}) }}">show</a>
                     <a href="{{ path('matchs_edit', {'id': match.id}) }}">edit</a>

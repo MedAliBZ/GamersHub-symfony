@@ -20,6 +20,10 @@
                 <h2>TEAMS TABLE</h2>
                 <div class="clearfix"></div>
             </div>
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-success"> {{ message }}
+                </div>
+            {% endfor %}
             <div class="x_content">
                 <div class="row">
                     <div class="col-sm-12">
@@ -28,6 +32,7 @@
 
                             </p>
                             <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+
                                 <thead>
                                 <tr>
                                     <th>Team ID</th>
@@ -47,18 +52,20 @@
                                             <td>{{ team.TeamName }}</td>
                                             <td>{{ team.gamersNb }}</td>
                                             <td>{{ team.rank }}</td>
-                                            <td>{{ team.matchs}}</td>
-                                            
-                                            <td>
-                                                <a href="{{ path("teams_edit", {'id': team.id}) }}"><i class="fa fa-pencil"></i></a>
-                                                <a href="{{ path("teams_delete", {'id': team.id}) }}"><i class="fa fa-trash-o"></i></a>
-                                            </td>
+                                            <td>{{ team.verified ? 'YES' : 'NO'}}</td>
+                                            <td>{{ team.matchs | join(" ")}}</td>
+
+                                               <td><a type="Update" href="{{ path("teams_edit", {'id': team.id}) }}" class="btn btn-success">Update</a></td>
+								               <td><a href="{{ path("teams_delete", {'id': team.id}) }}" class="btn btn-success">Delete</a></td>
+
+                                           
                                         </tr>
                                     {% endfor %}
                                 {% endif %}
 
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TeamsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,6 +23,7 @@ class Teams
     /**
      * @ORM\Column(type="string", length=255)
      *
+     * @Assert\NotBlank (message="this field is required")
      * @Assert\Length(
      *      min = 2,
      *      max = 20,
@@ -34,6 +37,7 @@ class Teams
     /**
      * @ORM\Column(type="integer")
      * 
+     *@Assert\NotBlank (message="this field is required")
      * @Assert\Length(
      *      min = 1,
      *      max = 1,
@@ -46,6 +50,7 @@ class Teams
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     *@Assert\NotBlank (message="this field is required")
      */
     private $rank
     ;
@@ -56,13 +61,21 @@ class Teams
     private $verified;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Matchs::class, inversedBy="team_id")
+     * @ORM\ManyToMany(targetEntity=Matchs::class, mappedBy="teams")
      */
     private $matchs;
-     /**
-     * @ORM\OneToMany(targetEntity=Matchs::class, mappedBy="teams", cascade={"remove"})
+
+    /**
+     * @ORM\Column(type="text")
      */
-    private $match_id;
+    private $image;
+
+    public function __construct()
+    {
+        $this->matchs = new ArrayCollection();
+    }
+
+
 
 
   
@@ -70,7 +83,7 @@ class Teams
     {
         return $this->id;
     }
-    
+
 
     public function getTeamName(): ?string
     {
@@ -120,23 +133,51 @@ class Teams
         return $this;
     }
 
-    public function getMatchs(): ?Matchs
+
+    /**
+     * @return Collection|Matchs[]
+     */
+    public function getMatchs(): Collection
     {
         return $this->matchs;
     }
+    public function setMatchs(?Matchs $match):self
+    {  if (!$this->matchs->contains($match)) {
+        $this->matchs[] = $match;
 
-    public function setMatchs(?Matchs $matchs): self
+    }
+
+        return $this;
+    }
+
+
+    public function removeMatch(Matchs $match): self
     {
-        $this->matchs = $matchs;
+        if ($this->matchs->removeElement($match)) {
+            $match->removeTeam($this);
+        }
+
+        return $this;
+    }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
     public function __toString(){
         // to show the name of the Category in the select
-        return ("$this->id");
+        return(string) $this->getTeamName();
         // to show the id of the Category in the select
         // return $this->id;
     }
+
+
 
 
 

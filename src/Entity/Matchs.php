@@ -27,7 +27,7 @@ class Matchs
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     * @Assert\NotBlank (message="this field is required")
      * @Assert\Length(
      *      min = 3,
      *      minMessage = "Your result must be at least {{ limit }} characters long",
@@ -36,21 +36,32 @@ class Matchs
      */
     private $result;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Teams::class, mappedBy="matchs", cascade={"remove"})
-     */
-    private $teams_id;
 
-     /**
-     * @ORM\ManyToOne(targetEntity=Teams::class, inversedBy="match_id")
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $MatchName;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Teams::class, inversedBy="matchs")
      */
     private $teams;
 
-
     /**
-     * @ORM\OneToMany(targetEntity=Teams::class, mappedBy="match1")
+     * @ORM\ManyToMany(targetEntity=Teams::class)
      */
-    private $team1;
+    private $second;
+
+
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+        $this->teamb = new ArrayCollection();
+        $this->second = new ArrayCollection();
+    }
 
  
   
@@ -84,26 +95,78 @@ class Matchs
         return $this;
     }
 
-  
-    public function getTeams(): ?Teams
+
+
+    public function getMatchName(): ?string
     {
-        return $this->teams;
+        return $this->MatchName;
     }
 
-    public function setTeams(?Teams $team): self
+    public function setMatchName(string $MatchName): self
     {
-        $this->team = $team;
+        $this->MatchName = $MatchName;
 
         return $this;
     }
-  
+   
+
+
+    /**
+     * @return Collection|Teams[]
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+    public function setTeams(Teams $team): self
+    {
+        if (!$this->teams->contains($team)) {
+        $this->teams[] = $team;
+    }
+
+        return $this;
+    }
+
+
+
+    public function removeTeam(Teams $team): self
+    {
+        $this->teams->removeElement($team);
+
+        return $this;
+    }
     public function __toString(){
         // to show the name of the Category in the select
-        return ("$this->id");
-        
+        return(string) $this->getMatchName();
         // to show the id of the Category in the select
         // return $this->id;
     }
+
+    /**
+     * @return Collection|Teams[]
+     */
+    public function getSecond(): Collection
+    {
+        return $this->second;
+    }
+    public function setSecond(Teams $second): self
+    {
+        if (!$this->teams->contains($second)) {
+            $this->teams[] = $this->second;
+        }
+
+        return $this;
+    }
+
+
+    public function removeSecond(Teams $second): self
+    {
+        $this->second->removeElement($second);
+
+        return $this;
+    }
+
+
 
 
    
