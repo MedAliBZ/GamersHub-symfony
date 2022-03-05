@@ -36,8 +36,8 @@
 
 
 
- <!-- Featured Products Start -->
- <section id="featured-products" class="pt-120 pb-120">
+<!-- Featured Products Start -->
+<section id="featured-products" class="pt-120 pb-120">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 d-flex align-items-center">
@@ -48,52 +48,52 @@
             </div>
         </div>
         <div class="row cus-m">
-            
+
             {% for product in products %}
-   
-           
-           
+
 
             <div class="col-lg-4 col-md-6">
-                
-                <div class="single-item"> 
+
+                <div class="single-item" style="min-height: 450px;max-height: 450px">
                     <a href="{{path('productsdetailProduct',{ id:product.getId() })}}">
-                    <span class="new">New</span>
-                    <div class="img-area text-center">
-                        {% set images = product.image| trim('*') | split("*") %}
-                        <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%">
-                    </div>
-                    <div class="bottom-item text-center js-like">
-                        <div style="display: flex;justify-content:space-around;">
-                          
-                            <p id="productId" style="display: none;">{{product.getId()}}</p>
-                            <p id="userID" style="display: none;">{{user.getId()}}</p>
-                           
-                       
-                            <a href="shop-details.html"  ><h6>{{ product.getNameProduct() }}</h6></a>
-                          {# <a href="{{path('wishListadd',{ id:product.getId() })}}" >   #}
-                          
-                            <i class="fas fa-heart" id="heart" style="cursor: pointer;color:red" ></i>
-                            
-                            <i class="fas fa-heart" id="heart" style="cursor: pointer;color:white" ></i>
-                         
-                           
-                      </a>  
-                    </div>
-                        <p class="text-sm">{{ product.getCategory()}}</p>
-                          
-                        <div class="bottom-area d-flex align-items-center justify-content-between">
-                            <h5>{{ product.getPrice() }} COINS</h5>
-                            {% if  user is not null %}
-                            <a href="{{path('cartadd',{ id:product.getId()})}}" class="cmn-btn">Add to Cart</a>
-                            {% endif %}
+                        <span class="new">New</span>
+                        <div class="img-area text-center">
+                            {% set images = product.image| trim('*') | split("*") %}
+                            <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%">
                         </div>
-                    </div>
-                </a>
+                        <div class="bottom-item text-center js-like">
+                            <div style="display: flex;justify-content:space-around;">
+
+                                <p id="productId" style="display: none;">{{product.getId()}}</p>
+                                <p id="userID" style="display: none;">{{user.getId()}}</p>
+
+
+                                <a href="shop-details.html">
+                                    <h6>{{ product.getNameProduct() }}</h6>
+                                </a>
+                                {# <a href="{{path('wishListadd',{ id:product.getId() })}}"> #}
+                                    {% for item in productList %}
+                                    {% if product == item['myProduct']%}
+                                    <i class="fas fa-heart" id="heart" style="cursor: pointer;color:red"></i>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </a>
+                            </div>
+                            <p class="text-sm">{{ product.getCategory()}}</p>
+
+                            <div class="bottom-area d-flex align-items-center justify-content-between">
+                                <h5>{{ product.getPrice() }} COINS</h5>
+                                {% if user is not null %}
+                                <a href="{{path('cartadd',{ id:product.getId()})}}" class="cmn-btn">Add to Cart</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-            
-            {% endfor %}  
+
+            {% endfor %}
         </div>
     </div>
 </section>
@@ -150,12 +150,12 @@
 
 {% endblock %}
 {% block extraScripts %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-    $('#heart').click((e)=>{
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('#heart').click((e) => {
         if ($('#heart').attr('class') === "fas fa-heart") {
             console.log($("#userID").html());
-            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`,$('#heart').css('color','red'))
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`, $('#heart').css('color', 'red'))
 
         }
     })

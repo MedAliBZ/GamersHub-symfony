@@ -7,13 +7,11 @@ use App\Entity\Order;
 use App\Repository\CartRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductsRepository;
-use Endroid\QrCode\Writer\Result\ResultInterface;
+use App\Services\qrCodeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
-use Endroid\QrCodeBundle\Response\QrCodeResponse;
 
 
 /**
@@ -24,11 +22,16 @@ class OrderController extends AbstractController
     /**
      * @Route("/show/{id}", name="show")
      */
-    public function index(OrderRepository $repo, $id, SessionInterface $session, ProductsRepository $repo1): Response
+    public function index(OrderRepository $repo, $id, SessionInterface $session, ProductsRepository $repo1,qrCodeService $qrcodeserv): Response
     {
 
         $order = $repo->find($id);
         $myCart = $session->get('cart', []);
+
+        $qrCode=null;
+        $data="This is the QrCode of your Order: OrderNumber :".$order->getId().
+        " totalPrice of your Order :".$order->getTotalprice()."Coins";
+        $qrCode=$qrcodeserv->qrCode($data);
 
         foreach ($myCart as $id => $quantity) {
             $productCart[] = [
@@ -39,6 +42,7 @@ class OrderController extends AbstractController
 
         return $this->render('order/index.html.twig', [
             'order' => $order,
+            'qrCode'=>$qrCode,
             'productTab' => $productCart,
             'user' => $this->getUser(),
         ]);
@@ -85,6 +89,8 @@ class OrderController extends AbstractController
         $em->persist($order);
         $em->flush();
         $id = $order->getId();
+
+   
 
         return $this->redirect($this->generateUrl('ordershow', [
             'id' => $id,
@@ -136,6 +142,9 @@ class OrderController extends AbstractController
      */
     public function validate(SessionInterface $session, $id, OrderRepository $orderRepo)
     {
+        
+      
+
         $order = $orderRepo->find($id);
         $em = $this->getDoctrine()->getManager();
         $coins = $this->getUser()->getCoins();
