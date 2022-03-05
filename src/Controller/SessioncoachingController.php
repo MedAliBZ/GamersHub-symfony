@@ -128,7 +128,7 @@ class SessioncoachingController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}/edit", name="session_edit_back", methods={"GET", "POST"})
+     * @Route("/admin/sessioncoaching/{id}/edit", name="session_edit_back", methods={"GET", "POST"})
      */
     public function editBack(Request $request, Sessioncoaching $sessioncoaching, EntityManagerInterface $entityManager,CoachRepository $repository): Response
     {   $coach=$repository->findOneBy(array('user'=>$this->getUser()));
@@ -150,7 +150,7 @@ class SessioncoachingController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}/delete", name="session_delete_back", methods={"GET"})
+     * @Route("/admin/sessioncoaching/{id}/delete", name="session_delete_back", methods={"GET"})
      */
     public function deleteBack(Sessioncoaching $sessioncoaching): Response
     {
