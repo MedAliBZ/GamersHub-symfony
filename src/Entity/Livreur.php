@@ -6,6 +6,7 @@ use App\Repository\LivreurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LivreurRepository::class)
@@ -21,16 +22,39 @@ class Livreur
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 8,
+     *      minMessage = "Your name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your name cannot be longer than {{ limit }} characters"
+     * )
+     *
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 8,
+     *      minMessage = "Your last name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your last name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Assert\Length(
+     *      min = 8,
+     *      max = 8,
+     *      minMessage = "Your cin must be at least {{ limit }} characters long",
+     *      maxMessage = "Your cin cannot be longer than {{ limit }} characters"
+     * )
+     * 
      */
     private $cin;
 
@@ -45,7 +69,7 @@ class Livreur
     private $zone_geographique;
 
     /**
-     * @ORM\OneToMany(targetEntity=Livraison::class, mappedBy="livreur")
+     * @ORM\OneToMany(targetEntity=Livraison::class, mappedBy="livreur", cascade={"remove"})
      */
     private $livraisons;
 

@@ -87,14 +87,19 @@
                   </ul>
                 </li>
                 <li><a><i class="fa fa-graduation-cap"></i>Coaching<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
+                <ul class="nav child_menu">
                     <li><a href="#">Coachs</a></li>
                     <li><a href="#">coaching sessions</a></li>
                   </ul>
                 </li>
-                <li><a href="{{ path("livreur_index") }}"><i class="fa fa-bicycle"></i>Delivery</a></li>
+                <li><a><i class="fas fa-shipping-fast"></i> Delivery<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                <li><a href="{{ path("livreur_index") }}">Delivery man</a></li>
+                <li><a href="{{ path("livraison_index") }}">Delivery</a></li>
+
+                </ul>
                 <li><a href="{{ path("home") }}">USER SITE</a></li>
-              </ul>
+              
             </div>
           </div>
           <!-- /sidebar menu -->
@@ -131,7 +136,6 @@
       <div class="right_col" role="main" style="padding-top: 55px;padding-left: 0;padding-right: 0;">
         {% block content %}{% endblock %}
       </div>
-
       <!-- /page content -->
 
       <!-- footer content -->

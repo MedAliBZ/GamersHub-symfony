@@ -1,4 +1,5 @@
 {% extends 'backBase.html.twig' %}
+{% block title %}Delivery{% endblock %}
 {% block extraStyle %}
     <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
@@ -7,51 +8,60 @@
     <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
           rel="stylesheet">
     <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
-          rel="stylesheet">
-    <style>
-        .livreur-container {
-                    height: 80vh;
-                    width: 100%;
-        }
-    </style>
-{% endblock %}
-{% block title %}Livraison index{% endblock %}
-
-
+          rel="stylesheet">{% endblock %}
 {% block content %}
-    <h1>Livraison index</h1>
+    <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Delivery</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Adress</th>
-                <th>Ville</th>
-                <th>Code_postal</th>
-                <th>Etat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for livraison in livraisons %}
-            <tr>
-                <td>{{ livraison.id }}</td>
-                <td>{{ livraison.adress }}</td>
-                <td>{{ livraison.ville }}</td>
-                <td>{{ livraison.codePostal }}</td>
-                <td>{{ livraison.etat }}</td>
-                <td>
-                    <a href="{{ path('livraison_show', {'id': livraison.id}) }}">show</a>
-                    <a href="{{ path('livraison_edit', {'id': livraison.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Adress</th>
+                                    <th>Ville</th>
+                                    <th>Code_postal</th>
+                                    <th>Etat</th>
+                                    <th>actions</th>
+                                    
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if(livraisons is not null) %}
+                                    {% for livraison in livraisons %}
+                                        <tr>
+                                                <td>{{ livraison.id }}</td>
+                                                <td>{{ livraison.adress }}</td>
+                                                <td>{{ livraison.ville }}</td>
+                                                <td>{{ livraison.codePostal }}</td>
+                                                <td>{{ livraison.etat }}</td>
+                                    
+                                            <td>
+                                                <a href="{{ path('livraison_edit', {'id': livraison.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ path("livraison_delete", {'id': livraison.id}) }}"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
 
-    <a href="{{ path('livraison_new') }}">Create new</a>
+                                </tbody>
+                            </table>
+                                     <a href="{{ path('livraison_new') }}"><i class="fa fa-user-plus fa-2x" aria-hidden="true"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
