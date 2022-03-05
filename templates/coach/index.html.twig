@@ -1,0 +1,112 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}Coachs{% endblock %}
+{% block content %}
+
+    <!-- banner-section start -->
+    <section id="banner-section" class="inner-banner profile features shop">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+        </div>
+
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Coachs</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Coachs</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner-section end -->
+    <!-- Call To Action In start -->
+    <section id="call-to-action" class="border-area">
+        <div class="overlay pt-120">
+            <div class="container">
+                <div class="main-content">
+                    <div class="row d-sm-flex justify-content-sm-end">
+                        <div class="col-lg-4 col-md-1">
+                            <img class="left" src="{{ asset( "front/images/call-to-action-left.png") }}" alt="image">
+                        </div>
+                        <div class="col-lg-4 col-md-5 col-sm-5 d-flex align-items-center">
+                            <div class="section-item">
+                                <h4>Become a coach!</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center justify-content-sm-end align-items-center">
+                            <div class="btn-area d-flex justify-content-center justify-content-sm-end align-items-center">
+                                <a href="{{ path('coach_new') }}" class="cmn-btn">Join Now</a>
+                            </div>
+                            <img src="{{ asset( "front/images/call-to-action-right.png") }}" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Products Start -->
+    <section id="featured-products" class="pt-120 pb-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 d-flex align-items-center">
+                    <div class="section-header text-center">
+                        <h2 class="title">Coachs List</h2>
+                        <p>Our goal is to deliver high quality gaming apparel and help grow the gaming community!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row cus-m">
+                {% for c in coachs %}
+                <div class="col-lg-4 col-md-6" style="margin-top:70px;">
+                    <div class="single-item">
+                        <div class="img-area text-center">
+                            <img src="https://avatars.dicebear.com/api/bottts/{{ c.user.username }}.svg" style="width: 70px;height: 70px;" alt="Image">
+                        </div>
+                        <div class="bottom-item text-center">
+                            <a href="shop-details.html"><h4>{{ c.user.username }}</h4></a>
+                            <h6 style="margin-top:10px;">{{c.game.name}}</h6>
+                            <p class="text-sm" style="height: 70px">{{c.description}}</p>
+                            <div class="review">
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star"></i></a>
+                                <a href="#"><i class="fas fa-star-half-alt"></i></a>
+                                <span class="text-sm">4.3 (79)</span>
+                            </div>
+                            {% if c.user.id != user.id  %}
+                            <a href="{{ path('sendmail',{'id':c.user.id}) }}" class="cmn-btn" >Contact</a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <br>
+                    {% if c.user.id == user.id %}
+                        <div class="bottom-area d-flex" style="justify-content: space-evenly;align-items: center">
+                            <a href="{{ path('coach_edit',{'id':c.id}) }}" class="cmn-btn" >Update</a>
+                            <a href="{{ path('coach_delete',{'id':c.id}) }}" class="cmn-btn">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+    <!-- Featured Products End -->
+
+{% endblock %}

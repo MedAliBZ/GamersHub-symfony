@@ -114,11 +114,21 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=MissionsDone::class, mappedBy="user")
      */
     private $missions;
+    /**
+     * @ORM\OneToOne(targetEntity=Coach::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $coach;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sessioncoaching::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $sessioncoachings;
 
     public function __construct()
     {
         $this->games = new ArrayCollection();
         $this->missions = new ArrayCollection();
+        $this->sessioncoachings = new ArrayCollection();
     }
 
 
@@ -361,6 +371,53 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($missions->getUser() === $this) {
                 $missions->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCoach(): ?Coach
+    {
+        return $this->coach;
+    }
+
+    public function setCoach(Coach $coach): self
+    {
+        // set the owning side of the relation if necessary
+        if ($coach->getUser() !== $this) {
+            $coach->setUser($this);
+        }
+
+        $this->coach = $coach;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sessioncoaching[]
+     */
+    public function getSessioncoachings(): Collection
+    {
+        return $this->sessioncoachings;
+    }
+
+    public function addSessioncoaching(Sessioncoaching $sessioncoaching): self
+    {
+        if (!$this->sessioncoachings->contains($sessioncoaching)) {
+            $this->sessioncoachings[] = $sessioncoaching;
+            $sessioncoaching->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessioncoaching(Sessioncoaching $sessioncoaching): self
+    {
+        if ($this->sessioncoachings->removeElement($sessioncoaching)) {
+            // set the owning side to null (unless already changed)
+            if ($sessioncoaching->getUser() === $this) {
+                $sessioncoaching->setUser(null);
             }
         }
 
