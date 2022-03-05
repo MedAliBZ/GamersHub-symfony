@@ -7,7 +7,13 @@
     <div class="form-area">
         <form method="post">
             {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                <div class="alert alert-danger">
+                    {% if error.message == 'Username is already registered!' or error.message == 'Email is already registered!' or error.message == "This account is locked!" %}
+                        {{ error.message }}
+                    {% else %}
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    {% endif %}
+                </div>
             {% endif %}
             <div class="form-group">
                 <label for="inputUsername">Username</label>
@@ -26,13 +32,13 @@
             {#
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
             See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> Remember me
-                </label>
-            </div>
             #}
+            <div class="checkbox mb-3"
+                 style="width: min-content;display: flex;justify-content: center;align-items: center;">
+                <input type="checkbox" name="_remember_me" style="width: 15px;height:15px;">
+                <label style="width: max-content;margin-left: 10px;margin-bottom: 0;font-size: 17px;">Remember
+                    me </label>
+            </div>
             <div class="form-group">
                 <button class="cmn-btn" type="submit">
                     Sign in
@@ -40,8 +46,28 @@
             </div>
         </form>
     </div>
+    <div class="or">
+        <p>OR</p>
+    </div>
+    <div class="sign-in">
+        <p>Sign in with your</p>
+    </div>
+    <div class="reg-with">
+        <div class="social-area d-flex justify-content-center">
+            <a style="background-color: #4d4d4d;padding-left: 2px;" href="{{ path('connect_github') }}"><i class="fab fa-github" style="font-size: 25px;"></i></a>
+            {# <a class="twitch" href="javascript:void(0)"><img src="images/social-icon-2.png" alt="image"></a> #}
+            <a class="google" href="{{ path('connect_google') }}"><img src="{{ asset('front/images/social-icon-3.png') }}" alt="image"></a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block otherAuth %}
-    <p>Don't have an account? <a href="{{ path("register") }}">Sign Up</a></p>
+    <div style="display: flex;flex-direction: column;">
+        <p style="font-size: 17px;margin: 10px">Don't have an account?
+            <a style="font-size: 17px;" href="{{ path("register") }}">Sign Up</a>
+        </p>
+        <p style="font-size: 17px;">Forgot Password?
+            <a style="font-size: 17px;" href="{{ path('app_forgot_password_request') }}">Reset It</a>
+        </p>
+    </div>
 {% endblock %}

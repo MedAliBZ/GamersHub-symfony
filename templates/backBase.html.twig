@@ -64,7 +64,8 @@
                 <li><a><i class="fa fa-solid fa-chart-line"></i> Dashboard </a></li>
                 <li><a href="{{ path("showUsers") }}"><i class="fa fa-solid fa-user"></i> User </a></li>
                 <li><a href="{{ path("gamesAdmin") }}"><i class="fa fa-solid fa-gamepad"></i> Games </a></li>
-                <li><a><i class="fa fa-gavel"></i>Matchs </a></li>
+                <li><a href="{{ path("missionsAdmin") }}"><i class="fa fa-list-ul"></i> Missions </a></li>
+                <li><a><i class="fa fa-gavel"></i> Matchs </a></li>
                 <li><a><i class="fa fa-users"></i> Teams </a></li>
 
                 <li><a><i class="fa fa-trophy"></i>Tournaments<span class="fa fa-chevron-down"></span></a>
@@ -89,8 +90,8 @@
                 </li>
                 <li><a><i class="fa fa-graduation-cap"></i>Coaching<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">Coachs</a></li>
-                    <li><a href="#">coaching sessions</a></li>
+                    <li><a href="{{ path("showcoachs") }}">Coachs</a></li>
+                    <li><a href="{{ path("showsession") }}">Coaching Sessions</a></li>
                   </ul>
                 </li>
                 <li><a><i class="fa fa-bicycle"></i>Delivery<span class="fa fa-chevron-down"></span></a>
@@ -202,6 +203,9 @@
   <script src="{{ asset('back/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('back/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
   <script src="{{ asset('back/vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+  <script src="{{ asset("back/js/main.js") }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+{% block extraScripts %}{% endblock %}
 </body>
 
 </html>

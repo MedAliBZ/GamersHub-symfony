@@ -1,39 +1,59 @@
-<!DOCTYPE html>
+{% extends 'frontBase.html.twig' %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block title %}Profile{% endblock %}
 
-<title>Game index</title>
-
-{% block body %}
-    <h1>Game index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for game in games %}
-            <tr>
-                <td>{{ game.id }}</td>
-                <td>{{ game.name }}</td>
-                <td>{{ game.image }}</td>
-                <td>{{ game.description }}</td>
-                <td>
-                    <a href="{{ path('game_show', {'id': game.id}) }}">show</a>
-                    <a href="{{ path('game_edit', {'id': game.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('game_new') }}">Create new</a>
+{% block content %}
+    <section id="banner-section" class="inner-banner profile">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Games</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ path("home") }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Games</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="available-game-section" style="margin-top: -300px;position: relative;">
+        <div class="overlay pb-120">
+            <div class="container wow fadeInUp">
+                <div class="main-container">
+                    <div class="row justify-content-between">
+                        <div class="col-lg-10">
+                            <div class="section-header">
+                                <h2 class="title">Available Games</h2>
+                                <p>We are constantly adding new games</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="available-game-carousel">
+                        {% for game in gamesList %}
+                            <div class="single-item">
+                                <a href="{{ path('gameById',{'id': game.id}) }}">
+                                    <img style="width: 250px;height: 300px"
+                                         src="{{ 'games/images/'~asset(game.image) }}" alt="image">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

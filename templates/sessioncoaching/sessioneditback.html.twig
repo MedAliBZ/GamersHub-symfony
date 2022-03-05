@@ -1,0 +1,108 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Update {% endblock %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
+{% endblock %}
+{% block content %}
+    <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>EDIT COACH</h2>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <br/>
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    {{ form_start(formsessionback,{'attr':{'novalidate':'novalidate'}}) }}
+                    <h5 style="margin-left: 45%;">
+                        {{ coach.user.username }}
+                    </h5>
+
+                    <div class="item form-group">
+                        {{ form_label(formsessionback.prix,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(formsessionback.prix,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(formsessionback.prix) }}
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        {{ form_label(formsessionback.date_debut,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(formsessionback.date_debut,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(formsessionback.date_debut) }}
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        {{ form_label(formsessionback.date_fin,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(formsessionback.date_fin,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(formsessionback.date_fin) }}
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">
+                            {{ form_label(formsessionback.user,"client") }}</label>
+                        {{ form_widget(formsessionback.user) }}
+                    </div>
+
+                    <div class="item form-group">
+                        {{ form_label(formsessionback.background_color)}}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(formsessionback.background_color) }}
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        {{ form_label(formsessionback.border_color)}}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(formsessionback.border_color) }}
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        {{ form_label(formsessionback.description,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(formsessionback.description,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(formsessionback.description) }}
+                        </div>
+                    </div>
+
+                    {% if error is defined %}
+                        <div style="display: flex;justify-content: center;align-items: center;color: #d20808;">{{ error }}</div>
+                    {% endif %}
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3" style="display: flex">
+                            <a class="btn btn-primary" href="{{ path("showsession") }}">Cancel</a>
+                            {{ form_row(formsessionback.Submit,{'attr':{'class':'btn btn-success'}}) }}
+                        </div>
+                    </div>
+                    {{ form_end(formsessionback) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

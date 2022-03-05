@@ -25,7 +25,6 @@ class UpdateUserType extends AbstractType
                 'html5'=>false,
                 'attr' => ['class' => 'js-datepicker'],
             ])
-            ->add('oldPassword', PasswordType::class, array("mapped" => false,))
             ->add('Update', SubmitType::class,['attr'=>['class'=>'cmn-btn']]);
         ;
     }
