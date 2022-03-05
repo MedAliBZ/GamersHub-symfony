@@ -126,7 +126,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/admin/game/{id}", name="game_delete")
+     * @Route("/admin/game/delete/{id}", name="game_delete")
      */
     public function delete(Request $request, Game $game, EntityManagerInterface $entityManager): Response
     {

@@ -69,7 +69,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_subscribe_edit", methods={"GET", "POST"})
+     * @Route("/subscribe/{id}/edit", name="app_subscribe_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Subscribe $subscribe, SubscribeRepository $subscribeRepository): Response
     {
@@ -88,7 +88,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="deleteSubscription", methods={"POST"})
+     * @Route("/subscribe/{id}", name="deleteSubscription", methods={"POST"})
      */
     public function delete(Subscribe $subscribe): Response
     {

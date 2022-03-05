@@ -223,7 +223,7 @@ class User implements UserInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -235,7 +235,7 @@ class User implements UserInterface
         return $this->secondName;
     }
 
-    public function setSecondName(string $secondName): self
+    public function setSecondName(?string $secondName): self
     {
         $this->secondName = $secondName;
 

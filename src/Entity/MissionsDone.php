@@ -25,6 +25,7 @@ class MissionsDone
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="isClaimed")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 

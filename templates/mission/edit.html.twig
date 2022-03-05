@@ -53,8 +53,15 @@
                             {{ form_errors(form.prize) }}
                         </div>
                     </div>
-
-
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Condition</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.attribute,{'attr': {'style': "background: white;border-radius: 2px;border: 1px solid #808080d1;padding: 4px;"}}) }} {{ form_widget(form.operator,{'attr': {'style': "background: white;border-radius: 2px;border: 1px solid #808080d1;padding: 4px;"}}) }} {{ form_widget(form.variable) }}
+                        </div>
+                    </div>
+                    <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
+                        {{ form_errors(form.variable) }}
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3" style="display: flex">

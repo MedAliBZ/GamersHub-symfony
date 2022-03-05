@@ -39,7 +39,7 @@ class Coach
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="coaches")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="set null")
      */
     private $game;
 

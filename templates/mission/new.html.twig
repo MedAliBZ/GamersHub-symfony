@@ -14,56 +14,57 @@
     <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
 {% endblock %}
 {% block content %}
-<div class="col-md-12 col-sm-12 " style="margin-top: 20px;">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2><a href="{{ path("missionsAdmin") }}">Missions Table</a> <span style="font-weight: 800;color: #73879C;">/</span>
-                New Mission</h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <br/>
-            <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
-                <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin: 20px;">
-                    <div class="gameImage"
-                         style="margin-bottom: 10px;display:none;width: 70px;height: 55px;background-repeat: no-repeat;background-position: center;'background-image:'{{ absolute_url(asset("/games/images/upload.png")) }}'"></div>
-                    <img class='defaultImage' style="width: 200px;margin-bottom: 10px;"
-                         src="{{ asset("games/images/upload.png") }}">
-                    <div class="col-md-6 col-sm-6 ">
-                        {{ form_widget(form.badge,{'attr': {'class': 'form-control input-file'}}) }}
+    <div class="col-md-12 col-sm-12 " style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><a href="{{ path("missionsAdmin") }}">Missions Table</a> <span
+                            style="font-weight: 800;color: #73879C;">/</span>
+                    New Mission</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br/>
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin: 20px;">
+                        <div class="gameImage"
+                             style="margin-bottom: 10px;display:none;width: 70px;height: 55px;background-repeat: no-repeat;background-position: center;'background-image:'{{ absolute_url(asset("/games/images/upload.png")) }}'"></div>
+                        <img class='defaultImage' style="width: 200px;margin-bottom: 10px;"
+                             src="{{ asset("games/images/upload.png") }}">
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.badge,{'attr': {'class': 'form-control input-file'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.badge) }}
+                        </div>
                     </div>
-                    <div class="error-div">
-                        {{ form_errors(form.badge) }}
+                    <div class="item form-group">
+                        {{ form_label(form.description,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+                        </div>
                     </div>
-                </div>
-                <div class="item form-group">
-                    {{ form_label(form.description,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
-                    <div class="col-md-6 col-sm-6 ">
-                        {{ form_widget(form.description,{'attr': {'class': 'form-control'}}) }}
+                    <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
+                        {{ form_errors(form.description) }}
                     </div>
-                </div>
-                <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
-                    {{ form_errors(form.description) }}
-                </div>
-                <div class="item form-group">
-                    {{ form_label(form.prize,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
-                    <div class="col-md-6 col-sm-6 ">
-                        {{ form_widget(form.prize,{'attr': {'class': 'form-control'}}) }}
+                    <div class="item form-group">
+                        {{ form_label(form.prize,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.prize,{'attr': {'class': 'form-control'}}) }}
+                        </div>
                     </div>
-                </div>
-                <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
-                    {{ form_errors(form.prize) }}
-                </div>
-                <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align">Condition</label>
-                    <div class="col-md-6 col-sm-6 ">
-                        {{ form_widget(form.attribute,{'attr': {'style': "background: white;border-radius: 2px;border: 1px solid #808080d1;padding: 4px;"}}) }} {{ form_widget(form.operator,{'attr': {'style': "background: white;border-radius: 2px;border: 1px solid #808080d1;padding: 4px;"}}) }} {{ form_widget(form.variable) }}
+                    <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
+                        {{ form_errors(form.prize) }}
                     </div>
-                </div>
-                <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
-                    {{ form_errors(form.variable) }}
-                    </di
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align">Condition</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.attribute,{'attr': {'style': "background: white;border-radius: 2px;border: 1px solid #808080d1;padding: 4px;"}}) }} {{ form_widget(form.operator,{'attr': {'style': "background: white;border-radius: 2px;border: 1px solid #808080d1;padding: 4px;"}}) }} {{ form_widget(form.variable) }}
+                        </div>
+                    </div>
+                    <div class="error-div" style="display: flex;justify-content: center;align-items: center;">
+                        {{ form_errors(form.variable) }}
+                    </div>
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3" style="display: flex">
@@ -76,22 +77,22 @@
             </div>
         </div>
     </div>
-    {% endblock %}
-    {% block extraScripts %}
-    {# <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> #}
-    {# <script> #}
-    {# ClassicEditor.editorConfig = function (config) { #}
-    {# // misc options #}
-    {# config.height = '350px'; #}
-    {# }; #}
-    {# ClassicEditor #}
-    {# .create(document.querySelector('#mission_description'), { #}
-    {# removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed'] #}
-    {# } #}
-    {# ) #}
-    {# .catch(error => { #}
-    {# console.error(error); #}
-    {# }); #}
-    {# </script> #}
-
 {% endblock %}
+    {% block extraScripts %}
+        {# <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script> #}
+        {# <script> #}
+        {# ClassicEditor.editorConfig = function (config) { #}
+        {# // misc options #}
+        {# config.height = '350px'; #}
+        {# }; #}
+        {# ClassicEditor #}
+        {# .create(document.querySelector('#mission_description'), { #}
+        {# removePlugins: ['CKFinderUploadAdapter', 'CKFinder', 'EasyImage', 'Image', 'ImageCaption', 'ImageStyle', 'ImageToolbar', 'ImageUpload', 'MediaEmbed'] #}
+        {# } #}
+        {# ) #}
+        {# .catch(error => { #}
+        {# console.error(error); #}
+        {# }); #}
+        {# </script> #}
+
+    {% endblock %}
