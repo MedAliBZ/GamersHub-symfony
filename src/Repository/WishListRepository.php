@@ -22,29 +22,27 @@ class WishListRepository extends ServiceEntityRepository
     // /**
     //  * @return WishList[] Returns an array of WishList objects
     //  */
-    /*
-    public function findByExampleField($value)
+   
+    public function findByUser($value)
     {
         return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
+            ->andWhere('w.user = :val')
             ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+   
 
-    /*
-    public function findOneBySomeField($value): ?WishList
+   
+    public function findByProduct($value): ?WishList
     {
         return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
+            ->andWhere('w.product = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+    
 }

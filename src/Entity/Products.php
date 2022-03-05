@@ -87,7 +87,7 @@ class Products
     private $carts;
 
     /**
-     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=WishList::class, mappedBy="product",cascade={"remove"})
      */
     private $wishList;
 

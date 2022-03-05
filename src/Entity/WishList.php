@@ -47,9 +47,9 @@ class WishList
         return $this->product;
     }
 
-    public function setProduct(?Products $products): self
+    public function setProduct(?Products $product): self
     {
-        $this->products = $products;
+        $this->product = $product;
 
         return $this;
     }

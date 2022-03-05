@@ -6,6 +6,7 @@ use App\Entity\Products;
 use App\Form\ProductsFormType;
 use App\Form\UpdateProductType;
 use App\Repository\ProductsRepository;
+use App\Repository\WishListRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
@@ -132,10 +133,19 @@ class ProductsController extends AbstractController
     /**
      * @Route("/showProducts/{category}", name="showProducts")
      */
-    public function showProducts(ProductsRepository $repo,$category):Response
+    public function showProducts(ProductsRepository $repo,$category,WishListRepository $repo1):Response
     {
+        $productList=[];
+        foreach($repo1->findByUser($this->getUser()) as $wishListItem){
+           $product= $wishListItem->getProduct()->getID();
+            $productList[]=[
+                'myProduct'=>$repo->find($product),
+            ];
+        }
+    
         return $this->render('products/showProducts_front.html.twig', [
             'products' => $repo->findByCategory($category),
+            'productList'=> $productList ,
             'user' => $this->getUser()
         ]);
         

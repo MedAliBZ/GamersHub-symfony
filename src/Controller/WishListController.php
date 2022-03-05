@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Products;
 use App\Entity\WishList;
 use App\Repository\ProductsRepository;
+use App\Repository\UserRepository;
 use App\Repository\WishListRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,16 +22,16 @@ class WishListController extends AbstractController
      */
     public function wishListFc(WishListRepository $wishlistrepo, ProductsRepository $repo): Response
     {
-        $WishList = $wishlistrepo->findAll($this->getUser());
+        $WishList = $wishlistrepo->findByUser($this->getUser());
         $productList = [];
 
         foreach ($WishList as $item) {
           
-            foreach ($item->getProduct() as $item2) {
+            
                 $productList[] = [
-                    'product' => $repo->find($item2->getId()),
+                    'product' => $item->getProduct(),
                 ];
-            }
+            
         }
    
 
@@ -43,28 +44,32 @@ class WishListController extends AbstractController
     }
 
     /**
-     * @Route("/add/{id}", name="add")
+     * @Route("/add/{id}/{userID}", name="add")
      */
-    public function addRemoveWishList($id, ProductsRepository $repo,WishListRepository $repoWishList): Response
+    public function addRemoveWishList($id,$userID,UserRepository $userRepo, ProductsRepository $repo,WishListRepository $repoWishList): Response
     {
         $em = $this->getDoctrine()->getManager();
-        // $product = $repo->find($id);
-        // if($product->getWishList()!= null)
-        // {   
-        //     $wishList=$repoWishList->find($product->getWishList());
-        //     $em->remove($wishList);
-        //     $em->flush();
-        // }
-        // else{
-        // $wishList = new WishList();
-        // $wishList->setUser($this->getUser());
-        // $wishList->addProduct($product);
+        $product = $repo->find($id);
        
-        // $em->persist($wishList);
-        // $em->flush();
-        // }
+     
+        if($repoWishList->findByProduct($product))
+        {  
+           
+            $wishList= $repoWishList->findByProduct($product) ;
+            $em->remove($wishList);
+            $em->flush();
+        }
+        else{
+           
+            $wishList = new WishList();
+            $wishList->setUser($userRepo->find($userID));
+            $wishList->setProduct($repo->find($id));
+            $em->persist($wishList);
+            $em->flush();
+      
+        }
 
-       // return $this->redirect($this->generateUrl('wishListshow', ['user' => $this->getUser()]));
+       //return $this->redirect($this->generateUrl('wishListshow', ['user' => $this->getUser()]));
         return $this->json(['message'=>'ce marche bien'],200);
     }
 }

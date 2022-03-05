@@ -48,7 +48,12 @@
             </div>
         </div>
         <div class="row cus-m">
+            
             {% for product in products %}
+   
+           
+           
+
             <div class="col-lg-4 col-md-6">
                 
                 <div class="single-item"> 
@@ -62,10 +67,17 @@
                         <div style="display: flex;justify-content:space-around;">
                           
                             <p id="productId" style="display: none;">{{product.getId()}}</p>
+                            <p id="userID" style="display: none;">{{user.getId()}}</p>
+                           
                        
                             <a href="shop-details.html"  ><h6>{{ product.getNameProduct() }}</h6></a>
-                         {# <a href="{{path('wishListadd',{ id:product.getId() })}}" >  #}
-                            <i class="fas fa-heart" id="heart" style="cursor: pointer;" ></i>
+                          {# <a href="{{path('wishListadd',{ id:product.getId() })}}" >   #}
+                          
+                            <i class="fas fa-heart" id="heart" style="cursor: pointer;color:red" ></i>
+                            
+                            <i class="fas fa-heart" id="heart" style="cursor: pointer;color:white" ></i>
+                         
+                           
                       </a>  
                     </div>
                         <p class="text-sm">{{ product.getCategory()}}</p>
@@ -80,7 +92,8 @@
                 </a>
                 </div>
             </div>
-            {% endfor %} 
+            
+            {% endfor %}  
         </div>
     </div>
 </section>
@@ -137,12 +150,12 @@
 
 {% endblock %}
 {% block extraScripts %}
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
     $('#heart').click((e)=>{
         if ($('#heart').attr('class') === "fas fa-heart") {
-            console.log($("#productId").html());
-            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}`,$('#heart').css('color','red'))
+            console.log($("#userID").html());
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`,$('#heart').css('color','red'))
 
         }
     })
