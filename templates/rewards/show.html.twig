@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<title>Rewards</title>
+
+{% block body %}
+    <h1>Rewards</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reward.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ reward.type }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ reward.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('rewards_index') }}">back to list</a>
+
+    <a href="{{ path('rewards_edit', {'id': reward.id}) }}">edit</a>
+
+    {{ include('rewards/_delete_form.html.twig') }}
+{% endblock %}

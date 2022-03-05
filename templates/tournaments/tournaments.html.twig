@@ -1,0 +1,129 @@
+{% extends 'frontBase.html.twig' %}
+{% block extraStyle %}
+
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/style.css">
+{% endblock %}
+
+   {% block content %}
+
+<!-- banner-section start -->
+    <section id="banner-section" class="inner-banner">
+        <div class="ani-img">
+            <img class="img-1" src="images/banner-circle-1.png" alt="icon">
+            <img class="img-2" src="images/banner-circle-2.png" alt="icon">
+            <img class="img-3" src="images/banner-circle-2.png" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Tournaments</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Tournaments</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    <!-- banner-section end -->
+
+    <!-- Browse Tournaments start -->
+    <section id="tournaments-section" class="pt-120 tournaments">
+        <div class="overlay pt-120 pb-120">
+            <div class="container wow fadeInUp">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <div class="section-header">
+                            <h2 class="title">Browse Tournaments</h2>
+                            <p>Find the perfect tournaments for you. Head to head matches
+                                where you pick the game.</p>
+                        </div>
+                    </div>
+                </div>
+               
+
+                        
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="single-input">
+                            <span>Search</span>
+                            <input type="text" placeholder="Search">
+                        </div>
+                    </div>
+                  
+                {% if(tournamentsList is not null) %}
+                      {% for tournament in tournamentsList %}
+                <div class="single-item">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 d-flex align-items-center">
+                            <img class="top-img" src="images/game-img-2.png" alt="image">
+                        </div>
+                        <div class="col-lg-6 col-md-9 d-flex align-items-center">
+                            <div class="mid-area">
+                                <h4>{{tournament.name}}</h4>
+                                <div class="title-bottom d-flex">
+                                    <div class="date-area bg">
+                                        <h5> Start date </h5>
+                                        <span class="date">{{tournament.startDate| date('d/m/Y')}}</span>
+                                    </div>
+                                </div>
+                                <div class="title-bottom d-flex">
+                                    <div class="date-area bg">
+                                        <h5> Finish date </h5>
+                                        <span class="date">{{tournament.finishDate| date('d/m/Y')}}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="single-box d-flex">
+                                    <div class="box-item">
+
+                                    </div>
+                                    <div class="box-item">
+                                    <h6> Team size </h6>
+                                        <span class="head">{{tournament.teamSize}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center">
+                            <div class="prize-area text-center">
+                                <div class="contain-area">
+                                    <a href="{{ path("rewards_show")}}" class="cmn-btn">View tournament</a>
+                                    <p>First winner Wins a Prize</p>
+                                     <a href="{{ path("addSubscription", {'id': tournament.id}) }}" class="cmn-btn">Join NOW!</a>
+                                    <p> Subscribe and join the tournament</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  {% endfor %}
+                   {% endif %}   
+            
+            </div>
+        </div>
+    </section>
+    <!-- Browse Tournaments end -->
+
+
+{% endblock %}

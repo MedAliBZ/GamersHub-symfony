@@ -138,7 +138,7 @@ class User implements UserInterface
     }
 
     /**
-     * A visual identifier that represents This user.
+     * A visual identifier that represents this user.
      *
      * @see UserInterface
      */
@@ -147,7 +147,7 @@ class User implements UserInterface
         return (string)$this->username;
     }
 
-    public function setUsername(?string $username): self
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -211,7 +211,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(?string $email): self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -223,7 +223,7 @@ class User implements UserInterface
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -235,7 +235,7 @@ class User implements UserInterface
         return $this->secondName;
     }
 
-    public function setSecondName(?string $secondName): self
+    public function setSecondName(string $secondName): self
     {
         $this->secondName = $secondName;
 

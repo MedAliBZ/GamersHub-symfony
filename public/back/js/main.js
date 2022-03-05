@@ -15,5 +15,4 @@ document.querySelector(".input-file").addEventListener("change", (event) => {
         document.querySelector('.gameImage').style.display = 'block';
     };
     reader.readAsDataURL(input.files[0]);
-
 })

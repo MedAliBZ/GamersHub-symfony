@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Subscribe</title>
+
+{% block body %}
+    <h1>Edit Subscribe</h1>
+
+    {{ include('subscribe/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_subscribe_index') }}">back to list</a>
+
+    {{ include('subscribe/_delete_form.html.twig') }}
+{% endblock %}
