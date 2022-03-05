@@ -19,7 +19,7 @@
                             <div class="breadcrumb-area">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb d-flex justify-content-center">
-                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
                                         <li class="breadcrumb-item"><a href="#">Pages</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Coachs</li>
                                     </ol>
@@ -77,7 +77,7 @@
                             <img src="https://avatars.dicebear.com/api/bottts/{{ c.user.username }}.svg" style="width: 70px;height: 70px;" alt="Image">
                         </div>
                         <div class="bottom-item text-center">
-                            <a href="shop-details.html"><h4>{{ c.user.username }}</h4></a>
+                            <h4>{{ c.user.username }}</h4>
                             <h6 style="margin-top:10px;">{{c.game.name}}</h6>
                             <p class="text-sm" style="height: 70px">{{c.description}}</p>
                             <div class="review">
