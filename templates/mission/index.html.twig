@@ -1,0 +1,87 @@
+{% extends 'frontBase.html.twig' %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <section id="banner-section" class="inner-banner profile">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Missions</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ path("home") }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Missions</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="all-trophies" class="pb-120">
+        <div class="container">
+            <div class="tab-content" style="display: flex;flex-direction: column;">
+                {% if missionsUnclaimed is empty and missionsList is empty %}
+                <h5 style="align-self: center;">There is no missions to display.</h5>
+                {% endif %}
+                {% if missionsUnclaimed is not empty %}
+                    <h3 style="align-self: center;">Unclaimed Missions</h3>
+                    {% for mission in missionsUnclaimed %}
+                        <div class="missions" style="margin-bottom: 40px">
+                            <div style="flex: 1 1 0;justify-content: center;align-items: center;display: flex;">
+                                <img class='defaultImage' style="height:auto;"
+                                     src="{{ asset("missions/badges/"~mission.mission.badge) }}">
+                            </div>
+                            <div style="background: #17175891;width: 100%;padding: 5px;border-radius: 10px;flex: 4 1 0;margin-right: 20px;">
+                                <p style="text-align: center;">{{ mission.mission.description }}</p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 100%;flex: 2 1 0;justify-content: space-between;">
+                                <div style="display: flex;justify-content: center;align-items: center;">
+                                    <h6 id="article-source" style="margin-right:5px;">{{ mission.mission.prize }}</h6>
+                                    <img src="{{ asset("front/images/coin.png") }}" style="width: 30px;height: 30px"
+                                         alt="Coin-image">
+                                </div>
+                                <div style="display: flex;">
+                                    <a href="{{ path('mission_claim', {'id': mission.id }) }}" class="claim">claim</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if missionsList is not empty %}
+                    <h3 style="align-self: center;">Undone Missions</h3>
+                    {% for mission in missionsList %}
+                        <div class="missions">
+                            <div style="flex: 1 1 0;justify-content: center;align-items: center;display: flex;">
+                                <img class='defaultImage' style="height:auto;"
+                                     src="{{ asset("missions/badges/"~mission.badge) }}">
+                            </div>
+                            <div style="background: #17175891;width: 100%;padding: 5px;border-radius: 10px;flex: 4 1 0;margin-right: 20px;">
+                                <p style="text-align: center;">{{ mission.description }}</p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 100%;flex: 2 1 0;justify-content: space-between;">
+                                <div style="display: flex;justify-content: center;align-items: center;">
+                                    <h6 id="article-source" style="margin-right:5px;">{{ mission.prize }}</h6>
+                                    <img src="{{ asset("front/images/coin.png") }}" style="width: 30px;height: 30px"
+                                         alt="Coin-image">
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

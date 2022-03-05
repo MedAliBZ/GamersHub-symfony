@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\MissionsDone;
 use App\Entity\User;
 use App\Form\UpdatePasswordType;
 use App\Form\UpdateUserBackType;
@@ -23,9 +24,11 @@ class UserController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+        $missionsDone = $this->getDoctrine()->getRepository(MissionsDone::class)->findDoneMissions($user->getUsername());
 
         return $this->render('user/profile.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'missionsDone' => $missionsDone
         ]);
     }
 
@@ -59,22 +62,12 @@ class UserController extends AbstractController
         }
         $form = $this->createForm(UpdateUserType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $oldPassword = $user->getPassword();
-            if (!password_verify($request->request->get('update_user')["oldPassword"], $oldPassword)) {
-                return $this->render('user/updateProfileInfos.html.twig', [
-                    "updateForm" => $form->createView(),
-                    "error" => "wrong pass",
-                    "user" => $user
-                ]);
-            } else {
-                date_default_timezone_set('Europe/Paris');
-                $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-                $user->setLastUpdated($dateTime);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute("profile");
         }
         return $this->render("user/updateProfileInfos.html.twig", [
             "updateForm" => $form->createView(),
@@ -88,28 +81,22 @@ class UserController extends AbstractController
     public function passUpdate(Request $request): Response
     {
         $user = $this->getUser();
-        $newUser = new User();
-        $form = $this->createForm(UpdatePasswordType::class, $newUser);
+        $form = $this->createForm(UpdatePasswordType::class, $this->getUser());
+        $oldPassword = $user->getPassword();
+
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            $oldPassword = $user->getPassword();
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
             if (!password_verify($request->request->get('update_password')["oldPassword"], $oldPassword)) {
+
                 return $this->render('user/updatePassword.html.twig', [
                     "updatePassForm" => $form->createView(),
-                    "error" => "wrong pass",
-                    "user" => $user
-                ]);
-            } else if ($request->request->get('update_password')["confirmPassword"] != $request->request->get('update_password')["password"]) {
-                return $this->render('user/updatePassword.html.twig', [
-                    "updatePassForm" => $form->createView(),
-                    "error" => "Passwords does not match!",
+                    "error" => "Wrong Password!",
                     "user" => $user
                 ]);
             } else {
-                date_default_timezone_set('Europe/Paris');
-                $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-                $user->setLastUpdated($dateTime);
-                $user->setPassword(password_hash($newUser->getPassword(), PASSWORD_DEFAULT));
+                $user->setPassword(password_hash($form['password']->getData(), PASSWORD_DEFAULT));
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
@@ -166,16 +153,16 @@ class UserController extends AbstractController
         }
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $form["username"]->getData()])) {
+            if ($this->getDoctrine()->getRepository(User::class)->findByUsernameDiffId($form["username"]->getData(), $user->getId())) {
                 return $this->render('user/userUpdateBack.html.twig', [
                     "form" => $form->createView(),
                     "error" => "Invalid username!",
                     "user" => $this->getUser()
                 ]);
             }
-            date_default_timezone_set('Europe/Paris');
-            $dateTime = date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', time()));
-            $user->setLastUpdated($dateTime);
+            if ($form['isAdmin']->getData() == true) {
+                $user->setRoles(["ROLE_ADMIN"]);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

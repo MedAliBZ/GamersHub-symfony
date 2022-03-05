@@ -6,6 +6,9 @@ use App\Repository\GameRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GameRepository::class)
@@ -16,21 +19,34 @@ class Game
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("api:game")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="This field cannot be empty!")
+     * @Groups("api:game")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Image cannot be empty!")
+     * @Groups("api:game")
      */
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", length=65535, nullable=true)
+     * @Assert\NotBlank(message="Description cannot be empty!")
+     * @Groups("api:game")
+     * @Assert\Length(
+     *      min = 50,
+     *      max = 65530,
+     *      minMessage = "Description must be at least {{ limit }} characters long",
+     *      maxMessage = "Description cannot be longer than {{ limit }} characters"
+     * )
      */
     private $description;
 
@@ -38,6 +54,18 @@ class Game
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="games")
      */
     private $users;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -61,12 +89,12 @@ class Game
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 
@@ -108,4 +136,15 @@ class Game
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
 }

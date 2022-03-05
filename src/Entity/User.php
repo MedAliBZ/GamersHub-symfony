@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,12 +20,14 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="This field cannot be blank.")
+     * @Groups("post:read")
      */
     private $username;
 
@@ -34,42 +38,46 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @ORM\Column(type="string", nullable= true)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
      * @Assert\NotBlank(message="This field cannot be blank.")
      * @Assert\Email(message="Wrong format.")
+     * @Groups("post:read")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("post:read")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("post:read")
      */
     private $secondName;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\LessThanOrEqual("-13 years", message="You should be at least 13 years old.")
+     * @Groups("post:read")
      */
     private $birthDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $lastUpdated;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -80,6 +88,10 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "Coins cannot be negative.",
+     * )
      */
     private $coins;
 
@@ -93,9 +105,20 @@ class User implements UserInterface
      */
     private $games;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $oauth;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MissionsDone::class, mappedBy="user")
+     */
+    private $missions;
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
 
@@ -111,7 +134,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     public function setUsername(?string $username): self
@@ -146,7 +169,7 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -214,7 +237,7 @@ class User implements UserInterface
         return $this->birthDate;
     }
 
-    public function setBirthDate(\DateTimeInterface $birthDate): self
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
 
@@ -226,31 +249,18 @@ class User implements UserInterface
         return $this->lastUpdated;
     }
 
-    public function setLastUpdated(\DateTimeInterface $lastUpdated): self
-    {
-        $this->lastUpdated = $lastUpdated;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
 
     public function getIsEnabled(): ?bool
     {
         return $this->isEnabled;
     }
 
-    public function setIsEnabled(bool $isEnabled): self
+    public function setIsEnabled(?bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
 
@@ -262,7 +272,7 @@ class User implements UserInterface
         return $this->coins;
     }
 
-    public function setCoins(int $coins): self
+    public function setCoins(?int $coins): self
     {
         $this->coins = $coins;
 
@@ -274,7 +284,7 @@ class User implements UserInterface
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setIsVerified(?bool $isVerified): self
     {
         $this->isVerified = $isVerified;
 
@@ -303,6 +313,55 @@ class User implements UserInterface
     {
         if ($this->games->removeElement($game)) {
             $game->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->username;
+    }
+
+    public function getOauth(): ?bool
+    {
+        return $this->oauth;
+    }
+
+    public function setOauth(?bool $oauth): self
+    {
+        $this->oauth = $oauth;
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return Collection|MissionsDone[]
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMissions(MissionsDone $missions): self
+    {
+        if (!$this->missions->contains($missions)) {
+            $this->missions[] = $missions;
+            $missions->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMissions(MissionsDone $missions): self
+    {
+        if ($this->missions->removeElement($missions)) {
+            // set the owning side to null (unless already changed)
+            if ($missions->getUser() === $this) {
+                $missions->setUser(null);
+            }
         }
 
         return $this;
