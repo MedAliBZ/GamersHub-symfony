@@ -26,7 +26,7 @@ class TournamentsController extends AbstractController
     // }
 
     /**
-     * @Route("/tournaments/", name="tournaments_new", methods={"GET", "POST"})
+     * @Route("/tournaments", name="tournaments_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager, TournamentsRepository $tournamentsRepository): Response
     {
@@ -85,7 +85,7 @@ class TournamentsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="tournaments_show")
+     * @Route("/touranemnt/{id}", name="tournaments_show")
      */
     public function show(Tournaments $tournament): Response
     {

@@ -1,18 +1,6 @@
 {% extends 'frontBase.html.twig' %}
 {% block extraStyle %}
 
-<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/slick.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/style.css">
 {% endblock %}
 
    {% block content %}
@@ -20,9 +8,9 @@
 <!-- banner-section start -->
     <section id="banner-section" class="inner-banner">
         <div class="ani-img">
-            <img class="img-1" src="images/banner-circle-1.png" alt="icon">
-            <img class="img-2" src="images/banner-circle-2.png" alt="icon">
-            <img class="img-3" src="images/banner-circle-2.png" alt="icon">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
         </div>
         <div class="banner-content d-flex align-items-center">
             <div class="container">
@@ -33,7 +21,7 @@
                             <div class="breadcrumb-area">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb d-flex justify-content-center">
-                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Tournaments</li>
                                     </ol>
                                 </nav>
@@ -43,7 +31,7 @@
                 </div>
             </div>
         </div>
-       
+    </section>
     <!-- banner-section end -->
 
     <!-- Browse Tournaments start -->
@@ -75,7 +63,7 @@
                 <div class="single-item">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 d-flex align-items-center">
-                            <img class="top-img" src="images/game-img-2.png" alt="image">
+                            <img class="top-img" src="{{ asset("front/images/game-img-2.png") }}" alt="image">
                         </div>
                         <div class="col-lg-6 col-md-9 d-flex align-items-center">
                             <div class="mid-area">
