@@ -6,6 +6,7 @@ use App\Repository\MissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MissionRepository::class)
@@ -21,11 +22,13 @@ class Mission
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="This field cannot be blank.")
      */
     private $prize;
 
@@ -38,6 +41,28 @@ class Mission
      * @ORM\OneToMany(targetEntity=MissionsDone::class, mappedBy="mission", orphanRemoval=true)
      */
     private $missionsDones;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="This field cannot be blank.")
+     */
+    private $attribute;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="This field cannot be blank.")
+     */
+    private $operator;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="This field cannot be blank.")
+     * @Assert\Range(
+     *      min = 0,
+     *      minMessage = "the condition cannot be negative.",
+     * )
+     */
+    private $variable;
 
 
     public function __construct()
@@ -112,6 +137,42 @@ class Mission
                 $missionsDone->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAttribute(): ?string
+    {
+        return $this->attribute;
+    }
+
+    public function setAttribute(string $attribute): self
+    {
+        $this->attribute = $attribute;
+
+        return $this;
+    }
+
+    public function getOperator(): ?string
+    {
+        return $this->operator;
+    }
+
+    public function setOperator(string $operator): self
+    {
+        $this->operator = $operator;
+
+        return $this;
+    }
+
+    public function getVariable(): ?int
+    {
+        return $this->variable;
+    }
+
+    public function setVariable(int $variable): self
+    {
+        $this->variable = $variable;
 
         return $this;
     }

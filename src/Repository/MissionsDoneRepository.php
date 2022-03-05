@@ -19,9 +19,9 @@ class MissionsDoneRepository extends ServiceEntityRepository
         parent::__construct($registry, MissionsDone::class);
     }
 
-     /**
-      * @return MissionsDone[] Returns an array of MissionsDone objects
-      */
+    /**
+     * @return MissionsDone[] Returns an array of MissionsDone objects
+     */
 
     public function findDoneMissions($username)
     {
@@ -31,20 +31,21 @@ class MissionsDoneRepository extends ServiceEntityRepository
             ->andWhere('m.isClaimed = true')
             ->setParameter('username', $username)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
     /*
-    public function findOneBySomeField($value): ?MissionsDone
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
+        public function findOneByUserAndMission($user,$mission): ?MissionsDone
+        {
+            return $this->createQueryBuilder('m')
+                ->where('m.mission_id = :mission')
+                ->andWhere('m.user_id = :user')
+                ->setParameter('mission', $mission)
+                ->setParameter('user', $user)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
     */
 }

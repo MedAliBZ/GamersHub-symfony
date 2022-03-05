@@ -10,6 +10,7 @@ use App\Repository\GameRepository;
 use App\Repository\MissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MissionController extends AbstractController
 {
+    private function checkCondition($attribute, $operator, $variable): bool
+    {
+        $user = $this->getUser();
+        $attributes = [
+            'games' => count($user->getGames())
+        ];
+        $result = "";
+        eval("\$result = $attributes[$attribute] $operator $variable;");
+        return $result;
+    }
+
     /**
      * @Route("/missions", name="missions", methods={"GET"})
      */
@@ -30,16 +42,26 @@ class MissionController extends AbstractController
         $missionsUnclaimed = [];
         //remove missions done from missions list and fill missionsUnclaimed array
         foreach ($missionsDone as $missionDone) {
-            if(!$missionDone->getIsClaimed()){
-                array_push($missionsUnclaimed,$missionDone);
+            if (!$missionDone->getIsClaimed()) {
+                array_push($missionsUnclaimed, $missionDone);
             }
             unset($missionsList[array_search($missionDone->getMission(), $missionsList)]);
         }
-        //check the undone missions and update them if they are done
-
-
+        //check the undone missions and update them if they are done and create a new missions list
+        $newMissionsList = [];
+        foreach ($missionsList as $mission) {
+            if ($this->checkCondition($mission->getAttribute(), $mission->getOperator(), $mission->getVariable())) {
+                $newMissionDone = new MissionsDone();
+                $newMissionDone->setIsClaimed(0)->setUser($this->getUser())->setMission($mission);
+                array_push($missionsUnclaimed, $newMissionDone);
+                $this->getDoctrine()->getManager()->persist($newMissionDone);
+                $this->getDoctrine()->getManager()->flush();
+            } else
+                array_push($newMissionsList, $mission);
+        }
+//        dd($missionsUnclaimed);
         return $this->render('mission/index.html.twig', [
-            'missionsList' => $missionsList,
+            'missionsList' => $newMissionsList,
             'missionsUnclaimed' => $missionsUnclaimed,
             'user' => $this->getUser()
         ]);
@@ -133,10 +155,10 @@ class MissionController extends AbstractController
     /**
      * @Route("/mission/claim/{id}", name="mission_claim")
      */
-    public function claim(MissionsDone $missionsDone,EntityManagerInterface $entityManager): Response
+    public function claim(MissionsDone $missionsDone, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-        if($missionsDone->getUser() == $user){
+        if ($missionsDone->getUser() == $user) {
             $user->setCoins($user->getCoins() + $missionsDone->getMission()->getPrize());
             $missionsDone->setIsClaimed(true);
             $entityManager->persist($user);
