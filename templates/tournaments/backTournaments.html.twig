@@ -34,7 +34,7 @@
 
     {% block content %}
     <!--start form-->
-<div class="right_col" role="main">
+<div class="col-md-12 col-sm-12" style="margin-top: 20px;">
 
 				<div class="">
 					<div class="page-title">
@@ -78,26 +78,29 @@
 								</div>
 								<div class="x_content">
 									<br />
-									{{ form_start(form) }}
+									{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Tournament name <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 											{{ form_errors(form.name) }}
-											{{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
+											{{ form_widget(form.name) }}
+											{{ form_errors(form.name)}}
 											</div>
 										</div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="decription">Tournament description <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-											{{ form_widget(form.decription,{'attr':{'class':'form-control'}}) }}
+											{{ form_widget(form.decription) }}
+											
 											</div>
 										</div>
 										<div class="item form-group">
 											<label for="TeamSize" class="col-form-label col-md-3 col-sm-3 label-align">Team size </label>
 											<div class="col-md-6 col-sm-6 ">
-											{{ form_widget(form.teamSize,{'attr':{'class':'form-control'}}) }}
+											{{ form_widget(form.teamSize) }}
+											{{ form_errors(form.teamSize)}}
 											</div>
 										</div>
 										<div class="item form-group">
@@ -128,6 +131,13 @@
 												</script>
 											</div>
 										</div>
+										 <div class="item form-group">
+										     <label class="col-form-label col-md-3 col-sm-3 label-align" for="maxT">Max Tournament</label> <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_widget(form.maxT) }}
+											{{ form_errors(form.maxT)}}
+											</div>
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
@@ -166,8 +176,7 @@
                                     <th>Team Size</th>
                                     <th>Start date</th>
                                     <th>Finish Date</th>
-                                    <th>Update</th>
-									<th>Delete</th>
+									<th>Max Tournament</th>
                                 </tr>
                                 </thead>
 								<tbody>
@@ -180,9 +189,60 @@
 								<td>{{ tr.teamSize }}</td>
 								<td>{{ tr.startDate |date("m/d/Y") }}</td>
 								<td>{{ tr.finishDate |date("m/d/Y") }}</td>
-								<td><a type="Update" href="{{ path("tournaments_edit" ,  {'id': tr.id}) }}" class="btn btn-success">Update</a></td>
-								<td><a href="{{ path("tournaments_delete" ,  {'id': tr.id}) }}" class="btn btn-success">Delete</a></td>
+								<td>{{ tr.maxT }}</td>
+								<td><a type="Update" href="{{ path("tournaments_edit" ,  {'id': tr.id}) }}" class="fa fa-pencil"></a></td>
+								<td><a href="{{ path("tournaments_delete" ,  {'id': tr.id}) }}" class="fa fa-trash-o"></a></td>
 								
+                                {# <div class="ln_solid"></div>
+										<div class="item form-group">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+                                                <button type="Update" class="btn btn-success">Update</button>
+                                                <button type="Delete" class="btn btn-success">Delete</button>
+											</div>
+										</div> #}
+									
+									{% endfor %}
+									{% endif %}
+								</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+	<div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>TOURNAMENTS HISTORY TABLE</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>action</th>
+                                    <th>model</th>
+                                </tr>
+                                </thead>
+								<tbody>
+								{% if(historique is not null) %}
+                                    {% for tr in historique %}
+                                        <tr>
+								<td>{{ tr.id }}</td>
+								<td>{{ tr.action }}</td>
+								<td>{{ tr.model }}</td>
                                 {# <div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">

@@ -19,6 +19,7 @@ class TournamentsType extends AbstractType
             ->add('teamSize')
             ->add('startDate',DateType::class)
             ->add('finishDate',DateType::class)
+            ->add('maxT')
             //->add('Add', SubmitType::class,['attr'=>['class'=>'cmn-btn']]);
         ;
     }

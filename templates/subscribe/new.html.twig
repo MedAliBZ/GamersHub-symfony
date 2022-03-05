@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Subscribe</title>
+
+{% block body %}
+    <h1>Create new Subscribe</h1>
+
+    {{ include('subscribe/_form.html.twig') }}
+
+    <a href="{{ path('app_subscribe_index') }}">back to list</a>
+{% endblock %}

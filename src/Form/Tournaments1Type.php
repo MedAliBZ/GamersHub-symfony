@@ -17,6 +17,8 @@ class Tournaments1Type extends AbstractType
             ->add('teamSize')
             ->add('startDate')
             ->add('finishDate')
+            ->add('maxT')
+    
         ;
     }
 

@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{ asset("front/css/animate.css") }}">
     <link rel="stylesheet" href="{{ asset("front/css/style.css") }}">
     {% block extraStyle %}{% endblock %}
+</head>
 
+<body>
 <!-- start preloader -->
 <div class="preloader" id="preloader"></div>
 <!-- end preloader -->
@@ -44,6 +46,7 @@
                                 </ul>
                             </li>
                             <li><a href="{{ path("tournaments_new")}}">Tournaments</a></li>
+
                             <li><a href="contact.html">shop</a></li>
                             <li class="menu_has_children"><a href="#0">Sections</a>
                                 <ul class="sub-menu">
@@ -135,6 +138,8 @@
 <script src="{{ asset("front/js/wow.js") }}"></script>
 <script src="{{ asset("front/js/main.js") }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+{% block extraJS %}
 
+{% endblock %}
 </body>
 </html>

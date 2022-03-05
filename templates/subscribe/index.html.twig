@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<title>Subscribe index</title>
+
+{% block body %}
+    <h1>Subscribe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TeamName</th>
+                <th>Size</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for subscribe in subscribes %}
+            <tr>
+                <td>{{ subscribe.id }}</td>
+                <td>{{ subscribe.teamName }}</td>
+                <td>{{ subscribe.size }}</td>
+                <td>
+                    <a href="{{ path('app_subscribe_show', {'id': subscribe.id}) }}">show</a>
+                    <a href="{{ path('app_subscribe_edit', {'id': subscribe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_subscribe_new') }}">Create new</a>
+{% endblock %}

@@ -34,7 +34,7 @@
 
     {% block content %}
     <!--start form-->
-<div class="right_col" role="main">
+<div class="col-md-12 col-sm-12" style="margin-top: 20px;">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
@@ -124,8 +124,6 @@
                                     <th>TournamentId</th>
                                     <th>type</th>
                                     <th>Quantity</th>
-                                    <th>Update</th>
-									<th>Delete</th>
                                 </tr>
                                 </thead>
 								<tbody>
@@ -136,8 +134,8 @@
 								<td>{{ tr.Tournamentid }}</td>
 								<td>{{ tr.type }}</td>
 								<td>{{ tr.quantity }}</td>
-								<td><a type="Update" href="{{ path("rewards_edit" ,  {'id': tr.id}) }}" class="btn btn-success">Update</a></td>
-								<td><a href="{{ path("rewards_delete" ,  {'id': tr.id}) }}" class="btn btn-success">Delete</a></td>
+								<td><a type="Update" href="{{ path("rewards_edit" ,  {'id': tr.id}) }}" class="fa fa-pencil"></a></td>
+								<td><a href="{{ path("rewards_delete" ,  {'id': tr.id}) }}" class="fa fa-trash-o"></a></td>
 								
                                 {# <div class="ln_solid"></div>
 										<div class="item form-group">

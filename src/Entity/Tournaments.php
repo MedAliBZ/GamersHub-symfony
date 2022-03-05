@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity(repositoryClass=TournamentsRepository::class)
  */
@@ -22,32 +23,43 @@ class Tournaments
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="this field is required")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Oupsss too short!!{{ limit }} characters long",
+     *      maxMessage = "Oupsss too long!! {{ limit }} characters"
+     * )
      */
 
     private $name;
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Your first name must be at least {{ limit }} characters long",
-     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
-     * )
+     * @Assert\NotBlank(message="this field is required")
+     * @Assert\NotBlank(message = "Oupsss write something ")
      */
     private $decription;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="this field is required")
+     * @Assert\Range(
+     *      min= 6,
+     *      notInRangeMessage ="Oupsss you must have at least {{ min }} teams in a tournament" ,
+     * )
      */
     private $teamSize;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="this field is required")
+     * )
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="this field is required")
      */
     private $finishDate;
 
@@ -56,9 +68,20 @@ class Tournaments
      */
     private $rewards;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Subscribe::class, mappedBy="tournament")
+     */
+    private $subscribes;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $maxT;
+
     public function __construct()
     {
         $this->rewards = new ArrayCollection();
+        $this->subscribes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +183,48 @@ class Tournaments
         return ("$this->id");
         // to show the id of the Category in the select
         // return $this->id;
+    }
+
+    /**
+     * @return Collection<int, Subscribe>
+     */
+    public function getSubscribes(): Collection
+    {
+        return $this->subscribes;
+    }
+
+    public function addSubscribe(Subscribe $subscribe): self
+    {
+        if (!$this->subscribes->contains($subscribe)) {
+            $this->subscribes[] = $subscribe;
+            $subscribe->setTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribe(Subscribe $subscribe): self
+    {
+        if ($this->subscribes->removeElement($subscribe)) {
+            // set the owning side to null (unless already changed)
+            if ($subscribe->getTournament() === $this) {
+                $subscribe->setTournament(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMaxT(): ?int
+    {
+        return $this->maxT;
+    }
+
+    public function setMaxT(int $maxT): self
+    {
+        $this->maxT = $maxT;
+
+        return $this;
     }
 
 }

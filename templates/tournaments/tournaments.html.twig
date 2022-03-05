@@ -1,4 +1,3 @@
-
 {% extends 'frontBase.html.twig' %}
 {% block extraStyle %}
 
@@ -111,6 +110,8 @@
                                 <div class="contain-area">
                                     <a href="{{ path("rewards_show")}}" class="cmn-btn">View tournament</a>
                                     <p>First winner Wins a Prize</p>
+                                     <a href="{{ path("addSubscription", {'id': tournament.id}) }}" class="cmn-btn">Join NOW!</a>
+                                    <p> Subscribe and join the tournament</p>
                                 </div>
                             </div>
                         </div>
