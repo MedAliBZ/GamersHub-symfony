@@ -33,6 +33,7 @@ class SessioncoachingType extends AbstractType
                 'attr' => ['class' => 'js-datepicker'],])
             ->add('background_color', ColorType::class)
             ->add('border_color',ColorType::class)
+            ->add('text_color',ColorType::class)
             ->add('user', EntityType::class,[
                 'class'=>User::class,
                 'choice_label'=>'username',

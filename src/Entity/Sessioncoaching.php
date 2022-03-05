@@ -40,6 +40,7 @@ class Sessioncoaching
 
     /**
      * @ORM\Column(type="date")
+     * * @Assert\GreaterThanOrEqual("today")
      * @Assert\NotBlank (message="this field is required")
      */
     private $date_fin;
@@ -67,6 +68,11 @@ class Sessioncoaching
      * @Assert\Length (min=5)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=7)
+     */
+    private $text_color;
 
     public function getId(): ?int
     {
@@ -165,6 +171,18 @@ class Sessioncoaching
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTextColor(): ?string
+    {
+        return $this->text_color;
+    }
+
+    public function setTextColor(string $text_color): self
+    {
+        $this->text_color = $text_color;
 
         return $this;
     }

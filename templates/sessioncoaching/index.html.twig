@@ -31,32 +31,35 @@
         </div>
     </section>
     <!-- Call To Action In start -->
-    {% if coach.user.id==user.id %}
-    <section id="call-to-action" class="border-area">
-        <div class="overlay pt-120">
-            <div class="container">
-                <div class="main-content">
-                    <div class="row d-sm-flex justify-content-sm-end">
-                        <div class="col-lg-4 col-md-1">
-                            <img class="left" src="{{ asset( "front/images/character.png") }}" alt="image">
-                        </div>
-                        <div class="col-lg-4 col-md-5 col-sm-5 d-flex align-items-center">
-                            <div class="section-item">
-                                <h4>Create a coachingSession!</h4>
+    {% if coach is not null %}
+    {% if coach.user.id == user.id %}
+        <section id="call-to-action" class="border-area">
+            <div class="overlay pt-120">
+                <div class="container">
+                    <div class="main-content">
+                        <div class="row d-sm-flex justify-content-sm-end">
+                            <div class="col-lg-4 col-md-1">
+                                <img class="left" src="{{ asset( "front/images/character.png") }}" alt="image">
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center justify-content-sm-end align-items-center">
-                            <div class="btn-area d-flex justify-content-center justify-content-sm-end align-items-center">
-                                <a href="{{ path('sessioncoaching_new') }}" class="cmn-btn">Add new Session</a>
+                            <div class="col-lg-4 col-md-5 col-sm-5 d-flex align-items-center">
+                                <div class="section-item">
+                                    <h4>Create a coachingSession!</h4>
+                                </div>
                             </div>
-                            <img src="{{ asset( "front/images/call-to-action-right.png") }}" alt="image">
+                            <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center justify-content-sm-end align-items-center">
+                                <div class="btn-area d-flex justify-content-center justify-content-sm-end align-items-center">
+                                    <a href="{{ path('sessioncoaching_new') }}" class="cmn-btn">Add new Session</a>
+                                </div>
+                                <img src="{{ asset( "front/images/call-to-action-right.png") }}" alt="image">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
     {% endif %}
+    {% endif %}
+
 
     <!-- banner-section end -->
 
@@ -112,7 +115,7 @@
                                     <a href="{{ path('sessioncoaching_edit',{'id':c.id}) }}" class="cmn-btn">Update</a>
                                     <a href="{{ path('sessioncoaching_delete',{'id':c.id}) }}" class="cmn-btn">Delete</a>
                                     {% endif %}
-                                    <a href="tournaments-single.html" class="cmn-btn">View Calendar</a>
+                                    <a href="{{ path('calendrier',{'id':c.id})}}" class="cmn-btn">View Calendar</a>
                                     <p>You Won't Regret</p>
                                 </div>
                             </div>

@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/sessioncoaching")
- */
+
 class SessioncoachingController extends AbstractController
 {
     /**
@@ -32,7 +30,7 @@ class SessioncoachingController extends AbstractController
     }
 
     /**
-     * @Route("/newsession", name="sessioncoaching_new", methods={"GET", "POST"})
+     * @Route("/sessioncoaching/newsession", name="sessioncoaching_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager ,CoachRepository $repository): Response
     {   $coach=$repository->findOneBy(array('user'=>$this->getUser()));
@@ -60,7 +58,7 @@ class SessioncoachingController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="sessioncoaching_edit", methods={"GET", "POST"})
+     * @Route("/sessioncoaching/{id}/edit", name="sessioncoaching_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Sessioncoaching $sessioncoaching, EntityManagerInterface $entityManager,CoachRepository $repository): Response
     {   $coach=$repository->findOneBy(array('user'=>$this->getUser()));
@@ -81,7 +79,7 @@ class SessioncoachingController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete", name="sessioncoaching_delete", methods={"GET"})
+     * @Route("/sessioncoaching/{id}/delete", name="sessioncoaching_delete", methods={"GET"})
      */
     public function delete(Sessioncoaching $sessioncoaching): Response
     {
@@ -91,6 +89,31 @@ class SessioncoachingController extends AbstractController
         return $this->redirectToRoute('sessioncoaching_index');
 
     }
+    /**
+     * @Route("/sessioncoaching/{id}/calendar", name="calendrier",methods={"GET"})
+     */
+    public function showcalendar(SessioncoachingRepository $calendar,$id)
+    {
+        $event=$calendar->find($id);
+
+        $rdvs[]=[
+            'id'=>$event->getId(),
+            'user'=>$event->getUser(),
+            'coach'=>$event->getCoach(),
+            'price'=>$event->getPrix(),
+            'start'=>$event->getDateDebut()->format('Y-m-d'),
+            'end'=>$event->getDateFin()->format('Y-m-d'),
+            'title'=>$event->getUser()->getUsername(),
+            'backgroundColor'=>$event->getBackgroundColor(),
+            'borderColor'=>$event->getBorderColor(),
+            'textColor'=>$event->getTextColor()
+        ];
+
+        $data = json_encode($rdvs);
+        return $this->render('sessioncoaching/calendrier.html.twig',compact('data'));
+    }
+
+
 
     /**
      * @Route("/admin/sessioncoaching", name="showsession", methods={"GET"})
