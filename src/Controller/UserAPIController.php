@@ -113,7 +113,7 @@ class UserAPIController extends AbstractController
             $em->flush();
             $jsonContent = $normalizer->normalize($newUser, 'json', ['groups' => 'post:read']);
             return new Response(
-                json_encode($jsonContent),
+                '{"message": "User Created!"}',
                 201,
                 ['Accept' => 'application/json',
                     'Content-Type' => 'application/json']);
