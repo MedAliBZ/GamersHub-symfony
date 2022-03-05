@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Coach</title>
+
+{% block body %}
+    <h1>Create new Coach</h1>
+
+    {{ include('coach/_form.html.twig') }}
+
+    <a href="{{ path('coach_index') }}">back to list</a>
+{% endblock %}

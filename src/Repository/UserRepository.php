@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,23 +37,38 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return User[] Returns an array of User objects
+     */
+
+    public function findByUsernameDiffId($username, $id)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('u.username = :username')
+            ->andWhere('u.id != :id')
+            ->setParameter('username', $username)
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 
+//    public function findOrCreateFromOauth(ResourceOwnerInterface $owner)
+//    {
+//        $user = $this->createQueryBuilder('u')
+//            ->where('u.username = :id')
+//            ->setParameter('id', $owner->toArray()['login'])
+//            ->getQuery()
+//            ->getOneOrNullResult();
+//        if($user){
+//            return $user;
+//        }
+//        $user = (new User())->setUsername($owner->toArray()['login'])->setEmail($owner->toArray()['email']);
+//        $em = $this->getEntityManager();
+//        $em->persist($user);
+//        $em->flush();
+//
+//        return $user;
+//    }
     /*
     public function findOneBySomeField($value): ?User
     {

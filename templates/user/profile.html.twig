@@ -1,5 +1,6 @@
 {% extends 'frontBase.html.twig' %}
-{% block extraStyle %}<link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
 {% block title %}Profile{% endblock %}
 
 {% block content %}
@@ -14,7 +15,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="main-content">
-                            <h1>Profile Page</h1>
+                            <h1>My Profile</h1>
                             <div class="breadcrumb-area">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb d-flex justify-content-center">
@@ -31,10 +32,11 @@
         <div class="container">
             <div class="heading-area">
                 <div class="row justify-content-between">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="flex: 1 1 0!important;">
                         <div class="profile-area d-flex align-items-center">
                             <div class="photo">
-                                <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg" style="width: 70px;height: 70px;" alt="Image">
+                                <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg"
+                                     style="width: 70px;height: 70px;min-width: 70px!important;" alt="Image">
                             </div>
                             <div style="display: flex;flex-direction: column;">
                                 <div style="display: flex;align-items: last baseline;">
@@ -53,7 +55,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end">
+                    <div style="display: flex;justify-content: flex-start;align-items: center;flex: 1 1 0;">
+                        {% for mission in missionsDone %}
+                            <div>
+                                <img class='defaultImage' style="height:auto;"
+                                     src="{{ asset("missions/badges/"~mission.mission.badge) }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end" style="flex: 1 1 0;">
                         <div class="right d-flex align-items-center">
                             <div class="d-flex align-items-center justify-content-center">
                                 <p style="margin-right: 5px">{{ user.coins }}</p>
@@ -70,14 +80,16 @@
         <div class="container">
             <div class="tab-content">
                 <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="overview-tab">
-                    <div class="row" style="margin-left: 40px;">
-                        <div class="col-sm">
+                    <div class="row">
+                        <div class="col-sm" style="display: flex;justify-content: center;">
                             <a href="{{ path("updateProfileInfo") }}" class="cmn-btn profile-btn">Update Profile</a>
                         </div>
-                        <div class="col-sm">
-                            <a href="{{ path("updatePass") }}" class="cmn-btn passwd-btn">Update Password</a>
-                        </div>
-                        <div class="col-sm">
+                        {% if user.oauth == false %}
+                            <div class="col-sm" style="display: flex;justify-content: center;">
+                                <a href="{{ path("updatePass") }}" class="cmn-btn passwd-btn">Update Password</a>
+                            </div>
+                        {% endif %}
+                        <div class="col-sm" style="display: flex;justify-content: center;">
                             <a href="{{ path("deleteProfile") }}" class="cmn-btn delete-btn">Delete account</a>
                         </div>
                     </div>
@@ -85,4 +97,29 @@
             </div>
         </div>
     </section>
+    {# <section id="available-game-section"> #}
+    {# <div class="overlay pb-120"> #}
+    {# <div class="container wow fadeInUp"> #}
+    {# <div class="main-container"> #}
+    {# <div class="row justify-content-between"> #}
+    {# <div class="col-lg-10"> #}
+    {# <div class="section-header"> #}
+    {# <h2 class="title">Badges Earned</h2> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# <div class="available-game-carousel"> #}
+    {# {% for mission in missionsDone %} #}
+    {# <div class="single-item"> #}
+    {# <div> #}
+    {# <img class='defaultImage' style="height:auto;" #}
+    {# src="{{ asset("missions/badges/"~mission.mission.badge) }}"> #}
+    {# </div> #}
+    {# </div> #}
+    {# {% endfor %} #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </section> #}
 {% endblock %}

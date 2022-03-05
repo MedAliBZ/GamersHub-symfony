@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Historique</title>
+
+{% block body %}
+    <h1>Edit Historique</h1>
+
+    {{ include('historique/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_historique_index') }}">back to list</a>
+
+    {{ include('historique/_delete_form.html.twig') }}
+{% endblock %}

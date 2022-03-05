@@ -1,0 +1,39 @@
+
+{% block title %}Tournaments{% endblock %}
+{% block extraStyle %}
+ <section class="how-works-tournaments tournaments-section">
+        <div class="overlay">
+            <div class="container">
+                <div class="row cus-mar">
+                    <div class="col-lg-12">
+                        <div class="table-responsive mt-60">
+                            <table class="table">
+                                <thead>
+                      
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">action</th>
+                                    <th scope="col"> model</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for historique in historique %}
+                                    <tr>
+                                        <td>{{ historique.id }}</td>
+                                        <td>{{ historique.action }}</td>
+                                        <td>{{ historique.model }}</td>
+
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+ {% endblock %}

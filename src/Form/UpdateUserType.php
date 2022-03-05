@@ -16,7 +16,6 @@ class UpdateUserType extends AbstractType
     {
         $builder
             ->setMethod('POST')
-            ->add('username')
             ->add('name')
             ->add('secondName')
             ->add('email')
@@ -26,7 +25,6 @@ class UpdateUserType extends AbstractType
                 'html5'=>false,
                 'attr' => ['class' => 'js-datepicker'],
             ])
-            ->add('oldPassword', PasswordType::class, array("mapped" => false,))
             ->add('Update', SubmitType::class,['attr'=>['class'=>'cmn-btn']]);
         ;
     }

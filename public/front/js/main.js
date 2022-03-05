@@ -184,8 +184,8 @@
             slidesToShow: 4,
             slidesToScroll: 1,
             arrows: true,
-            prevArrow: "<button type='button' class='slick-prev pull-left btn-icon'></button>",
-            nextArrow: "<button type='button' class='slick-next pull-right btn-icon'></button>",
+            prevArrow: "<button type='button' class='slick-next pull-left btn-icon'></button>",
+            nextArrow: "<button type='button' class='slick-prev pull-right btn-icon'></button>",
             dots: false,
             dotsClass: 'section-dots',
             customPaging: function (slider, i) {

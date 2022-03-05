@@ -5,3 +5,4 @@ twig:
     exception_controller: null
     paths:
         '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator
+        '%kernel.project_dir%/public/games/images': gameImages

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Security;
@@ -82,6 +83,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
+        if (!$user->getIsEnabled())
+            throw new AuthenticationException("This account is locked!");
+        if ($user->getOauth() == true)
+            return false;
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -95,6 +100,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $request->request->get('username')]);
+        if (in_array("ROLE_ADMIN", $user->getRoles()))
+            return new RedirectResponse($this->urlGenerator->generate("admin"));
         return new RedirectResponse($this->urlGenerator->generate("home"));
     }
 
