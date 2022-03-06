@@ -30,56 +30,6 @@
                 </div>
             </div>
         </div>
-        {# <div class="container"> #}
-        {# <div class="heading-area"> #}
-        {# <div class="row justify-content-between"> #}
-        {# <div class="col-md-6"> #}
-        {# <div class="profile-area d-flex align-items-center"> #}
-        {# <div class="container"> #}
-        {# <div class="form-area"> #}
-        {# {% if updateForm is defined %} #}
-        {# {{ form_start(updateForm) }} #}
-        {# <div class="form-group"> #}
-        {# {{ form_label(updateForm.email) }} #}
-        {# {{ form_widget(updateForm.email) }} #}
-        {# </div> #}
-        {# <div class="form-group"> #}
-        {# {{ form_label(updateForm.name) }} #}
-        {# {{ form_widget(updateForm.name) }} #}
-        {# </div> #}
-        {# <div class="form-group"> #}
-        {# {{ form_label(updateForm.secondName) }} #}
-        {# {{ form_widget(updateForm.secondName) }} #}
-        {# </div> #}
-        {# <div class="form-group"> #}
-        {# {{ form_label(updateForm.birthDate) }} #}
-        {# {{ form_widget(updateForm.birthDate) }} #}
-        {# </div> #}
-        {# <div class="form-group"> #}
-        {# {{ form_label(updateForm.oldPassword) }} #}
-        {# {{ form_widget(updateForm.oldPassword) }} #}
-        {# </div> #}
-        {# <div class="form-group"> #}
-        {# {{ form_row(updateForm.Update) }} #}
-        {# </div> #}
-        {# {{ form_end(updateForm) }} #}
-        {# {% endif %} #}
-        {# </div> #}
-        {# </div> #}
-        {# </div> #}
-        {# </div> #}
-        {# <div class="col-md-4 d-flex justify-content-center justify-content-md-end"> #}
-        {# <div class="right d-flex align-items-center"> #}
-        {# <div class="d-flex align-items-center justify-content-center"> #}
-        {# <p style="margin-right: 5px">{{ user.coins }}</p> #}
-        {# <img src="{{ asset("front/images/coin.png") }}" style="width: 30px;height: 30px" #}
-        {# alt="Image"> #}
-        {# </div> #}
-        {# </div> #}
-        {# </div> #}
-        {# </div> #}
-        {# </div> #}
-        {# </div> #}
     </section>
     <section id="contact-section" class="pb-120">
         <div class="overlay">
@@ -87,19 +37,32 @@
                 <div class="row">
                     <div class="col align-self-center">
                         {% if updateForm is defined %}
-                            {{ form_start(updateForm) }}
+                            {{ form_start(updateForm,{'attr':{'novalidate':'novalidate'}}) }}
                             <div>
-                                <div class="form-group">
-                                     {{ form_label(updateForm.name) }}
-                                     {{ form_widget(updateForm.name) }}
+                                <div class="form-group" style="display: none">
+                                    {{ form_label(updateForm.username) }}
+                                    {{ form_widget(updateForm.username) }}
+                                    <div class="error-div">
+                                        {{ form_errors(updateForm.username) }}
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                     {{ form_label(updateForm.secondName) }}
-                                     {{ form_widget(updateForm.secondName) }}
+                                    {{ form_label(updateForm.name) }}
+                                    {{ form_widget(updateForm.name) }}
+                                    <div class="error-div">
+                                        {{ form_errors(updateForm.secondName) }}
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                     {{ form_label(updateForm.email) }}
-                                     {{ form_widget(updateForm.email) }}
+                                    {{ form_label(updateForm.secondName) }}
+                                    {{ form_widget(updateForm.secondName) }}
+                                    <div class="error-div">
+                                        {{ form_errors(updateForm.email) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(updateForm.email) }}
+                                    {{ form_widget(updateForm.email) }}
                                 </div>
                                 <div class="form-group">
                                     {{ form_label(updateForm.birthDate) }}

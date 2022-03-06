@@ -21,7 +21,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
 
-        if(!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_login');
         }
         $missionsDone = $this->getDoctrine()->getRepository(MissionsDone::class)->findDoneMissions($user->getUsername());
@@ -38,7 +38,7 @@ class UserController extends AbstractController
     public function delete(Request $req): Response
     {
         $user = $this->getUser();
-        if(!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_login');
         }
         $this->get('security.token_storage')->setToken(null);
@@ -54,9 +54,10 @@ class UserController extends AbstractController
     /**
      * @Route("/profile/updateInfo", name="updateProfileInfo")
      */
-    public function updateProfile(Request $request){
+    public function updateProfile(Request $request)
+    {
         $user = $this->getUser();
-        if(!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_login');
         }
         $form = $this->createForm(UpdateUserType::class, $user);
@@ -70,7 +71,7 @@ class UserController extends AbstractController
         }
         return $this->render("user/updateProfileInfos.html.twig", [
             "updateForm" => $form->createView(),
-            "user"=>$user
+            "user" => $user
         ]);
     }
 
@@ -112,25 +113,33 @@ class UserController extends AbstractController
      */
     public function showUsers(): Response
     {
-        $repo =$this->getDoctrine()->getRepository(User::class);
+        $repo = $this->getDoctrine()->getRepository(User::class);
         return $this->render("user/usersBack.html.twig", [
-            'user'=>$this->getUser(),
-            'usersList'=>$repo->findAll()
+            'user' => $this->getUser(),
+            'usersList' => $repo->findAll()
         ]);
     }
 
     /**
      * @Route("/admin/users/{id}/delete", name="deleteUser")
      */
-    public function deleteUser(User $usr): Response
+    public function deleteUser(User $usr, Request $req): Response
     {
+        if ($usr == $this->getUser()) {
+            $this->get('security.token_storage')->setToken(null);
+            $req->getSession()->invalidate();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($usr);
+            $em->flush();
+            return $this->redirectToRoute("app_login");
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($usr);
         $em->flush();
 
-        $repo =$this->getDoctrine()->getRepository(User::class);
         return $this->redirectToRoute("showUsers");
     }
+
     /**
      * @Route("/admin/users/{id}/update", name="updateUser")
      */

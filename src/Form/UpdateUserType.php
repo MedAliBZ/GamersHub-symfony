@@ -16,6 +16,7 @@ class UpdateUserType extends AbstractType
     {
         $builder
             ->setMethod('POST')
+            ->add('username')
             ->add('name')
             ->add('secondName')
             ->add('email')
