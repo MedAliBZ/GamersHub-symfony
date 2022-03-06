@@ -68,30 +68,45 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="right-item">
+                        <div style="display: flex;flex-wrap: wrap;">
                         <h4>{{ product.getNameProduct() }}</h4>
-                        <p>
+                            <div class="review" style="margin-left: 320px;margin-top: -0.1em;">
+                                {% set i = 0 %}
+                                {# <a href="{{path('wishListadd',{ id:product.getId() })}}"> #}
+                                    {% for item in productList %}
+                                    {% set i = i + 1 %}
+                                    {% if product.getId() == item['myProduct'] %}
+                                    {% set i = i - 1 %}
+                                    <i class="fas fa-star" id="star" style="cursor: pointer;font-size:20px"></i>
+                                    {% endif %}
+                                    {% endfor %}
+    
+                                    {% if i == productList|length %}
+                                    <i class="far fa-star" id="no_star" style="cursor: pointer;font-size:20px"></i>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        <p style="margin-top: 30px;">
                             {{ product.getDescription() }}
                         </p>
-                        <div class="review">
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star"></i></a>
-                            <a href="#"><i class="fas fa-star-half-alt"></i></a>
-                            <span class="text-sm">4.3 (79)</span>
+                        <p id="productId" style="display: none;">{{product.getId()}}</p>
+                        <p id="userID" style="display: none;">{{user.getId()}}</p>
+                        
+                        <div class="prize" style="margin-top: 100px;">
+                            {% if product.getQuantityStocked() == 0 %}
+                            <span class="text-sm" style="color: red;">out of stock</span>
+                            {% else %}
+                            <span class="text-sm" style="display: flex;"> <h6 style="color: aqua;margin-right:10px;">{{ product.getQuantityStocked()}}</h6> currently in stock</span>
+                            {% endif %}
                         </div>
-                        <div class="prize">
-                            <p>{{ product.getQuantityStocked()}}</p>
-                            <span class="text-sm">currently in stock</span>
-                        </div>
-                        <div class="bottom-area d-flex align-items-center">
+                        <div class="bottom-area d-flex align-items-center" style="margin-top: 20px;">
                             <h5>{{ product.getPrice() }} COINS</h5>
-                            {% if  user is not null %}
-                            <a href="{{path('cartadd',{ id:product.getId() })}}" class="cmn-btn">Add to Cart</a>
+                            {% if user is not null %}
+                            <a href="{{path('cartadd',{ id:product.getId() })}}" class="cmn-btn" style="margin-left: 230px;">Add to Cart</a>
                             {% endif %}
                         </div>
                         <div class="social d-flex align-items-center">
-                        
+
                         </div>
                     </div>
                 </div>
@@ -108,4 +123,33 @@
 <script src="{{asset("front/js/owl.carousel.min.js") }}"></script>
 <script src="{{ asset("front/js/xzoom.js") }}"></script>
 <script src="{{ asset("front/js/xzoom-setup.js") }}"></script
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+   
+    $('#star').click((e) => {
+        console.log($('#star').attr('class'));
+        if ($('#star').attr('class') === "fas fa-star") {
+            $('#star').removeClass("fas fa-star").addClass("far fa-star");
+           
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+         else {
+            $('#star').removeClass("far fa-star").addClass("fas fa-star");
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+    })
+
+    $('#no_star').click((e) => {
+        console.log($('#no_star').attr('class'));
+        if ($('#no_star').attr('class') === "fas fa-star") {
+            $('#no_star').removeClass("fas fa-star").addClass("far fa-star");
+           
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+         else {
+            $('#no_star').removeClass("far fa-star").addClass("fas fa-star");
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+    })
+</script>
 {% endblock %}

@@ -52,17 +52,16 @@
            
             <div class="col-lg-4 col-md-6">
                 
-                <div class="single-item"> 
+                <div class="single-item" style="min-height: 450px;max-height: 450px"> 
                     <a href="{{path('productsdetailProduct',{ id:product['product'].getId() })}}">
-                    <span class="new">New</span>
-                    <div class="img-area text-center">
+                    <span class="new">Liked By You</span>
+                    <div class="img-area text-center" style="min-height: 250px;max-height:250px">
                         {% set images = product['product'].image| trim('*') | split("*") %}
                         <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%">
                     </div>
                     <div class="bottom-item text-center">
-                        <div style="display: flex;justify-content:space-around;">
+                        
                         <a href="shop-details.html" ><h6>{{ product['product'].getNameProduct() }}</h6></a>
-                        <a href="#"><i class="fas fa-heart"></i></a></div>
                         <p class="text-sm">{{ product['product'].getCategory()}}</p>
                           
                         <div class="bottom-area d-flex align-items-center justify-content-between">

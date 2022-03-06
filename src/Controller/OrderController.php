@@ -114,7 +114,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/showBack", name="showBack")
+     * @Route("/admin/showBack", name="showBack")
      */
     public function showBack(OrderRepository $repo): Response
     {
@@ -182,15 +182,5 @@ class OrderController extends AbstractController
             'user' => $this->getUser(),
         ]);
     }
-    /**
-     * @Route("/qrCode/{id}", name="qrCode")
-     */
-    // public function QrCode(OrderRepository $repo,$id,ResultInterface $r)
-    // {
-          
-    //     $order=$repo->find($id);
-    //      $r="".$order->getId().$order->getTotalprice();
-    //     $response = new QrCodeResponse($r);
-    //     return $response;
-    // }
+  
 }

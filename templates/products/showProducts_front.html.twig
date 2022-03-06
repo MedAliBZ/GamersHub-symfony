@@ -57,29 +57,16 @@
                 <div class="single-item" style="min-height: 450px;max-height: 450px">
                     <a href="{{path('productsdetailProduct',{ id:product.getId() })}}">
                         <span class="new">New</span>
-                        <div class="img-area text-center">
+                        <div class="img-area text-center" style="min-height: 250px;max-height:250px">
                             {% set images = product.image| trim('*') | split("*") %}
-                            <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%">
+                            <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%" >
                         </div>
                         <div class="bottom-item text-center js-like">
-                            <div style="display: flex;justify-content:space-around;">
-
-                                <p id="productId" style="display: none;">{{product.getId()}}</p>
-                                <p id="userID" style="display: none;">{{user.getId()}}</p>
-
+                            
 
                                 <a href="shop-details.html">
                                     <h6>{{ product.getNameProduct() }}</h6>
-                                </a>
-                                {# <a href="{{path('wishListadd',{ id:product.getId() })}}"> #}
-                                    {% for item in productList %}
-                                    {% if product == item['myProduct']%}
-                                    <i class="fas fa-heart" id="heart" style="cursor: pointer;color:red"></i>
-                                    {% endif %}
-                                    {% endfor %}
-
-                                </a>
-                            </div>
+                            
                             <p class="text-sm">{{ product.getCategory()}}</p>
 
                             <div class="bottom-area d-flex align-items-center justify-content-between">
@@ -111,7 +98,7 @@
                             <img src="{{asset('front/images/policy-icon-1.png')}}" alt="image">
                         </div>
                         <h5>Free Shipping</h5>
-                        <p class="text-sm">on all orders over $149.00</p>
+                        <p class="text-sm">on all orders over 500 Coins</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -148,16 +135,4 @@
 <!-- Policy End -->
 
 
-{% endblock %}
-{% block extraScripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $('#heart').click((e) => {
-        if ($('#heart').attr('class') === "fas fa-heart") {
-            console.log($("#userID").html());
-            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`, $('#heart').css('color', 'red'))
-
-        }
-    })
-</script>
 {% endblock %}

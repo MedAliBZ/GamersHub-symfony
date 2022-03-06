@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/show", name="show")
+     * @Route("/admin/show", name="show")
      */
     public function index(CategoryRepository $repo): Response
     {
@@ -27,7 +27,7 @@ class CategoryController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/{id}", name="delete")
+     * @Route("/admin/delete/{id}", name="delete")
      */
     public function deleteCategory(Category $category): Response
     {
@@ -38,7 +38,7 @@ class CategoryController extends AbstractController
         return $this->redirect($this->generateUrl('categoryshow'));
     }
     /**
-     * @Route("/create", name="create")
+     * @Route("/admin/create", name="create")
      */
     public function create(Request $request)
     {
@@ -64,7 +64,7 @@ class CategoryController extends AbstractController
         ]);
     }
     /**
-     * @Route("/update/{id}", name="update")
+     * @Route("/admin/update/{id}", name="update")
      */
     public function updateCategory(Request $request, $id)
     {
@@ -99,7 +99,7 @@ class CategoryController extends AbstractController
         ]);
     }
     /**
-     * @Route("/cancel", name="cancel")
+     * @Route("/admin/cancel", name="cancel")
      */
     public function cancel()
     {

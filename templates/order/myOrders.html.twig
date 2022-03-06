@@ -42,8 +42,8 @@
 
                      {% if order['order'].isCanceled == 0 and order['order'].isPaid == 1 %}
                        {% set carts = order['order'].getCarts() %}
-                       {% if carts %}
-                       {% for cart in carts %}
+                       
+                       
                     <div class="col-lg-3">
 
                         <div class="sidebar-area" style="margin-bottom: 2em;">
@@ -58,13 +58,16 @@
                                     <span>{{order['order'].id}}</span>
                                 </li>
                               
+                                {% if carts %}
+                                 {% for cart in carts %}
                                  {% set product = cart.product %}
                                 <li>
                                     <span><img src="{{asset('front/images/my-statistics-icon-2.png')}}" alt="image">
                                         {{product.nameProduct}}  </span>
                                     <span>{{product.price}} * {{cart.quantity}} </span>
                                 </li>
-                               
+                                {% endfor %}
+                                {% endif %}
                                 <li >
                                     <i class="fas fa-coins" style="margin-right: -15px;"></i> <span
                                         style="font-weight: bold;font-size: 15px;margin-right:initial">Total
@@ -77,8 +80,8 @@
                         </div>
 
                     </div>
-                    {% endfor %}
-                    {% endif %}
+                   
+                   
                     {% endif %}
                     {% endfor %}
                 </div>

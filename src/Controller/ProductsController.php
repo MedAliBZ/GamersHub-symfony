@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @Route("/products", name="products")
@@ -21,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/show", name="show")
+     * @Route("/admin/show", name="show")
      */
     public function index(ProductsRepository $repo): Response
     {
@@ -31,7 +32,7 @@ class ProductsController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/{id}", name="delete")
+     * @Route("/admin/delete/{id}", name="delete")
      */
     public function delete(Products $product): Response
     {
@@ -42,7 +43,7 @@ class ProductsController extends AbstractController
         return $this->redirect($this->generateUrl('productsshow'));
     }
     /**
-     * @Route("/create", name="create")
+     * @Route("/admin/create", name="create")
      */
     public function create(Request $request)
     {
@@ -78,7 +79,7 @@ class ProductsController extends AbstractController
         ]);
     }
     /**
-     * @Route("/update/{id}", name="update")
+     * @Route("/admin/update/{id}", name="update")
      */
     public function updateCategory(Request $request, $id){
         
@@ -120,7 +121,7 @@ class ProductsController extends AbstractController
     
     
     /**
-     * @Route("/cancel", name="cancel")
+     * @Route("/admin/cancel", name="cancel")
      */
     public function cancel()
     {
@@ -133,19 +134,12 @@ class ProductsController extends AbstractController
     /**
      * @Route("/showProducts/{category}", name="showProducts")
      */
-    public function showProducts(ProductsRepository $repo,$category,WishListRepository $repo1):Response
+    public function showProducts(ProductsRepository $repo,$category):Response
     {
-        $productList=[];
-        foreach($repo1->findByUser($this->getUser()) as $wishListItem){
-           $product= $wishListItem->getProduct()->getID();
-            $productList[]=[
-                'myProduct'=>$repo->find($product),
-            ];
-        }
+       
     
         return $this->render('products/showProducts_front.html.twig', [
             'products' => $repo->findByCategory($category),
-            'productList'=> $productList ,
             'user' => $this->getUser()
         ]);
         
@@ -154,10 +148,20 @@ class ProductsController extends AbstractController
      /**
      * @Route("/detailProduct/{id}", name="detailProduct")
      */
-    public function detailProduct(ProductsRepository $repo,$id):Response
-    {
+    public function detailProduct(ProductsRepository $repo,$id,WishListRepository $repo1):Response
+    {    
+        $productList=[];
+      
+        foreach($repo1->findByUser($this->getUser()) as $wishListItem){
+           $product= $wishListItem->getProduct()->getID();
+            $productList[]=[
+                'myProduct'=>$product,
+            ];
+        }
+
         return $this->render('products/detailProduct_front.html.twig', [
             'product' => $repo->find($id),
+            'productList'=> $productList ,
             'user' => $this->getUser()
         ]);
         
