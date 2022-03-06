@@ -6,6 +6,7 @@
 parameters:
     game_image_directory: '%kernel.project_dir%/public/games/images'
     badges_directory: '%kernel.project_dir%/public/missions/badges'
+    shop_image_directory: '%kernel.project_dir%/public/shop/images'
 services:
     # default configuration for services in *this* file
     _defaults:

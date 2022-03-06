@@ -1,0 +1,155 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}shop{% endblock %}
+{% block extraStyle %}
+
+<link rel="stylesheet" href="{{asset('front/css/xzoom.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('front/css/owl.theme.default.min.css')}}">
+
+{% endblock %}
+{% block content %}
+
+<!-- banner Section start -->
+<section id="banner-section" class="inner-banner profile features shop-details">
+    <div class="overlay">
+        <div class="ani-img">
+            <img class="img-1" src="{{asset('front/images/banner-circle-1.png')}}" alt="icon">
+            <img class="img-2" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+            <img class="img-3" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="main-content">
+                            <h1>Shop Details</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Shop Details</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- banner Section end -->
+
+
+<!-- Shop Content Start -->
+<div id="shop-content">
+    <div class="container">
+        <div class="shop-details-content">
+            <div class="row justify-content-center cus-pad">
+                <div class="col-lg-6">
+                    <div class="xzoom-container">
+                        {% set images = product.image| trim('*') | split("*") %}
+                        <img class="xzoom5" id="xzoom-magnific" alt="image" src="{{asset('shop/images/'~images[0])}}"
+                            xoriginal="{{asset('shop/images/'~images[0])}}" />
+                        <div class="xzoom-thumbs">
+
+                            <div class="all-slider">
+                                {% for image in images %}
+                                <a href="{{asset('shop/images/'~image)}}">
+                                    <img class="xzoom-gallery5" alt="image" src="{{asset('shop/images/'~image)}}">
+                                </a>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-item">
+                        <div style="display: flex;justify-content: space-between;align-items: center;">
+                        <h4>{{ product.getNameProduct() }}</h4>
+                            <div class="review" style="margin: 0 !important;margin-top: -20px !important;">
+                                {% set i = 0 %}
+                                {# <a href="{{path('wishListadd',{ id:product.getId() })}}"> #}
+                                    {% for item in productList %}
+                                    {% set i = i + 1 %}
+                                    {% if product.getId() == item['myProduct'] %}
+                                    {% set i = i - 1 %}
+                                    <i class="fas fa-star" id="star" style="cursor: pointer;font-size:20px"></i>
+                                    {% endif %}
+                                    {% endfor %}
+    
+                                    {% if i == productList|length %}
+                                    <i class="far fa-star" id="no_star" style="cursor: pointer;font-size:20px"></i>
+                                    {% endif %}
+                            </div>
+                        </div>
+                        <p style="margin-top: 30px;">
+                            {{ product.getDescription() }}
+                        </p>
+                        <p id="productId" style="display: none;">{{product.getId()}}</p>
+                        <p id="userID" style="display: none;">{{user.getId()}}</p>
+                        
+                        <div class="prize" style="margin-top: 100px;">
+                            {% if product.getQuantityStocked() == 0 %}
+                            <span class="text-sm" style="color: red;">out of stock</span>
+                            {% else %}
+                            <span class="text-sm" style="display: flex;"> <h6 style="color: aqua;margin-right:10px;">{{ product.getQuantityStocked()}}</h6> currently in stock</span>
+                            {% endif %}
+                        </div>
+                        <div class="bottom-area d-flex align-items-center" style="margin-top: 20px;">
+                            <h5>{{ product.getPrice() }} COINS</h5>
+                            {% if user is not null %}
+                            <a href="{{path('cartadd',{ id:product.getId() })}}" class="cmn-btn" style="margin-left: 230px;">Add to Cart</a>
+                            {% endif %}
+                        </div>
+                        <div class="social d-flex align-items-center">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Content end -->
+
+
+{% endblock %}
+
+{% block extraScript %}
+<script src="{{asset("front/js/owl.carousel.min.js") }}"></script>
+<script src="{{ asset("front/js/xzoom.js") }}"></script>
+<script src="{{ asset("front/js/xzoom-setup.js") }}"></script
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+   
+    $('#star').click((e) => {
+        console.log($('#star').attr('class'));
+        if ($('#star').attr('class') === "fas fa-star") {
+            $('#star').removeClass("fas fa-star").addClass("far fa-star");
+           
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+         else {
+            $('#star').removeClass("far fa-star").addClass("fas fa-star");
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+    })
+
+    $('#no_star').click((e) => {
+        console.log($('#no_star').attr('class'));
+        if ($('#no_star').attr('class') === "fas fa-star") {
+            $('#no_star').removeClass("fas fa-star").addClass("far fa-star");
+           
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+         else {
+            $('#no_star').removeClass("far fa-star").addClass("fas fa-star");
+            $.get(`http://127.0.0.1:8000/wishList/add/${$("#productId").html()}/${$("#userID").html()}`);
+        }
+    })
+</script>
+{% endblock %}
