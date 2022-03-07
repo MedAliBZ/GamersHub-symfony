@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Mission;
 use App\Entity\MissionsDone;
+use App\Entity\WishList;
 use App\Form\MissionType;
 use App\Form\MissionUpdateType;
 use App\Repository\GameRepository;
 use App\Repository\MissionRepository;
+use App\Repository\WishListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -22,9 +24,11 @@ class MissionController extends AbstractController
     {
         $user = $this->getUser();
         $attributes = [
-            'games' => count($user->getGames())
+            'games' => count($user->getGames()),
+            'wishlist' => count($this->getDoctrine()->getRepository(WishList::class)->findByUser($user))
         ];
         $result = "";
+
         eval("\$result = $attributes[$attribute] $operator $variable;");
         return $result;
     }

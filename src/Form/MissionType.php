@@ -21,7 +21,8 @@ class MissionType extends AbstractType
             ->add('prize')
             ->add('attribute',ChoiceType::class, [
                 'choices'  => [
-                    'likes' => 'games'
+                    'likes' => 'games',
+                    'wishlist items'=> 'wishlist'
                 ]
             ])
             ->add('operator',ChoiceType::class, [

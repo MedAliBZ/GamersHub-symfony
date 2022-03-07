@@ -1,0 +1,418 @@
+/*!-----------------------------------------------------------------
+    Name: GoodGames - Game Portal / Store HTML Template
+    Version: 1.4.0
+    Author: nK
+    Website: https://nkdev.info/
+    Purchase: https://themeforest.net/item/goodgames-portal-store-html-gaming-template/17704593?ref=_nK
+    Support: https://nk.ticksy.com/
+    License: You must have a valid license purchased only from ThemeForest (the above link) in order to legally use the theme for your project.
+    Copyright 2018.
+-------------------------------------------------------------------*/
+    /*------------------------------------------------------------------
+  [Typography]
+
+  Body:     14px/1.7 Open Sans, sans-serif;
+  Headings: Montserrat, sans-serif
+
+  Note: Most of font sizes are relative to the base font size (rem)
+ -------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+  [Color codes]
+
+  Main 1:    #dd163b
+  Main 2:    #a714b9
+  Main 3:    #38a220
+  Main 4:    #22a2b1
+  Main 5:    #1464d2
+
+  Dark 1:    #007bff
+  Dark 2:    #2f087e
+  Dark 3:    #10003D
+  Dark 4:    #303e47
+
+  Gray 1:    #fafafa
+  Gray 2:    #f7f7f7
+  Gray 3:    whitesmoke
+  Gray 4:    #f2f2f2
+
+  Bootstrap Primary:  #0275d8
+  Bootstrap Success:  #38a220
+  Bootstrap Info:     #22a2b1
+  Bootstrap Warning:  #ef9e2b
+  Bootstrap Danger:   #e2361f
+ -------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+  [Table of contents]
+  
+  1. Base
+  2. Typography
+  3. Bootstrap
+  4. Helpers
+  5. Navbar
+  6. Navbar Side
+  7. Search
+  8. Breadcrumbs
+  9. Footer
+  10. Widgets
+  11. Social Links
+  12. Elements
+    - Element Buttons
+    - Element Tabs
+    - Element Accordion
+    - Element Feature
+    - Element Content Boxes
+    - Element Counters
+    - Element Pagination
+    - Element Blockquotes
+    - Element Info Boxes
+    - Element Carousels
+    - Element Modal
+    - Element Image Boxes
+    - Element Video
+    - Element Forms
+    - Element Audio Player
+    - Element Countdown
+    - Element Table
+    - Element Fullscreen Block
+    - Element Icons
+    - Element Image Slider
+  13. Blog
+  14. Store
+  15. Tournaments
+  16. Forum
+  17. Plugins
+    - Plugin NanoScroller
+    - Plugin Photoswipe
+    - Plugin Seiyria Bootstrap Slider
+    - Plugin Summernote
+ -------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+
+  Base
+
+ -------------------------------------------------------------------*/
+body {
+    position: relative;
+    color: #7f8b92;
+    background-color: #10003d;
+}
+
+/*------------------------------------------------------------------
+
+  Forum
+
+ -------------------------------------------------------------------*/
+/* Threads List */
+.nk-forum {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.nk-forum > li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    width: 100%;
+    padding: 40px;
+    background-color: #4609C3;
+}
+
+@media (max-width: 991px) {
+    .nk-forum > li {
+        padding: 40px;
+    }
+}
+
+.nk-forum > li + li {
+    padding-top: 0;
+}
+
+.nk-forum > li.nk-forum-locked > * {
+    opacity: .4;
+}
+
+.nk-forum > li .nk-forum-icon,
+.nk-forum > li .nk-forum-title {
+    padding-right: 25px;
+}
+
+.nk-forum > li .nk-forum-count {
+    padding-right: 35px;
+    font-size: .9rem;
+    white-space: nowrap;
+}
+
+.nk-forum > li .nk-forum-icon {
+    min-width: 55px;
+}
+
+.nk-forum > li .nk-forum-icon > span {
+    display: block;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.nk-forum > li .nk-forum-title {
+    width: 100%;
+}
+
+.nk-forum > li .nk-forum-title > h2,
+.nk-forum > li .nk-forum-title > h3,
+.nk-forum > li .nk-forum-title > h4 {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+}
+
+.nk-forum > li .nk-forum-title > h2 > a,
+.nk-forum > li .nk-forum-title > h3 > a,
+.nk-forum > li .nk-forum-title > h4 > a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.nk-forum > li .nk-forum-title > h2 > a:hover,
+.nk-forum > li .nk-forum-title > h2 > a.hover,
+.nk-forum > li .nk-forum-title > h3 > a:hover,
+.nk-forum > li .nk-forum-title > h3 > a.hover,
+.nk-forum > li .nk-forum-title > h4 > a:hover,
+.nk-forum > li .nk-forum-title > h4 > a.hover {
+    color: #dd163b;
+}
+
+.nk-forum > li .nk-forum-title .nk-forum-title-sub {
+    margin-top: 10px;
+    font-size: .9rem;
+    font-style: italic;
+}
+
+.nk-forum > li .nk-forum-title .nk-forum-title-sub a {
+    font-weight: 600;
+    color: inherit;
+}
+
+.nk-forum > li .nk-forum-activity-avatar img {
+    float: left;
+    width: 34px;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 17px;
+}
+
+.nk-forum > li .nk-forum-activity {
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.nk-forum > li .nk-forum-activity .nk-forum-activity-date {
+    font-size: .9rem;
+    font-style: italic;
+}
+
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title {
+    overflow: hidden;
+    font-size: .9rem;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a {
+    width: 100%;
+    -webkit-transition: .2s opacity;
+    -o-transition: .2s opacity;
+    transition: .2s opacity;
+}
+
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a,
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a:hover,
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a:focus,
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a:hover,
+.nk-forum > li .nk-forum-activity .nk-forum-activity-title > a.hover {
+    opacity: .8;
+}
+
+@media (max-width: 1199px) {
+    .nk-forum > li .nk-forum-activity {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .nk-forum > li .nk-forum-count,
+    .nk-forum > li .nk-forum-activity-avatar {
+        display: none;
+    }
+}
+
+@media (max-width: 575px) {
+    .nk-forum > li .nk-forum-icon {
+        display: none;
+    }
+}
+
+.nk-forum-topic > li + li {
+    margin-top: 30px;
+}
+
+.nk-forum-topic > li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+.nk-forum-topic > li .nk-forum-topic-author {
+    width: 120px;
+    text-align: center;
+}
+
+.nk-forum-topic > li .nk-forum-topic-author img {
+    width: 70px;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 35px;
+}
+
+.nk-forum-topic > li .nk-forum-topic-author-name {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+
+}
+
+.nk-forum-topic > li .nk-forum-topic-author-name > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nk-forum-topic > li .nk-forum-topic-author-name > a:hover,
+.nk-forum-topic > li .nk-forum-topic-author-name > a.hover {
+    color: #dd163b;
+}
+
+.nk-forum-topic > li .nk-forum-topic-author-since {
+    margin-top: 10px;
+    font-size: .9rem;
+    opacity: .6;
+}
+
+.nk-forum-topic > li .nk-forum-topic-content {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    min-width: 0;
+    padding-left: 40px;
+}
+
+.nk-forum-topic > li .nk-forum-topic-content p:last-child {
+    margin-bottom: 0;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer {
+    position: relative;
+    width: 100%;
+    padding-top: 70px;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 35px;
+    right: 0;
+    left: 0;
+    border-top: 1px solid #10003D;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-topic-date {
+   
+    font-size: .9rem;
+}
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-topic-date2 {
+    float: right;
+    font-size: .9rem;
+}
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn {
+    float: right;
+    font-size: .9rem;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a > span,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a > svg {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > span {
+    padding: 7px 14px;
+    border-radius: 2px;
+    -webkit-transition: .2s background-color, .2s color;
+    -o-transition: .2s background-color, .2s color;
+    transition: .2s background-color, .2s color;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a:hover,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a:focus,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a:hover,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > a.hover,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > span:hover,
+.nk-forum-topic > li .nk-forum-topic-footer .nk-forum-action-btn > span.hover {
+    color: #fff;
+    background-color: #10003D;
+}
+
+.nk-forum-topic > li .nk-forum-topic-attachments {
+    padding: 40px;
+    margin-top: 40px;
+    background-color: #10003D;
+}
+
+.para-blog-title{
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    margin-bottom: 10px;
+    color:  #10003D;
+}
+
+.para-blog-text{
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px;
+    margin-bottom: 40px;
+    color: rgb(209, 183, 160);
+}
+
+.centerBlog {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
