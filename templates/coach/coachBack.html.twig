@@ -44,7 +44,7 @@
                                             <td>{{ c.user.username }}</td>
                                             {# <td>{{ usr.name }}</td> #}
                                             {# <td>{{ usr.secondName }}</td> #}
-                                            <td>{{ c.game.name }}</td>
+                                            <td>{{ c.game != null ? c.game.name : "" }}</td>
                                             <td>{{ c.description }}</td>
                                             <td>
                                                 <a href="{{ path("coach_edit_back", {'id': c.id}) }}"><i
@@ -66,7 +66,7 @@
                                                     <div class="modal-body">
                                                         <p><span style="font-size: 15px;font-weight: bold">Id: </span><span>{{ c.id }}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Username: </span><span>{{ c.user.username }}</span></p>
-                                                        <p><span style="font-size: 15px;font-weight: bold">Game: </span><span>{{ c.game.name }}</span></p>
+                                                        <p><span style="font-size: 15px;font-weight: bold">Game: </span><span>{{ c.game ? c.game.name : "" }}</span></p>
                                                         <p><span style="font-size: 15px;font-weight: bold">Description: </span><span>{{ c.description }}</span></p>
                                                     </div>
                                                 </div>

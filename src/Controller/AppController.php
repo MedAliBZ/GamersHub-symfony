@@ -37,7 +37,7 @@ class AppController extends AbstractController
         return $this->render('app/admin.html.twig', [
             'user' => $this->getUser(),
             'piechart' => $this->stats(),
-            'userStats' => $this->userStats()
+            'userStats' => $this->productStats()
         ]);
     }
 
@@ -80,7 +80,7 @@ class AppController extends AbstractController
         return $pieChart;
     }
 
-    private function userStats(){
+    private function productStats(){
         $chart = new \CMEN\GoogleChartsBundle\GoogleCharts\Charts\Material\ColumnChart();
         $categoriesProducts = $this->getDoctrine()->getRepository(Products::class)->findProductsByCategory();
         $array = [['Category', 'Products']];

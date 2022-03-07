@@ -5,6 +5,12 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
+    "captcha-com/captcha": {
+        "version": "4.2.5"
+    },
+    "captcha-com/symfony-captcha-bundle": {
+        "version": "4.2.12"
+    },
     "cmen/google-charts-bundle": {
         "version": "5.0.0"
     },

@@ -54,7 +54,7 @@
                                             <td>{{match.result }}</td>
                                             <td>{{match.matchDate | date('d/m/Y')}}</td>
 {#                                             {% for match in match.getTeams() %}#}
-                                            <td>{{ match.teams[0].TeamName }}</td>
+                                            <td>{{match.teams | length > 1 ? match.teams[0].TeamName : ""}}</td>
 
                                             <td>{{ match.teams | length < 2 ? "" : match.teams[1].TeamName }}</td>
 

@@ -71,37 +71,43 @@
 
             <div class="row cus-m">
                 {% for c in coachs %}
-                <div class="col-lg-4 col-md-6" style="margin-top:70px;">
-                    <div class="single-item">
-                        <div class="img-area text-center">
-                            <img src="https://avatars.dicebear.com/api/bottts/{{ c.user.username }}.svg" style="width: 70px;height: 70px;" alt="Image">
-                        </div>
-                        <div class="bottom-item text-center">
-                            <h4>{{ c.user.username }}</h4>
-                            <h6 style="margin-top:10px;">{{c.game.name}}</h6>
-                            <p class="text-sm" style="height: 70px">{{c.description}}</p>
-                            <div class="review">
-                                <a href="#"><i class="fas fa-star"></i></a>
-                                <a href="#"><i class="fas fa-star"></i></a>
-                                <a href="#"><i class="fas fa-star"></i></a>
-                                <a href="#"><i class="fas fa-star"></i></a>
-                                <a href="#"><i class="fas fa-star-half-alt"></i></a>
-                                <span class="text-sm">4.3 (79)</span>
+                    <div class="col-lg-4 col-md-6" style="min-height: 440px;max-height: 440px;">
+                        <div class="single-item">
+                            <div class="img-area text-center">
+                                <img src="https://avatars.dicebear.com/api/bottts/{{ c.user.username }}.svg"
+                                     style="width: 70px;height: 70px;" alt="Image">
                             </div>
-                            {% if c.user.id != user.id  %}
-                            <a href="{{ path('sendmail',{'id':c.user.id}) }}" class="cmn-btn" >Contact</a>
-                            {% endif %}
-                        </div>
+                            <div class="bottom-item text-center">
+                                <h4>{{ c.user.username }}</h4>
+                                <h6 style="margin-top:10px;">{{ c.game ? c.game.name : "" }}</h6>
+                                <p class="text-sm" style="height: 70px">{{ c.description }}</p>
+                                <div class="review">
+                                    {% set tab=c.getRatings() %}
+                                    {% if tab|length !=0 %}
+                                        {% set var=0 %}
 
-                    </div>
-                    <br>
-                    {% if c.user.id == user.id %}
-                        <div class="bottom-area d-flex" style="justify-content: space-evenly;align-items: center">
-                            <a href="{{ path('coach_edit',{'id':c.id}) }}" class="cmn-btn" >Update</a>
-                            <a href="{{ path('coach_delete',{'id':c.id}) }}" class="cmn-btn">Delete</a>
+                                        {% for item in tab %}
+                                            {% set var= var + item.getRate() %}
+                                        {% endfor %}
+                                        {% set moy= var / tab | length %}
+                                        <h4 style="margin-bottom: 20px;color: aqua">Rate : {{ moy }}</h4>
+                                    {% endif %}
+                                </div>
+                                {% if c.user.id != user.id %}
+                                    <a href="{{ path('sendmail',{'id':c.user.id}) }}" class="cmn-btn">Contact</a>
+                                    <a href="{{ path('rating',{'id':c.id}) }}" class="cmn-btn" >Rating</a>
+                                {% endif %}
+                            </div>
+
                         </div>
-                    {% endif %}
-                </div>
+                        <br>
+                        {% if c.user.id == user.id %}
+                            <div class="bottom-area d-flex" style="justify-content: space-evenly;align-items: center">
+                                <a href="{{ path('coach_edit',{'id':c.id}) }}" class="cmn-btn">Update</a>
+                                <a href="{{ path('coach_delete',{'id':c.id}) }}" class="cmn-btn">Delete</a>
+                            </div>
+                        {% endif %}
+                    </div>
                 {% endfor %}
             </div>
         </div>

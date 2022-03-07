@@ -46,7 +46,7 @@ class SubscribeController extends AbstractController
 
             return $this->redirectToRoute('addSubscription', ['id' => $tournament->getId()]);
         }
-        return $this->render('subscribe/Subscribe.html.twig', [
+        return $this->render('tournaments/tournaments.html.twig', [
             'subscribe' => $subscribe,
             'form' => $form->createView(),
             
@@ -54,7 +54,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/back/subscribers", name="showSubscribed")
+     * @Route("/admin/subscribers", name="showSubscribed")
      */
     public function show(): Response
     {
@@ -69,7 +69,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/subscribe/{id}/edit", name="app_subscribe_edit", methods={"GET", "POST"})
+     * @Route("/admin/subscribe/{id}/edit", name="app_subscribe_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Subscribe $subscribe, SubscribeRepository $subscribeRepository): Response
     {
@@ -88,7 +88,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/subscribe/{id}", name="deleteSubscription", methods={"POST"})
+     * @Route("/admin/subscribe/{id}", name="deleteSubscription", methods={"POST"})
      */
     public function delete(Subscribe $subscribe): Response
     {

@@ -44,6 +44,11 @@ class Coach
     private $game;
 
     /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="coach")
+     */
+    private $ratings;
+
+    /**
      * @ORM\OneToMany(targetEntity=Sessioncoaching::class, mappedBy="coach", orphanRemoval=true)
      */
     private $sessioncoachings;
@@ -51,6 +56,7 @@ class Coach
     public function __construct()
     {
         $this->sessioncoachings = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,6 +136,35 @@ class Coach
             // set the owning side to null (unless already changed)
             if ($sessioncoaching->getCoach() === $this) {
                 $sessioncoaching->setCoach(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setCoach($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getCoach() === $this) {
+                $rating->setCoach(null);
             }
         }
 
