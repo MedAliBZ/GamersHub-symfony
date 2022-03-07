@@ -16,6 +16,7 @@
 
     <!-- GoodGames -->
     <link rel="stylesheet" href="{{ asset("front/css/goodgames.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/custom.css") }}">
 
 
 
@@ -154,36 +155,44 @@
 {% endfor %}
  {% endif %}
 <section>
-<div class="comment-form">
-	<div class="container">
-	{% if form is defined %}
-		{{ form_start(form) }}
-		<div class="form-group">
-			{{ form_label(form.Title) }}
-			{{ form_widget(form.Title,{'attr':{'class':'form-control'}}) }}
-		</div>
-		<div class="form-group">
-			{{ form_label(form.description) }}
-			{{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
-		</div>
-		 <div class="item form-group">
+<div class="container">
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+                    <div class="nk-gap-2"></div>
+             <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Share</span> a Post</span></h3>
+            <div class="comment-form">
+                <div class="container">
+                {% if form is defined %}
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.Title) }}
+                        {{ form_widget(form.Title,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="item form-group">
 
 
-            <label class="col-form-labelcol-md-3 col-sm-3 label-align">{{ form_label(form.image,"Image") }}</label>
+                        <label class="col-form-labelcol-md-3 col-sm-3 label-align">{{ form_label(form.image,"Image") }}</label>
 
-            {{ form_widget (form.image,{'attr':{'class':'form-control'}}) }}
+                        {{ form_widget (form.image,{'attr':{'class':'form-control'}}) }}
 
 
 
-        </div>
-		
-		<div class="form-group">
-                 <button type="submit" class="cmn-btn" href="blog.html">Post</button> 
-                
+                    </div>
+                    
+                    <div class="form-group">
+                            <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-main-1" href="blog.html">Post</button> 
+                            
+                        </div>
+                        {{ form_end(form) }}
+                {% endif %}
+                </div>
             </div>
-            {{ form_end(form) }}
-	{% endif %}
-	</div>
+        </div>
+    </div>
 </div>
 </section>
     {% endblock %}
