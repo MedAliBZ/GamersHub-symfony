@@ -76,7 +76,8 @@
                                         </tr>
                                     {% endfor %}
                                 {% endif %}
-
+                                <td><a href="{{ path("admin")}}"
+                                       class="btn btn-success">stats</a></td>
                                 </tbody>
                             </table>
                             <script>
@@ -104,7 +105,7 @@
                                     }
                                 });
                             </script>
-                            <div id="div_chart"></div>
+
 
 
                         </div>
@@ -116,11 +117,6 @@
     </div>
     </div>
 {% endblock %}
-{% block extraScripts %}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        {{ gc_draw(piechart, 'div_chart') }}
-    </script>
-{% endblock %}
+
 
 

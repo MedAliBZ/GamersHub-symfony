@@ -61,8 +61,8 @@ class AppController extends AbstractController
 
         $pieChart->getData()->setArrayToDataTable(
             [['Etat', 'nombres'],
-                ['Overte',     $rd],
-                ['Fermé',      $qu]
+                ['Verified',     $rd],
+                ['Not Verified',      $qu]
             ]
         );
         $pieChart->getOptions()->setTitle('Top categories');
