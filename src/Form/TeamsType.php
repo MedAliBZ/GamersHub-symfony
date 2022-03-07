@@ -19,15 +19,12 @@ class TeamsType extends AbstractType
         $builder
             ->add('Team_name')
             ->add('gamersNb')
-            ->add('rank')
+
             ->add('matchs',EntityType::class,[
                 'class'=>Matchs::class,
                 'choice_label'=>'MatchName'
             ])
-            ->add('image', FileType::Class,[
-                'mapped'=> false,
-                'label'=>'please upload your team picture',
-            ])
+            ->add('image', FileType::Class,array('data_class' => null))
             
             
         ;

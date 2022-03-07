@@ -1,5 +1,5 @@
 {% extends 'backBase.html.twig' %}
-{% block title %}Tournaments{% endblock %}
+{% block title %}Match{% endblock %}
 {% block extraStyle %}
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -80,7 +80,7 @@
                                 <br />
                                 {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
                                 <div class="item form-group">
-                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Tournament name <span class="required">*</span>
+                                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Match name <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 ">
                                         {{ form_errors(form.MatchName) }}
@@ -118,13 +118,7 @@
                                         {{ form_errors(form.teams)}}
                                     </div>
                                 </div>
-                                <div class="item form-group">
-                                    <label for="TeamSize" class="col-form-label col-md-3 col-sm-3 label-align">Second Team </label>
-                                    <div class="col-md-6 col-sm-6 ">
-                                        {{ form_widget(form.second) }}
-                                        {{ form_errors(form.second)}}
-                                    </div>
-                                </div>
+
 
                                 <div class="ln_solid"></div>
                                 <div class="item form-group">

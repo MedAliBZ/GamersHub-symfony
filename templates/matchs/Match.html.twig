@@ -20,80 +20,87 @@
 
 {% block content %}
 
- 
-    <a href="#" class="scrollToTop"><i class="fas fa-angle-double-up"></i></a>
-
-    <!-- banner-section start -->
     <section id="banner-section" class="inner-banner tournaments">
         <div class="ani-img">
-            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png")}}" alt="icon">
-            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png")}}" alt="icon">
-            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png")}}" alt="icon">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
         </div>
-        <div class="banner-content d-flex align-items-center">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="main-content">
-                            <h1>Tournaments</h1>
-                            <div class="breadcrumb-area">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb d-flex justify-content-center">
-                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Tournaments</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="container">
             <div class="headign-info">
                 <div class="top-area">
                     <div class="row">
                         <div class="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
-                            <img src="{{ asset("front/images/character_01.png")}}" alt="image">
+                            <img src="{{ asset("front/images/character_01.png") }}" alt="image">
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 d-flex align-items-center justify-content-sm justify-content-center">
                             <div class="mid-area text-center">
-                                <img src="{{ asset("front/images/text-img.png")}}" alt="image">
+                                <img src="{{ asset("front/images/text-img.png") }}" alt="image">
                                 <h5>Fortnite Weekly Nano</h5>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4 zindex">
-                            <img src="{{ asset("images/character_02.png")}}" alt="image">
+                            <img src="{{ asset("front/images/character_02.png") }}" alt="image">
                         </div>
                     </div>
                 </div>
                 <div class="bottom-area">
                     <div class="bottom">
-                        <div class="row d-flex justify-content-between">
-                            <div class="col-lg-8 col-md-8 justify-content-sm-center d-grid">
-                                <h3>Head 2 Head - Weekly - Nano</h3>
-                                <div class="title-bottom d-flex">
-                                    <div class="time-area bg">
-                                        <img src="{{ asset("front/images/waitng-icon.png")}}" alt="image">
-                                        <span>Starts in</span>
-                                        <span class="time">10d 2H 18M</span>
-                                    </div>
-                                    <div class="date-area bg">
-                                        <span class="date">Apr 21, 5:00 AM EDT</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                        <ul>
-
-
-                            <li >
-                                <a class="nav-link" id="matches-tab" data-toggle="tab" href="#matches" role="tab"
-                                    aria-controls="matches" aria-selected="false">Matchs</a>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
                             </li>
-
-
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="bracket-tab" data-toggle="tab" href="#bracket" role="tab"
+                                   aria-controls="bracket" aria-selected="false"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="matches-tab" data-toggle="tab" href="#matches" role="tab"
+                                   aria-controls="matches" aria-selected="false">matches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="participants-tab" data-toggle="tab" href="#participants"
+                                   role="tab" aria-controls="participants" aria-selected="false"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="prizes-tab" data-toggle="tab" href="#prizes" role="tab"
+                                   aria-controls="prizes" aria-selected="false"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview"
+                                   role="tab" aria-controls="overview" aria-selected="true"></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -106,139 +113,57 @@
     <!-- Testimonials Content Start -->
     <section id="tournaments-content">
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="overview" role="tabpanel"
-                aria-labelledby="overview-tab">
-                <div class="container pb-120">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <h4 class="head-area">Format</h4>
-                            <div class="row wrapper">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-area">
-                                        <img src="{{ asset("front/images/format-icon-1.png")}}" alt="image">
-                                        <h6>Game</h6>
-                                        <p class="text-sm">CS:GO</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-area">
-                                        <img src="{{ asset("front/images/format-icon-2.png")}}" alt="image">
-                                        <h6>Check-in period</h6>
-                                        <p class="text-sm">45 minutes before start</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-area">
-                                        <img src="{{ asset("front/images/format-icon-3.png")}}" alt="image">
-                                        <h6>Team Size</h6>
-                                        <p class="text-sm">1VS1</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-area">
-                                        <img src="{{ asset("front/images/format-icon-4.png")}}" alt="image">
-                                        <h6>Entry Fee</h6>
-                                        <p class="text-sm">Free to enter</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-area">
-                                        <img src="{{ asset("front/images/format-icon-5.png")}}" alt="image">
-                                        <h6>Prize Pool</h6>
-                                        <p class="text-sm">$100</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="single-area">
-                                        <img src="{{ asset("front/images/format-icon-6.png")}}" alt="image">
-                                        <h6>Tournament Format</h6>
-                                        <p class="text-sm">Single Elimination</p>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-
-            {% if(MatchsList is not null) %}
-            {% for match in MatchsList %}
             <div class="tab-pane fade" id="matches" role="tabpanel" aria-labelledby="matches-tab">
                 <div class="matches pb-120">
                     <div class="container overlay-cus">
                         <div class="row w-cus">
                             <div class="col-lg-12">
-                                <div class="unscheduled">
-                                    <h4>All Matches</h4>
 
-
+                                <div class="yesterday">
+                                    <h4>ALL MATCHES</h4>
+                                    {% if(MatchsList is not null) %}
+                                    {% for match in MatchsList %}
                                     <div class="single-matches d-flex align-items-center justify-content-between">
                                         <div class="left">
                                             <p>{{match.matchDate| date('d/m/Y')}}</p>
                                         </div>
                                         <div class="mid d-flex align-items-center justify-content-between">
                                             <div class="player left-player d-flex align-items-center">
-                                                <p>{{match.teams | first}}</p>
-                                                <span class="tier victory">Tier VII</span> 
-                                                <img src="{{ asset("front/images/participant-1.png")}}" alt="image">
+                                                <p>{{match.MatchName}}</p>
+                                                <span class="tier victory">Tier VII</span>
+                                                <img src="{{ asset("front/images/participant-1.png") }}" alt="image">
                                             </div>
-                                            <h5 class="vs" >
-
-                                                <div class="x_title" >{{match.MatchName}}</div>
+                                            <h5 class="vs">
                                                 <span>{{match.result}}</span>
 
                                             </h5>
                                             <div class="player right-player d-flex align-items-center">
-                                                <img src="{{ asset("front/images/participant-2.png")}}" alt="image">
-                                                <p>{{match.second[1]}}</p>
-                                                <span class="tier second">Tier VII</span> 
+                                                <img src="{{ asset("front/images/participant-2.png") }}" alt="image">
+                                                <p>{{match.teams | first}}</p>
+                                                <span class="tier second">Tier VII</span>
                                             </div>
                                         </div>
                                         <div class="right">
-                                            <img src="{{ asset("front/images/right-arrows.png")}}" alt="icon">
+
                                         </div>
                                     </div>
+                                    {% endfor %}
+                                    {% endif %}
                                 </div>
-
-
-
                                 {{ knp_pagination_render(MatchsList) }}
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-        {% endfor %}
-        {% endif %}
-            <div class="tab-pane fade" id="prizes" role="tabpanel" aria-labelledby="prizes-tab">
-                <div class="prizes pb-120">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="table-responsive">
-                                    {#    debut  #}
-                                    <input type="text" id="search" name="search" class="form-control" placeholder="Search">
-                                    <script src="{{ asset('js/jquery.min.js') }}"></script>
-
-
-
-                                     {# <div class="col-sm">
-                            <a href="{{ path("matchs_new") }}" class="cmn-btn delete-btn">Create Match</a>
-                        </div>#}
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        </section>                                  
+    </section>
+
+
 {% endblock %}
 
 {% block extraScripts %}

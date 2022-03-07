@@ -49,10 +49,7 @@ class Matchs
      */
     private $teams;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Teams::class)
-     */
-    private $second;
+
 
 
 
@@ -60,7 +57,7 @@ class Matchs
     {
         $this->teams = new ArrayCollection();
         $this->teamb = new ArrayCollection();
-        $this->second = new ArrayCollection();
+
     }
 
  
@@ -126,6 +123,14 @@ class Matchs
 
         return $this;
     }
+    public function addTeam(Teams $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+        }
+
+        return $this;
+    }
 
 
 
@@ -142,29 +147,7 @@ class Matchs
         // return $this->id;
     }
 
-    /**
-     * @return Collection|Teams[]
-     */
-    public function getSecond(): Collection
-    {
-        return $this->second;
-    }
-    public function setSecond(Teams $second): self
-    {
-        if (!$this->teams->contains($second)) {
-            $this->teams[] = $this->second;
-        }
 
-        return $this;
-    }
-
-
-    public function removeSecond(Teams $second): self
-    {
-        $this->second->removeElement($second);
-
-        return $this;
-    }
 
 
 

@@ -21,9 +21,11 @@ class MatchsType extends AbstractType
             ->add('result')
             ->add('teams',EntityType::class,[
                 'class'=>Teams::class,
-                'choice_label'=>'TeamName'
+                'choice_label'=>'TeamName',
+                'expanded'=>false,
+        'multiple'=>true,
             ])
-            ->add('second')
+
             
             
         ;

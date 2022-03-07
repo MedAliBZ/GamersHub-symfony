@@ -24,7 +24,7 @@
                 <td>{{ match.matchDate ? match.matchDate|date('Y-m-d')}}</td>
                 <td>{{ match.result }}</td>
                  <td>{{ match.teams | join(", ")}}</td>
-                <td>{{ match.second | join(", ")}}</td>
+
                 <td>
                     <a href="{{ path('matchs_show', {'id': match.id}) }}">show</a>
                     <a href="{{ path('matchs_edit', {'id': match.id}) }}">edit</a>

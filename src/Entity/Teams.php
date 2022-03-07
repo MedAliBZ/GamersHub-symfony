@@ -50,7 +50,6 @@ class Teams
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     *@Assert\NotBlank (message="this field is required")
      */
     private $rank
     ;
@@ -144,11 +143,24 @@ class Teams
     public function setMatchs(?Matchs $match):self
     {  if (!$this->matchs->contains($match)) {
         $this->matchs[] = $match;
+        $match->addTeam($this);
 
     }
 
         return $this;
     }
+    public function addMatch(Matchs $match): self
+    {
+        if (!$this->matchs->contains($match)) {
+            $this->matchs[] = $match;
+        }
+
+        return $this;
+    }
+
+
+
+
 
 
     public function removeMatch(Matchs $match): self
@@ -159,12 +171,12 @@ class Teams
 
         return $this;
     }
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image)
     {
         $this->image = $image;
 

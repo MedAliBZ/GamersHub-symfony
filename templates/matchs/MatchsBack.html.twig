@@ -53,13 +53,15 @@
                                             <td>{{match.MatchName}}</td>
                                             <td>{{match.result }}</td>
                                             <td>{{match.matchDate | date('d/m/Y')}}</td>
-                                            <td>{{match.teams | first}}</td>
-                                            <td>{{match.second[1]}}</td>
+                                             {% for match in match.getTeams() %}
+                                            <td>{{ match.TeamName }}</td>
+                                            {% endfor %}
+
 
 
                                             <td><a type="Update" href="{{ path("matchs_edit", {'id': match.id}) }}" class="btn btn-success">Update</a></td>
                                             <td><a href="{{ path("matchs_delete" ,  {'id': match.id}) }}" class="btn btn-success">Delete</a></td>
-  
+
                                         </tr>
                                         
                                     {% endfor %}

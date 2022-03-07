@@ -15,13 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/teams")
- */
+
 class TeamsController extends AbstractController
 {
     /**
-     * @Route("/", name="teams_index")
+     * @Route("/teams/", name="teams_index")
      */
 
 
@@ -43,7 +41,7 @@ class TeamsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="teams_new", methods={"GET", "POST"})
+     * @Route("/teams/new", name="teams_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -53,17 +51,9 @@ class TeamsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('image')->getData();
-            if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-                try {
-                    $imageFile->move(
-                        'img\Teams'
-                    );
-                } catch (FileException $e) {
-                }
-                $team->setImage($newFilename);
-            }
+            $filename = md5(uniqid()) . '.png';
+            $imageFile->move($this->getParameter('Teams_image_directory'), $filename);
+            $team->setImage($filename);
             $entityManager->persist($team);
             $entityManager->flush();
             $this->addFlash(
@@ -96,7 +86,7 @@ class TeamsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/teams/{id}/edit", name="teams_edit")
+     * @Route("/admin/teams/{id}/edit", name="teams_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Teams $team, EntityManagerInterface $entityManager): Response
     {
@@ -104,6 +94,7 @@ class TeamsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->flush();
             $this->addFlash(
                 'info',
@@ -119,28 +110,7 @@ class TeamsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    /**
-     * @Route("/admin/teams/tri", name="tri1")
-     */
-    public function Tri(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $repo =$this->getDoctrine()->getRepository(Teams::class);
 
-
-        $query = $em->createQuery(
-            'SELECT a FROM App\Entity\Teams a 
-            ORDER BY a.Team_name DESC '
-        );
-
-        $activites = $query->getResult();
-        return $this->render('teams/TeamsBack.html.twig',[
-            'user' => $this->getUser(),
-            'teamsList'=> $repo->findAll(),
-             array('teams' => $activites)]);
-
-
-    }
 
     /**
      * @Route("/admin/teams/{id}/delete", name="teams_delete")
