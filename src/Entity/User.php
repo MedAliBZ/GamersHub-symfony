@@ -93,9 +93,25 @@ class User implements UserInterface
      */
     private $games;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Player::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $player;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Spam::class, mappedBy="user")
+     */
+    private $spam;
+
+
+
+
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->player = new ArrayCollection();
+        $this->spam = new ArrayCollection();
     }
 
 
@@ -307,5 +323,67 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Comments>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+
+    public function __toString(){
+    return (String) $this->getId;
+
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(Player $player): self
+    {
+        // set the owning side of the relation if necessary
+        if ($player->getUser() !== $this) {
+            $player->setUser($this);
+        }
+
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Spam>
+     */
+    public function getSpam(): Collection
+    {
+        return $this->spam;
+    }
+
+    public function addSpam(Spam $spam): self
+    {
+        if (!$this->spam->contains($spam)) {
+            $this->spam[] = $spam;
+            $spam->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpam(Spam $spam): self
+    {
+        if ($this->spam->removeElement($spam)) {
+            // set the owning side to null (unless already changed)
+            if ($spam->getUser() === $this) {
+                $spam->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

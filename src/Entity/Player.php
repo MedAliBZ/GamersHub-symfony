@@ -21,11 +21,6 @@ class Player
      */
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="player")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -34,10 +29,16 @@ class Player
     
     private $rank;
 
+    // /**
+    //  * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="player", cascade={"remove"})
+    //  */
+    // private $blogs;
+
     /**
-     * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="player")
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="player")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $blogs;
+    private $user;
 
     public function __construct()
     {
@@ -47,18 +48,6 @@ class Player
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     public function getRank(): ?string
@@ -104,10 +93,20 @@ class Player
     }
     
     public function __toString(){
-        // to show the name of the Category in the select
-        return ("$this->id");
-        // to show the id of the Category in the select
-        // return $this->id;
+        return (String) $this->getId;
+    
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
 }

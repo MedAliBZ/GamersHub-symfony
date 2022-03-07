@@ -19,6 +19,8 @@ class BlogRepository extends ServiceEntityRepository
         parent::__construct($registry, Blog::class);
     }
 
+
+
     // /**
     //  * @return Blog[] Returns an array of Blog objects
     //  */
@@ -47,4 +49,31 @@ class BlogRepository extends ServiceEntityRepository
         ;
     }
     */
+
+     public function getAllPosts($post, $bw){
+        $entityManager=$this->getEntityManager();
+       $req=$entityManager
+         ->createQuery("SELECT description FROM APP\Entity\Blog ")
+          ;         
+         $words =[];
+         $rp =[];
+         //dd($bw);
+         foreach($bw as $word=>$m){
+        //     //dd($m[0]->getWord());
+        //     // $m[0]->getWord();
+             array_push($words, $m);
+             $r='';
+             for($i=0; $i<strlen($m); $i++){
+                 $r .= '*';
+             }
+            
+             array_push($rp, $r);
+            //  dd($rp);
+         }
+        // dd($rp);
+         $postClean = str_replace($words, $rp, strtolower($post));
+         //dd($postClean);
+         return $postClean;
+     }
+
 }

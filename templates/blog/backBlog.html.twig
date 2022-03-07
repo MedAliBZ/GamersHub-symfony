@@ -10,6 +10,7 @@
     <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
           rel="stylesheet">{% endblock %}
 {% block content %}
+    <!-- Posts Table -->
     <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
         <div class="x_panel">
             <div class="x_title">
@@ -39,13 +40,111 @@
                                     {% for pub in publicationList %}
                                         <tr>
                                             <td>{{ pub.id }}</td>
-                                            <td>{{ pub.user }}</td>
+                                            <td>{{ pub.user.username }}</td>
                                             <td>{{ pub.Title }}</td>
                                             <td>{{ pub.description }}</td>
                                             <td>{{ pub.publishedAt | date('Y-m-d H:i:s') }}</td>
                                             <td>
                                                 <a href="{{ path("blog_edit", {'id': pub.id}) }}"><i class="fa fa-pencil"></i></a>
                                                 <a href="{{ path("blog_delete", {'id': pub.id}) }}"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Table -->
+    <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>COMMENTS TABLE</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Post</th>
+                                    <th>Username</th>
+                                    <th>comment</th>
+                                    <th>Commented At</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if(commentsList is not null) %}
+                                    {% for comment in commentsList %}
+                                        <tr>
+                                            <td>{{ comment.id }}</td>
+                                            <td>{{ comment.blog.title }}</td>
+                                            <td>{{ comment.user.username }}</td>
+                                            <td>{{ comment.comment }}</td>
+                                            <td>{{ comment.commentedAt | date('Y-m-d H:i:s') }}</td>
+                                            <td>
+                                                <a href="{{ path("editComments", {'id': comment.id}) }}"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ path("deleteComment", {'id': comment.id}) }}"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <!-- Reported Comments -->
+    <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>REPORTED COMMENTS</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Post</th>
+                                    <th>Username</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if(spamList is not null) %}
+                                    {% for spam in spamList %}
+                                        <tr>
+                                            <td>{{ spam.id }}</td>
+                                            <td>{{ spam.post.title }}</td>
+                                            <td>{{ spam.user.username }}</td>
+                                            <td>
+                                                <a href="{{ path("ApprovePost", {'id': spam.id}) }}"><i class="fa  fa-check"></i></a>
+                                                <a href="{{ path("deletePostSpam", {'id': spam.post.id}) }}"><i class="fa fa-trash-o"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}

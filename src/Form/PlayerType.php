@@ -14,6 +14,7 @@ class PlayerType extends AbstractType
     {
         $builder
             ->add('rank')
+            
         ;
     }
 

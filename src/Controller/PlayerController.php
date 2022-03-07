@@ -73,7 +73,7 @@ class PlayerController extends AbstractController
     /**
      * @Route("admin/Players/{id}/edit", name="player_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Player $player): Response
+    public function editPlayer(Request $request, Player $player): Response
     {
         $form = $this->createForm(PlayerType::class, $player);
         $form->handleRequest($request);
@@ -97,9 +97,9 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("admin/Players/{id}", name="player_delete")
+     * @Route("admin/players/{id}", name="player_delete")
      */
-    public function delete(Player $player): Response
+    public function deletePlayer(Player $player): Response
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($player);

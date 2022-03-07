@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Spam</title>
+
+{% block body %}
+    <h1>Edit Spam</h1>
+
+    {{ include('spam/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_spam_index') }}">back to list</a>
+
+    {{ include('spam/_delete_form.html.twig') }}
+{% endblock %}

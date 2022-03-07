@@ -1,22 +1,23 @@
 {% extends 'frontBase.html.twig' %}
-{% block extraStyle %}<link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% block extraStyle %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/slick.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/xzoom.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- START: Styles -->
+
+    <!-- Google Fonts -->
+    {# <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css"> #}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+
+    <!-- GoodGames -->
+    <link rel="stylesheet" href="{{ asset("front/css/goodgames.css") }}">
+
+
 
 
     
@@ -53,7 +54,7 @@
         </div>
         
  </section>
- <div id="colorlib-page">
+ {# <div id="colorlib-page">
 	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
 	<section>
 	<div id="colorlib-main">
@@ -93,11 +94,68 @@
 			</div>
 		</div>
 	</div>
-</div>	
-</section>
+</div>	 #}
+{% if(publicationList is not null) %}
+{% for pub in publicationList %}
+
+ <div class="container">
+
+    <div class="nk-gap-2"></div>
+    <ul class="nk-forum nk-forum-topic">
+            <li>
+                <div class="nk-forum-topic-author">
+                    <a href="{{ path('profile')}}">
+                        <img src="https://avatars.dicebear.com/api/bottts/{{ pub.user.username}}.svg">
+                    </a>
+                    <div class="nk-forum-topic-author-name" title="name">
+                        <a>{{pub.user.username}}</a>
+                    </div>
+                    <div class="nk-forum-topic-author-role">Role TO BE DONE !!!</div>
+                    <div class="nk-forum-topic-author-since">
+                        {{pub.user.createdAt|date('Y-m-d H:i:s')}}
+                    </div>
+                </div>
+                <div class="nk-forum-topic-content">
+                    <a href="#" class="para-blog-title">
+                          {{pub.title}}
+                    </a>
+
+                    <p class="para-blog-text">{{pub.description}}</p>
+
+                    <div class="nk-forum-topic-attachments"> 
+                        {# <a href="#">goodgames-free.zip</a>
+                        <br>
+                        (14.86 MiB) Downloaded 185 times #}
+                        {% set images = pub.image| trim('*') | split("*") %}
+                            <img src="{{asset('img/blog/') ~ pub.getImage() }}" class="centerBlog" alt="Image">
+
+                    </div>
+                </div>
+                <div class="nk-forum-topic-footer">
+                    <span class="nk-forum-topic-date">{{pub.publishedAt|date('M ,d Y 
+                     h:m T')}}</span>
+                     <tr>
+                <th style="color: orange">views</th>
+                <td>{{ pub.views }}</td>
+            </tr>
+
+                    <span class="nk-forum-action-btn">
+                        <a href="{{ path('Post', {"id": pub.id}) }}" class="nk-anchor"><span class="fa fa-reply"></span> Reply</a>
+                    </span>
+                    <span class="nk-forum-action-btn">
+                        <a href="{{ path('newSpam', {"id": pub.id}) }}"><span class="fa fa-flag"></span> Spam</a>
+                    </span>
+                </div>
+                <div class="nk-forum-topic-footer"></div>
+            </li>
+    </ul>
+</div>
+
+{% endfor %}
+ {% endif %}
 <section>
 <div class="comment-form">
-	
+	<div class="container">
 	{% if form is defined %}
 		{{ form_start(form) }}
 		<div class="form-group">
@@ -108,7 +166,16 @@
 			{{ form_label(form.description) }}
 			{{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
 		</div>
-		
+		 <div class="item form-group">
+
+
+            <label class="col-form-labelcol-md-3 col-sm-3 label-align">{{ form_label(form.image,"Image") }}</label>
+
+            {{ form_widget (form.image,{'attr':{'class':'form-control'}}) }}
+
+
+
+        </div>
 		
 		<div class="form-group">
                  <button type="submit" class="cmn-btn" href="blog.html">Post</button> 
@@ -116,7 +183,7 @@
             </div>
             {{ form_end(form) }}
 	{% endif %}
-	
+	</div>
 </div>
 </section>
     {% endblock %}
