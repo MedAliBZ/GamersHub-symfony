@@ -10,7 +10,7 @@
 
     <!-- Google Fonts -->
     {# <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css"> #}
-
+      <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
 
@@ -134,18 +134,18 @@
                 <div class="nk-forum-topic-footer">
                     <span class="nk-forum-topic-date">{{pub.publishedAt|date('M ,d Y 
                      h:m T')}}</span>
-                     <tr>
-                <th style="color: orange">views</th>
-                <td>{{ pub.views }}</td>
-            </tr>
 
                     <span class="nk-forum-action-btn">
                         <a href="{{ path('Post', {"id": pub.id}) }}" class="nk-anchor"><span class="fa fa-reply"></span> Reply</a>
                     </span>
                     <span class="nk-forum-action-btn">
-                        <a href="{{ path('newSpam', {"id": pub.id}) }}"><span class="fa fa-flag"></span> Spam</a>
+                        <a href="{{ path('newSpam', {"id": pub.id}) }}"><span class="fa fa-flag"></span> Report</a>
                     </span>
                 </div>
+                  <span class="nk-forum-topic">
+                        <a  class="nk-anchor"><span class="fas fa-eye"></span> Views</a>
+                         <td>{{ pub.views }}</td>
+                    </span>
                 <div class="nk-forum-topic-footer"></div>
             </li>
     </ul>
