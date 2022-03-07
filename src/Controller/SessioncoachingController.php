@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SessioncoachingController extends AbstractController
 {
     /**
-     * @Route("/", name="sessioncoaching_index", methods={"GET"})
+     * @Route("/sessioncoaching/", name="sessioncoaching_index", methods={"GET"})
      */
     public function index(SessioncoachingRepository $sessioncoachingRepository,CoachRepository $repository): Response
     {   $coach=$repository->findOneBy(array('user'=>$this->getUser()));
@@ -103,7 +103,7 @@ class SessioncoachingController extends AbstractController
             'price'=>$event->getPrix(),
             'start'=>$event->getDateDebut()->format('Y-m-d'),
             'end'=>$event->getDateFin()->format('Y-m-d'),
-            'title'=>$event->getUser()->getUsername(),
+            'title'=>$event->getUser()->getUsername()."          Description:".$event->getDescription(),
             'backgroundColor'=>$event->getBackgroundColor(),
             'borderColor'=>$event->getBorderColor(),
             'textColor'=>$event->getTextColor()
