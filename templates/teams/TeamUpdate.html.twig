@@ -1,0 +1,79 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Teams Update{% endblock %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
+{% endblock %}
+{% block content %}
+  <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>TEAMS TABLE</h2>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <br/>
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    {{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+                    <div class="item form-group">
+                        {{ form_label(form.Team_name,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.Team_name,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.Team_name) }}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        {{ form_label(form.gamersNb,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.gamersNb,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.gamersNb) }}
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        {{ form_label(form.rank,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.rank,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="error-div">
+                            {{ form_errors(form.rank) }}
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        {{ form_label(form.verified,null,{'label_attr': {'class': 'col-form-label col-md-3 col-sm-3 label-align'}}) }}
+                        <div class="col-md-6 col-sm-6 ">
+                            {{ form_widget(form.verified,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                   
+                    {% if error is defined %}
+                        <div style="display: flex;justify-content: center;align-items: center;color: #d20808;">{{ error }}</div>
+                    {% endif %}
+                   <div class="form-group">
+                                <button type="update" class="btn btn-success" href="TeamsBack.html.twig">Update Team</button> 
+                                
+                
+                                </div>
+                   
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

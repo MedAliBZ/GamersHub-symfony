@@ -1,0 +1,35 @@
+
+<h2 style="color:#26B99A">MY MATCHS</h2>
+<table id="datatable" class="table table-striped table-bordered" style="border:#26B99A solid 2px">
+    <thead>
+    <tr>
+        <th style="border: #26B99A solid 2px">MATCH ID</th>
+        <th style="border: #26B99A solid 2px">MATCH NAME</th>
+        <th style="border: #26B99A solid 2px">MATCH RESULT </th>
+        <th style="border: #26B99A solid 2px">MATCH DATE </th>
+        <th style="border: #26B99A solid 2px">TEAM 1 NAME</th>
+        <th style="border: #26B99A solid 2px">TEAM 2 NAME</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% if(MatchsList is not null) %}
+        {% for match in MatchsList %}
+
+            <tr>
+                <td style="border: #26B99A solid 2px">{{match.id}}</td>
+                <td style="border: #26B99A solid 2px">{{match.MatchName}}</td>
+                <td style="border: #26B99A solid 2px">{{match.result }}</td>
+                <td style="border: #26B99A solid 2px">{{match.matchDate | date('d/m/Y')}}</td>
+                {% for match in match.getTeams() %}
+                    <td style="border: #26B99A solid 2px">{{ match.TeamName }}</td>
+                {% endfor %}
+
+
+            </tr>
+
+        {% endfor %}
+    {% endif %}
+
+    </tbody>
+</table>

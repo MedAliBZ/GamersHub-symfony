@@ -46,5 +46,15 @@ class ProductsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findProductsByCategory()
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.category','c')
+            ->select(['c.nameCategory','count(p)'])
+            ->groupBy('p.category')
+            ->getQuery()
+            ->getResult();
+    }
    
 }

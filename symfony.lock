@@ -5,6 +5,9 @@
     "behat/transliterator": {
         "version": "v1.3.0"
     },
+    "cmen/google-charts-bundle": {
+        "version": "5.0.0"
+    },
     "dasprid/enum": {
         "version": "1.0.3"
     },
@@ -88,6 +91,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dompdf/dompdf": {
+        "version": "v1.2.0"
+    },
     "egulias/email-validator": {
         "version": "3.1.2"
     },
@@ -114,6 +120,12 @@
     },
     "guzzlehttp/psr7": {
         "version": "2.1.0"
+    },
+    "knplabs/knp-components": {
+        "version": "v3.4.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
     },
     "knpuniversity/oauth2-client-bundle": {
         "version": "2.9",
@@ -156,6 +168,12 @@
     },
     "phar-io/version": {
         "version": "3.1.1"
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.4"
+    },
+    "phenx/php-svg-lib": {
+        "version": "0.4.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -221,6 +239,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.4.0"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"

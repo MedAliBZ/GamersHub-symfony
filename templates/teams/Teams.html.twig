@@ -1,0 +1,96 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}Teams{% endblock %}
+{% block extraStyle %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+
+    <link rel="shortcut icon" href="{{ asset("front/images/fav.png") }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset("front/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/fontawesome.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/slick.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/nice-select.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/magnific-popup.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/animate.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/style.css") }}">
+    
+{% endblock %}
+
+{% block content %}
+    <section id="tournaments-section" class="pt-120 tournaments">
+        <div class="overlay pt-120 pb-120">
+            <div class="container wow fadeInUp">
+
+
+
+                {% if(teamsList is not null) %}
+                {% for team in teamsList %}
+                <div class="single-item">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 d-flex align-items-center">
+                            <img class="top-img" src="{{asset('teams/image/'~team.image)}}" alt="image">
+                        </div>
+                        <div class="col-lg-6 col-md-9 d-flex align-items-center">
+                            <div class="mid-area">
+                                <h4>{{team.TeamName}}</h4>
+                                <div class="title-bottom d-flex">
+                                    <div class="time-area bg">
+                                        <img src="{{ asset("front/images/waitng-icon.png") }}" alt="image">
+                                        <span>Starts in</span>
+                                        <span class="time">10d 2H 18M</span>
+                                    </div>
+                                    <div class="date-area bg">
+                                        <span class="date">Apr 21, 5:00 AM EDT</span>
+                                    </div>
+                                </div>
+
+                                <div class="single-box d-flex">
+                                    <div class="box-item">
+                                        <span class="head">Team Name</span>
+                                        <span class="sub">{{team.TeamName}}</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">Team Size</span>
+                                        <span class="sub">{{team.gamersNb}}</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">Matchs</span>
+                                        <span class="sub">{{team.matchs | join(", ")}}</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">Verified</span>
+                                        <span class="sub">{{team.verified ? 'YES' : 'NO' }}</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">Rank</span>
+                                        <span class="sub">{{team.rank}}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center">
+                            <div class="prize-area text-center">
+                                <div class="contain-area">
+
+
+
+                                    <a href="{{ path('teams_new') }}" class="cmn-btn">Create Team </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {{ knp_pagination_render(teamsList) }}
+
+
+
+
+    </section>
+{% endblock %}
