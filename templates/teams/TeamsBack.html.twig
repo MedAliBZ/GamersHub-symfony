@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
 {% endblock %}
 {% block content %}
-  <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+    <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
         <div class="x_panel">
             <div class="x_title">
                 <h2>TEAMS TABLE</h2>
@@ -40,13 +40,13 @@
                                 <tr>
                                     <th>Team ID</th>
                                     <th>Team Name</th>
-                                    <th>Gamers Number </th>
+                                    <th>Gamers Number</th>
                                     <th>Rank</th>
                                     <th>Teams Logo</th>
                                     <th>Verified</th>
                                     <th>Matchs</th>
 
-                                    
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,58 +58,69 @@
                                             <td>{{ team.TeamName }}</td>
                                             <td>{{ team.gamersNb }}</td>
                                             <td>{{ team.rank }}</td>
-                                            <td> <picture>
-                                                <img src="{{asset('teams/image/'~team.image)}}" alt="image" width="100px"></picture></td>
-                                            <td>{{ team.verified ? 'YES' : 'NO'}}</td>
-                                            <td>{{ team.matchs | join(" ")}}</td>
+                                            <td>
+                                                <picture>
+                                                    <img src="{{ asset('teams/image/'~team.image) }}" alt="image"
+                                                         width="100px"></picture>
+                                            </td>
+                                            <td>{{ team.verified ? 'YES' : 'NO' }}</td>
+                                            <td>{{ team.matchs | join(" ") }}</td>
 
 
+                                            <td><a type="Update" href="{{ path("teams_edit", {'id': team.id}) }}"
+                                                   class="btn btn-success">Update</a></td>
+                                            <td><a href="{{ path("teams_delete", {'id': team.id}) }}"
+                                                   class="btn btn-success">Delete</a></td>
 
-                                               <td><a type="Update" href="{{ path("teams_edit", {'id': team.id}) }}" class="btn btn-success">Update</a></td>
-								               <td><a href="{{ path("teams_delete", {'id': team.id}) }}" class="btn btn-success">Delete</a></td>
 
-                                           
                                         </tr>
                                     {% endfor %}
                                 {% endif %}
 
                                 </tbody>
                             </table>
-                                <script>
-                                    $(document).ready(function(){
-                                        $('#search').keyup(function(){
-                                            search_table($(this).val());
-                                        });
-                                        function search_table(value){
-                                            $('#tableac tbody tr').each(function(){
-                                                var found = 'false';
-                                                $(this).each(function(){
-                                                    if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
-                                                    {
-                                                        found = 'true';
-                                                    }
-                                                });
-                                                if(found == 'true')
-                                                {
-                                                    $(this).show();
+                            <script>
+                                $(document).ready(function () {
+                                    $('#search').keyup(function () {
+                                        search_table($(this).val());
+                                    });
 
-                                                }
-                                                else
-                                                {
-                                                    $(this).hide();
-
+                                    function search_table(value) {
+                                        $('#tableac tbody tr').each(function () {
+                                            var found = 'false';
+                                            $(this).each(function () {
+                                                if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                                                    found = 'true';
                                                 }
                                             });
-                                        }
-                                    });
-                                </script>
+                                            if (found == 'true') {
+                                                $(this).show();
+
+                                            } else {
+                                                $(this).hide();
+
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                            <div id="div_chart"></div>
+
 
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+{% endblock %}
+{% block extraScripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        {{ gc_draw(piechart, 'div_chart') }}
+    </script>
 {% endblock %}
 
 
