@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Blog;
 use App\Entity\Mission;
 use App\Entity\MissionsDone;
 use App\Entity\WishList;
@@ -25,7 +26,8 @@ class MissionController extends AbstractController
         $user = $this->getUser();
         $attributes = [
             'games' => count($user->getGames()),
-            'wishlist' => count($this->getDoctrine()->getRepository(WishList::class)->findByUser($user))
+            'wishlist' => count($this->getDoctrine()->getRepository(WishList::class)->findByUser($user)),
+            'blog' => count($this->getDoctrine()->getRepository(Blog::class)->findByUsername($user))
         ];
         $result = "";
 

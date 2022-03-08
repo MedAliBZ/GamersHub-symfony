@@ -125,17 +125,27 @@ class User implements UserInterface
     private $sessioncoachings;
 
     /**
+     * @ORM\OneToMany(targetEntity=Blog::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $blogs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $comments;
+
+    /**
      * @ORM\OneToOne(targetEntity=Player::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $player;
 
     /**
-     * @ORM\OneToMany(targetEntity=Spam::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Spam::class, mappedBy="user", cascade={"persist","remove"})
      */
     private $spam;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="user", cascade={"persist","remove"})
      */
     private $ratings;
 
@@ -146,6 +156,8 @@ class User implements UserInterface
         $this->sessioncoachings = new ArrayCollection();
         $this->spam = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->blogs = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
 

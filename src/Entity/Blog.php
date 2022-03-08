@@ -42,7 +42,7 @@ class Blog
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogs")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

@@ -21,22 +21,20 @@ class BlogRepository extends ServiceEntityRepository
 
 
 
-    // /**
-    //  * @return Blog[] Returns an array of Blog objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Blog[] Returns an array of Blog objects
+      */
+
+    public function findByUsername($user)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('b.user = :user')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Blog

@@ -55,6 +55,7 @@ class OrderController extends AbstractController
     {
         $order = new Order();
 
+
         $myCart = $session->get('cart', []);
         $em = $this->getDoctrine()->getManager();
 
@@ -75,7 +76,9 @@ class OrderController extends AbstractController
 
                 $em->persist($cart);
                 $order->addCart($cart);
+
             } else {
+
                 return $this->redirect($this->generateUrl('cartshow', ['user' => $this->getUser()]));
             }
         }
@@ -94,7 +97,7 @@ class OrderController extends AbstractController
 
         return $this->redirect($this->generateUrl('ordershow', [
             'id' => $id,
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
         ]));
     }
 

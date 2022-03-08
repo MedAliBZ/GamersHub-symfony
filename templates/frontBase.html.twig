@@ -68,8 +68,10 @@
                                 <ul class="sub-menu">
                                     <li><a href="{{ path("games") }}">Games</a></li>
                                     <li><a href="{{ path("missions") }}">Missions</a></li>
+                                    {% if user is defined and user is not null %}
                                     {% if user.player is null %}
                                         <li><a href="{{ path("player_new") }}">Become a Player</a></li>
+                                    {% endif %}
                                     {% endif %}
                                     <li><a href="{{ path("blog_index") }}">Blog</a></li>
                                     <li><a href="{{ path("matchs_index") }}">Matchs</a></li>

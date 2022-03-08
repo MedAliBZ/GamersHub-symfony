@@ -44,11 +44,13 @@ class SubscribeController extends AbstractController
             $entityManager->persist($subscribe);
             $entityManager->flush();
 
-            return $this->redirectToRoute('addSubscription', ['id' => $tournament->getId()]);
+            return $this->redirectToRoute('tournaments_new', ['id' => $tournament->getId()]);
         }
-        return $this->render('tournaments/tournaments.html.twig', [
+        return $this->render('subscribe/subscribe.html.twig', [
             'subscribe' => $subscribe,
             'form' => $form->createView(),
+            'user' => $this->getUser(),
+            'tournamentsList' => $tournament
             
         ]);
     }
@@ -88,7 +90,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/admin/subscribe/{id}", name="deleteSubscription", methods={"POST"})
+     * @Route("/admin/subscribe/delete/{id}", name="deleteSubscription", methods={"POST", "GET"})
      */
     public function delete(Subscribe $subscribe): Response
     {
