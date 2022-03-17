@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Tournaments;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,6 +21,10 @@ class TournamentsType extends AbstractType
             ->add('startDate',DateType::class)
             ->add('finishDate',DateType::class)
             ->add('maxT')
+            ->add('images', FileType::class,[
+                'mapped'=> false,
+                'label'=>'please upload pictures',
+            ])
             //->add('Add', SubmitType::class,['attr'=>['class'=>'cmn-btn']]);
         ;
     }

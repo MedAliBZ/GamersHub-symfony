@@ -41,8 +41,8 @@ class GameAPIController extends AbstractController
                 '{"error": "Missing username or gameName or both."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name'=>$request->request->get('gameName')]);
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$request->request->get('username')]);
+        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name' => $request->request->get('gameName')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $request->request->get('username')]);
         if ($user == null)
             return new Response(
                 '{"error": "User not found."}',
@@ -76,8 +76,8 @@ class GameAPIController extends AbstractController
                 '{"error": "Missing username or gameName or both."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name'=>$request->request->get('gameName')]);
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$request->request->get('username')]);
+        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name' => $request->request->get('gameName')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $request->request->get('username')]);
         if ($user == null)
             return new Response(
                 '{"error": "User not found."}',
@@ -110,8 +110,8 @@ class GameAPIController extends AbstractController
                 '{"error": "Missing username or gameName or both."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name'=>$request->query->get('gameName')]);
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$request->query->get('username')]);
+        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name' => $request->query->get('gameName')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $request->query->get('username')]);
         if ($user == null)
             return new Response(
                 '{"error": "User not found."}',
@@ -123,7 +123,7 @@ class GameAPIController extends AbstractController
                 401, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
 
-        if(in_array($user,$game->getUsers()->toArray()))
+        if (in_array($user, $game->getUsers()->toArray()))
             return new Response(
                 "{\"response\": \"True\"}",
                 200,
@@ -135,5 +135,38 @@ class GameAPIController extends AbstractController
                 200,
                 ['Accept' => 'application/json',
                     'Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/game", name="api_game_isLiked")
+     */
+    public function getAGame(Request $request, NormalizerInterface $normalizer): Response
+    {
+        if (!($request->query->get('gameName') && $request->query->get('username')))
+            return new Response(
+                '{"error": "Missing username or gameName or both."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name' => $request->query->get('gameName')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $request->query->get('username')]);
+        if ($user == null)
+            return new Response(
+                '{"error": "User not found."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        if ($game == null)
+            return new Response(
+                '{"error": "Game not found."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        //$game["isLiked"] = in_array($user,$game->getUsers()->toArray());
+        //dd($game);
+        $jsonContent = $normalizer->normalize($game, 'json', ['groups' => 'api:game']);
+        $jsonContent["isLiked"] = in_array($user, $game->getUsers()->toArray());
+        return new Response(
+            json_encode($jsonContent),
+            200,
+            ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
     }
 }

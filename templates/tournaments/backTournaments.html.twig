@@ -131,6 +131,13 @@
 												</script>
 											</div>
 										</div>
+									<div class="item form-group">
+										<div class="col-md-6 col-sm-6 ">
+											<label class="col-form-labelcol-md-3 col-sm-3 label-align">{{ form_label(form.images,"Image") }}</label>
+
+											{{ form_widget (form.images,{'attr':{'class':'form-control'}}) }}div>
+									</div>
+
 										 <div class="item form-group">
 										     <label class="col-form-label col-md-3 col-sm-3 label-align" for="maxT">Max Tournament</label> <span class="required">*</span>
 											</label>
@@ -138,7 +145,7 @@
 											{{ form_widget(form.maxT) }}
 											{{ form_errors(form.maxT)}}
 											</div>
-										<div class="ln_solid"></div>
+											 <div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
 												<button type="submit" class="btn btn-success">Add</button>
@@ -190,7 +197,8 @@
 								<td>{{ tr.startDate |date("m/d/Y") }}</td>
 								<td>{{ tr.finishDate |date("m/d/Y") }}</td>
 								<td>{{ tr.maxT }}</td>
-								<td><a type="Update" href="{{ path("tournaments_edit" ,  {'id': tr.id}) }}" class="fa fa-pencil"></a></td>
+											<td>{{ tr.images }}</td>
+											<td><a type="Update" href="{{ path("tournaments_edit" ,  {'id': tr.id}) }}" class="fa fa-pencil"></a></td>
 								<td><a href="{{ path("tournaments_delete" ,  {'id': tr.id}) }}" class="fa fa-trash-o"></a></td>
 								
                                 {# <div class="ln_solid"></div>

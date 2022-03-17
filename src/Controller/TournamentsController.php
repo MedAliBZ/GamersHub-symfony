@@ -68,6 +68,19 @@ class TournamentsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('images')->getData();
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        'img\tournaments',
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $tournament->setImages($newFilename);
+            }
             $em = $this->getDoctrine()->getManager();
                 $em->persist($tournament);
                 $em->flush();

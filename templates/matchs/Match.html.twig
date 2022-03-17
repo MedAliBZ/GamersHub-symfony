@@ -127,11 +127,14 @@
                                     {% for match in MatchsList %}
                                     <div class="single-matches d-flex align-items-center justify-content-between">
                                         <div class="left">
+                                            <p style="color: aqua">{{match.MatchName}}</p>
+                                        </div>
+                                        <div class="left">
                                             <p>{{match.matchDate| date('d/m/Y')}}</p>
                                         </div>
                                         <div class="mid d-flex align-items-center justify-content-between">
                                             <div class="player left-player d-flex align-items-center">
-                                                <p>{{match.MatchName}}</p>
+                                                <p>{{match.teams | length > 1 ? match.teams[0].TeamName : ""}}</p>
                                                 <span class="tier victory">Tier VII</span>
                                                 <img src="{{ asset("front/images/participant-1.png") }}" alt="image">
                                             </div>
@@ -141,7 +144,7 @@
                                             </h5>
                                             <div class="player right-player d-flex align-items-center">
                                                 <img src="{{ asset("front/images/participant-2.png") }}" alt="image">
-                                                <p>{{match.teams | first}}</p>
+                                                <p>{{ match.teams | length < 2 ? "" : match.teams[1].TeamName }}</p>
                                                 <span class="tier second">Tier VII</span>
                                             </div>
                                         </div>

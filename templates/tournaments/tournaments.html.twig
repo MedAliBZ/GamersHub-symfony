@@ -63,7 +63,8 @@
                 <div class="single-item">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 d-flex align-items-center">
-                            <img class="top-img" src="{{ asset("front/images/game-img-2.png") }}" alt="image">
+                            {% set images = tournament.images| trim('*') | split("*") %}
+                            <img src="{{asset('img/tournaments/') ~ tournament.getImages() }}" class="centerBlog" alt="Image">
                         </div>
                         <div class="col-lg-6 col-md-9 d-flex align-items-center">
                             <div class="mid-area">

@@ -69,7 +69,7 @@ class Tournaments
     private $rewards;
 
     /**
-     * @ORM\OneToMany(targetEntity=Subscribe::class, mappedBy="tournament")
+     * @ORM\OneToMany(targetEntity=Subscribe::class, mappedBy="tournament", cascade={"persist", "remove"})
      */
     private $subscribes;
 
@@ -77,6 +77,11 @@ class Tournaments
      * @ORM\Column(type="integer")
      */
     private $maxT;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $images;
 
     public function __construct()
     {
@@ -223,6 +228,18 @@ class Tournaments
     public function setMaxT(int $maxT): self
     {
         $this->maxT = $maxT;
+
+        return $this;
+    }
+
+    public function getImages(): ?string
+    {
+        return $this->images;
+    }
+
+    public function setImages(string $images): self
+    {
+        $this->images = $images;
 
         return $this;
     }
