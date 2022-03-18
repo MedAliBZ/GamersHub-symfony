@@ -125,12 +125,12 @@ class UserAPIController extends AbstractController
      */
     public function delete(Request $request, NormalizerInterface $normalizer): Response
     {
-        if (!$request->request->get('username'))
+        if (!$request->query->get('username'))
             return new Response(
                 '{"error": "Missing username."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->request->get('username')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->query->get('username')]);
         if ($user == null)
             return new Response(
                 '{"error": "User not found."}',
@@ -140,26 +140,41 @@ class UserAPIController extends AbstractController
         $em->remove($user);
         $em->flush();
         return new Response(
-            "{\"response\": \"{$request->request->get('username')} deleted.\"}",
+            "{\"response\": \"{$request->query->get('username')} deleted.\"}",
             200, ['Accept' => 'application/json',
             'Content-Type' => 'application/json']);
     }
 
-//    /**
-//     * @Route("/user", name="api_update", methods={"PATCH"})
-//     */
-//    public function update(Request $request): Response
-//    {
-//        if (!$request->request->get('username'))
-//            return new Response(
-//                '{"error": "Missing username."}',
-//                403, ['Accept' => 'application/json',
-//                'Content-Type' => 'application/json']);
-//        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->request->get('username')]);
-//        if ($user == null)
-//            return new Response(
-//                '{"error": "User not found."}',
-//                401, ['Accept' => 'application/json',
-//                'Content-Type' => 'application/json']);
-//    }
+    /**
+     * @Route("/user", name="api_update", methods={"POST"})
+     */
+    public function update(Request $request, NormalizerInterface $normalizer): Response
+    {
+        if (!($request->request->get('name') && $request->request->get('username') && $request->request->get('email') && $request->request->get('secondName')))
+            return new Response(
+                '{"error": "Missing username or email or name or secondName."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->request->get('username')]);
+        if ($user == null)
+            return new Response(
+                '{"error": "User not found."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $user
+            ->setEmail($request->request->get('email'))
+            ->setName($request->request->get('name'))
+            ->setSecondName($request->request->get('secondName'))
+        ;
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($user, 'json', ['groups' => 'post:read']);
+        return new Response(
+            json_encode($jsonContent),
+            200,
+            ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+    }
 }
