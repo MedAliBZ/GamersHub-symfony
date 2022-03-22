@@ -60,6 +60,7 @@ class UserAPIController extends AbstractController
         }
 
         $jsonContent = $normalizer->normalize($user, 'json', ['groups' => 'post:read']);
+        $jsonContent["isAdmin"] = $user->getRoles()[0] == "ROLE_ADMIN";
         return new Response(
             json_encode($jsonContent),
             200,
@@ -86,19 +87,17 @@ class UserAPIController extends AbstractController
                 '{"error": "Username is already taken!"}',
                 401, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        else if($userByEmail != null){
+        else if ($userByEmail != null) {
             return new Response(
                 '{"error": "This email is already registered!"}',
                 401, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        }
-        else if( $request->request->get('password') != $request->request->get('confirmPassword')){
+        } else if ($request->request->get('password') != $request->request->get('confirmPassword')) {
             return new Response(
                 '{"error": "Passwords do not match!"}',
                 401, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        }
-        else{
+        } else {
             $newUser = new User();
             $newUser->setPassword(password_hash($request->request->get('password'), PASSWORD_DEFAULT))
                 ->setEmail($request->request->get('email'))
@@ -130,7 +129,7 @@ class UserAPIController extends AbstractController
                 '{"error": "Missing username."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->query->get('username')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $request->query->get('username')]);
         if ($user == null)
             return new Response(
                 '{"error": "User not found."}',
@@ -150,12 +149,12 @@ class UserAPIController extends AbstractController
      */
     public function update(Request $request, NormalizerInterface $normalizer): Response
     {
-        if (!($request->request->get('name') && $request->request->get('username') && $request->request->get('email') && $request->request->get('secondName')))
+        if (!($request->request->get('username') && $request->request->get('email')))
             return new Response(
-                '{"error": "Missing username or email or name or secondName."}',
+                '{"error": "Missing username or email."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$request->request->get('username')]);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $request->request->get('username')]);
         if ($user == null)
             return new Response(
                 '{"error": "User not found."}',
@@ -163,9 +162,8 @@ class UserAPIController extends AbstractController
                 'Content-Type' => 'application/json']);
         $user
             ->setEmail($request->request->get('email'))
-            ->setName($request->request->get('name'))
-            ->setSecondName($request->request->get('secondName'))
-        ;
+            ->setName($request->request->get('name') ? $request->request->get('name') : null)
+            ->setSecondName($request->request->get('secondName') ? $request->request->get('secondName') : null);
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
@@ -176,5 +174,36 @@ class UserAPIController extends AbstractController
             200,
             ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/user/password", name="api_update_pass", methods={"POST"})
+     */
+    public function updatePassword(Request $request, NormalizerInterface $normalizer):Response {
+        if (!($request->request->get('username') && $request->request->get('oldPassword') && $request->request->get('newPassword')))
+            return new Response(
+                '{"error": "Missing username or oldPassword or newPassword."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username' => $request->request->get('username')]);
+        if ($user == null)
+            return new Response(
+                '{"error": "User not found."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        if (!password_verify($request->request->get('oldPassword'), $user->getPassword())) {
+            return new Response(
+                '{"error": "Wrong password."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        }
+        $user->setPassword(password_hash($request->request->get('newPassword'), PASSWORD_DEFAULT));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        return new Response(
+            '{"message": "Password changed successfully!"}',
+            200, ['Accept' => 'application/json',
+            'Content-Type' => 'application/json']);
     }
 }
