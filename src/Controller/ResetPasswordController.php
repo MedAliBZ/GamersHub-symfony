@@ -15,6 +15,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
@@ -176,5 +177,48 @@ class ResetPasswordController extends AbstractController
         $this->setTokenObjectInSession($resetToken);
 
         return $this->redirectToRoute('app_check_email');
+    }
+
+    /**
+     * @Route("/api", name="api_reset_pass", methods={"GET"})
+     */
+    public function sendResetPassMail(Request $request, MailerInterface $mailer, NormalizerInterface $normalizer)
+    {
+        if (!$request->query->get('email'))
+            return new Response(
+                '{"error": "Missing email."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy([
+            'email' => $request->query->get('email'),
+        ]);
+
+        try {
+            $resetToken = $this->resetPasswordHelper->generateResetToken($user);
+        } catch (ResetPasswordExceptionInterface $e) {
+            return new Response(
+                '{"error": "An error occurred!"}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        }
+
+        $email = (new TemplatedEmail())
+            ->from(new Address('gamershub.supp@gmail.com', 'GamersHub Support'))
+            ->to($user->getEmail())
+            ->subject('Your password reset request')
+            ->htmlTemplate('reset_password/email.html.twig')
+            ->context([
+                'resetToken' => $resetToken,
+            ])
+        ;
+
+        $mailer->send($email);
+
+        $this->setTokenObjectInSession($resetToken);
+        return new Response(
+            '{"message": "An email has been sent!"}',
+            200, ['Accept' => 'application/json',
+            'Content-Type' => 'application/json']);
     }
 }
