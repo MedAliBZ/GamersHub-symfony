@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class GameAPIController extends AbstractController
 {
     /**
-     * @Route("/games", name="api_games", methods={"GET"})
+     * @Route("/games", name="api_games")
      */
     public function index(NormalizerInterface $normalizer): Response
     {
@@ -168,5 +168,30 @@ class GameAPIController extends AbstractController
             200,
             ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/game/delete", name="api_game_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, NormalizerInterface $normalizer): Response
+    {
+        if (!$request->query->get('gameName'))
+            return new Response(
+                '{"error": "Missing gameName."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(['name' => $request->query->get('gameName')]);
+        if ($game == null)
+            return new Response(
+                '{"error": "Game not found."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($game);
+        $em->flush();
+        return new Response(
+            "{\"response\": \"{$request->query->get('gameName')} deleted.\"}",
+            200, ['Accept' => 'application/json',
+            'Content-Type' => 'application/json']);
     }
 }
