@@ -30,6 +30,31 @@ class GameAPIController extends AbstractController
                 'Content-Type' => 'application/json']);
     }
 
+    /**
+     * @Route("/likedGames", name="api_liked_games")
+     */
+    public function likedGames(NormalizerInterface $normalizer, Request $request): Response
+    {
+        if (!$request->query->get('username'))
+            return new Response(
+                '{"error": "Missing username."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(["username" => $request->query->get('username')]);
+        if ($user == null)
+            return new Response(
+                '{"error": "User not found."}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $gamesList = $user->getGames();
+        $jsonContent = $normalizer->normalize($gamesList, 'json', ['groups' => 'api:game']);
+        return new Response(
+            json_encode($jsonContent),
+            200,
+            ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+    }
+
 
     /**
      * @Route("/game/like", name="api_game_like", methods={"POST"})
