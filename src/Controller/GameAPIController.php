@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Game;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,6 +30,63 @@ class GameAPIController extends AbstractController
             ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
     }
+
+    /**
+     * @Route("/game/addGame", name="api_add_game")
+     */
+    public function addGame(NormalizerInterface $normalizer,Request $request): Response
+    {
+        if (!($request->request->get('gameName') && $request->request->get('image') && $request->request->get('description')))
+            return new Response(
+                '{"error": "Missing gameName or image or description."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $game = new Game();
+        $game->setName($request->request->get('gameName'));
+        $game->setDescription($request->request->get('description'));
+        $file=new File($request->request->get('image'));
+        $fileName = md5(uniqid()) . '.jpg';
+        $game->setImage($fileName);
+        $file->move($this->getParameter('game_image_directory'), $fileName);
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($game);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($game, 'json', ['groups' => 'api:game']);
+        return new Response(
+            json_encode($jsonContent),
+            200,
+            ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+    }
+
+    /**
+     * @Route("/game/updateGame", name="api_update_game")
+     */
+    public function updateGame(NormalizerInterface $normalizer,Request $request): Response
+    {
+        if (!($request->request->get('gameName')))
+            return new Response(
+                '{"error": "Missing gameName."}',
+                400, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        $game = new Game();
+        $game->setName($request->request->get('gameName'));
+        $game->setDescription($request->request->get('description'));
+        $file=new File($request->request->get('image'));
+        $fileName = md5(uniqid()) . '.jpg';
+        $game->setImage($fileName);
+        $file->move($this->getParameter('game_image_directory'), $fileName);
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($game);
+        $em->flush();
+        $jsonContent = $normalizer->normalize($game, 'json', ['groups' => 'api:game']);
+        return new Response(
+            json_encode($jsonContent),
+            200,
+            ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+    }
+
 
     /**
      * @Route("/likedGames", name="api_liked_games")
