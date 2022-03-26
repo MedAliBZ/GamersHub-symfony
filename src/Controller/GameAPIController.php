@@ -64,18 +64,20 @@ class GameAPIController extends AbstractController
      */
     public function updateGame(NormalizerInterface $normalizer,Request $request): Response
     {
-        if (!($request->request->get('gameName')))
+        if (!($request->request->get('gameId')))
             return new Response(
                 '{"error": "Missing gameName."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        $game = new Game();
+        $game = $this->getDoctrine()->getRepository(Game::class)->findOneBy(["id"=>$request->request->get('gameId')]);
         $game->setName($request->request->get('gameName'));
         $game->setDescription($request->request->get('description'));
-        $file=new File($request->request->get('image'));
-        $fileName = md5(uniqid()) . '.jpg';
-        $game->setImage($fileName);
-        $file->move($this->getParameter('game_image_directory'), $fileName);
+        if($request->request->get('image')) {
+            $file = new File($request->request->get('image'));
+            $fileName = md5(uniqid()) . '.jpg';
+            $game->setImage($fileName);
+            $file->move($this->getParameter('game_image_directory'), $fileName);
+        }
         $em=$this->getDoctrine()->getManager();
         $em->persist($game);
         $em->flush();

@@ -93,7 +93,13 @@ class UserAPIController extends AbstractController
                 '{"error": "This email is already registered!"}',
                 401, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
-        } else if ($request->request->get('password') != $request->request->get('confirmPassword')) {
+        } else if (!filter_var($request->request->get('email'), FILTER_VALIDATE_EMAIL)){
+            return new Response(
+                '{"error": "Wrong email format!"}',
+                401, ['Accept' => 'application/json',
+                'Content-Type' => 'application/json']);
+        }
+        else if ($request->request->get('password') != $request->request->get('confirmPassword')) {
             return new Response(
                 '{"error": "Passwords do not match!"}',
                 401, ['Accept' => 'application/json',
