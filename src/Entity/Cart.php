@@ -4,6 +4,7 @@ namespace App\Entity;
    
 use App\Repository\CartRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CartRepository::class)
@@ -19,11 +20,13 @@ class Cart
 
     /**
      * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="carts")
+     * @Groups("post:read")
      */
     private $product;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $quantity;
  

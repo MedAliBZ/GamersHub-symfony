@@ -46,5 +46,14 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function findByTotalPrice($value) 
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.totalprice= :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 }
