@@ -16,14 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Length;
+
 
 class OrderApiController extends AbstractController
 {
-
+  
     /**
      * @Route("/api/addToCart", name="api_addToCart")
      */
+  
     public function create(OrderRepository $repoOrd, CartRepository $repoCart, Request $request, NormalizerInterface $Normalizer)
     {
 
@@ -96,10 +97,36 @@ class OrderApiController extends AbstractController
 
     public function AllCarts(NormalizerInterface $Normalizer)
     {
-        $repository = $this->getDoctrine()->getRepository(Carts::class);
+        $repository = $this->getDoctrine()->getRepository(Cart::class);
         $carts = $repository->findAll();
-        $jsonContent = $Normalizer->normalize($carts, 'json', ['groups' => 'post:read']);
+        $cartsList=[];
+        foreach($carts as $item)
+        {   if($item->getMyOrder()->getTotalprice()==0)
+              $cartsList[]=$item;
+        }
+        $jsonContent = $Normalizer->normalize($cartsList, 'json', ['groups' => 'post:read']);
 
+        return new Response(json_encode($jsonContent));
+    }
+    
+    /**
+     * @Route("/api/updateOrder/{id}", name="api_updateOrder")
+     */
+
+    public function updateOrder(Request $request,NormalizerInterface $Normalizer,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository(Order::class)->find($id);
+        
+        $order->setUser($em->getRepository(User::class)->find($request->get('userId')));
+        $order->setTotalprice($request->get('totalprice'));
+        $order->setIsCanceled(1);
+
+
+
+        $em->flush();
+
+        $jsonContent = $Normalizer->normalize($order, 'json', ['groups' => 'post:read']);
         return new Response(json_encode($jsonContent));
     }
 }

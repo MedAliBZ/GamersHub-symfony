@@ -6,6 +6,7 @@ use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
  
 
 /**
@@ -18,21 +19,25 @@ class Order
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups("post:read")
      */
     private $totalprice;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups("post:read")
      */
     private $isCanceled;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
+     * @Groups("post:read")
      */
     private $user;
 
@@ -43,6 +48,7 @@ class Order
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("post:read")
      */
     private $isPaid;
     

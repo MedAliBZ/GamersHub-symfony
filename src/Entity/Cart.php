@@ -15,6 +15,7 @@ class Cart
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -32,6 +33,7 @@ class Cart
  
     /**
      * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="carts")
+     * @Groups("post:read")
      */
     private $myOrder;
 
