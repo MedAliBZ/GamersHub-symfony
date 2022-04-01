@@ -28,6 +28,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank(message="This field cannot be blank.")
      * @Groups("post:read")
+     * @Groups("api:coach")
+     * @Groups("api:session")
      */
     private $username;
 
