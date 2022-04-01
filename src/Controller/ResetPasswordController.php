@@ -180,7 +180,7 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
-     * @Route("/api", name="api_reset_pass", methods={"GET"})
+     * @Route("/api", name="api_reset_pass")
      */
     public function sendResetPassMail(Request $request, MailerInterface $mailer, NormalizerInterface $normalizer)
     {
