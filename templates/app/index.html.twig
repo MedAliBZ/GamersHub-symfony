@@ -1,0 +1,153 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <!-- banner-section start -->
+    <section id="banner-section">
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="main-content">
+                            <div class="top-area justify-content-center text-center">
+                                <h3>Play Unlimited</h3>
+                                <h1>Tournaments</h1>
+                                <p>Compete in Free and Paid entry Tournaments. Transform your
+                                    games to real money eSports</p>
+                                <div class="btn-play d-flex justify-content-center align-items-center">
+                                    <a href="{{ path('register') }}" class="cmn-btn">Get Started</a>
+                                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="mfp-iframe popupvideo">
+                                        <img src="{{ asset("front/images/play-icon.png") }}" alt="play">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-6">
+                                            <div class="bottom-area text-center">
+                                                <img src="{{ asset("front/images/versus.png") }}" alt="banner-vs">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ani-illu">
+                    <img class="left-1 wow fadeInUp" src="{{ asset("front/images/left-banner.png") }}" alt="image">
+                    <img class="right-2 wow fadeInUp" src="{{ asset("front/images/right-banner.png") }}" alt="image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner-section end -->
+    <!-- How Works start -->
+    <section id="how-works-section" class="border-area">
+        <div class="overlay pt-120 pb-120">
+            <div class="container wow fadeInUp">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <div class="section-header">
+                            <h2 class="title">How It Works</h2>
+                            <p>It's easier than you think. Follow 4 simple easy steps</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mp-top">
+                    <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-center">
+                        <div class="single-item">
+                            <div class="icon-area">
+                                <span>1</span>
+                                <img src="{{ asset("front/images/how-icon-1.png") }}" alt="image">
+                            </div>
+                            <div class="text-area">
+                                <h5>Signup</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-center obj-rel">
+                        <div class="single-item">
+                            <div class="icon-area">
+                                <span>2</span>
+                                <img src="{{ asset("front/images/how-icon-3.png") }}" alt="image">
+                            </div>
+                            <div class="text-area">
+                                <h5>Compete</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-center obj-alt">
+                        <div class="single-item">
+                            <div class="icon-area">
+                                <span>3</span>
+                                <img src="{{ asset("front/images/how-icon-2.png") }}" alt="image">
+                            </div>
+                            <div class="text-area">
+                                <h5>Earn</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 d-flex justify-content-center obj-rel">
+                        <div class="single-item">
+                            <div class="icon-area">
+                                <span>4</span>
+                                <img src="{{ asset("front/images/how-icon-4.png") }}" alt="image">
+                            </div>
+                            <div class="text-area">
+                                <h5>Shop</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How Works end -->
+    <section id="call-action" class="pb-120">
+        <div class="overlay">
+            <div class="container wow fadeInUp">
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="left-area">
+                            <h2 class="title">Build Your Esports Profile</h2>
+                            <p>Show case your achievements while you build your reputation on GamersHub.</p>
+                            <a href="{{ path("register") }}" class="cmn-btn-second">Sign Up Free</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-6">
+                        <div class="right-area">
+                            <img src="{{ asset("front/images/profile-info.png") }}" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call to Action In start -->
+    <section id="call-to-action">
+        <div class="overlay pt-120 pb-120">
+            <div class="container">
+                <div class="main-content">
+                    <div class="row d-sm-flex justify-content-sm-end">
+                        <div class="col-lg-4 col-md-1">
+                            <img class="left" src="{{ asset("front/images/call-to-action-left.png") }}" alt="image">
+                        </div>
+                        <div class="col-lg-4 col-md-5 col-sm-5 d-flex align-items-center">
+                            <div class="section-item">
+                                <h4>Invite Friends and Win Rewards together. Join the Gaming Hub today!</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center justify-content-sm-end align-items-center">
+                            <div class="btn-area d-flex justify-content-center justify-content-sm-end align-items-center">
+                                <a href="{{ path('register') }}" class="cmn-btn">Join Now</a>
+                            </div>
+                            <img src="{{ asset("front/images/call-to-action-right.png") }}" alt="image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call to Action In end -->
+{% endblock %}

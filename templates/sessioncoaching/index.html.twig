@@ -1,0 +1,132 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}Session Coaching{% endblock %}
+{% block content %}
+
+    <!-- banner-section start -->
+    <section id="banner-section" class="inner-banner profile features shop">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+        </div>
+
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Session Coaching</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Session Coaching</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Call To Action In start -->
+    {% if coach is not null %}
+    {% if coach.user.id == user.id %}
+        <section id="call-to-action" class="border-area">
+            <div class="overlay pt-120">
+                <div class="container">
+                    <div class="main-content">
+                        <div class="row d-sm-flex justify-content-sm-end">
+                            <div class="col-lg-4 col-md-1">
+                                <img class="left" src="{{ asset( "front/images/character.png") }}" alt="image">
+                            </div>
+                            <div class="col-lg-4 col-md-5 col-sm-5 d-flex align-items-center">
+                                <div class="section-item">
+                                    <h4>Create a coachingSession!</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-center justify-content-sm-end align-items-center">
+                                <div class="btn-area d-flex justify-content-center justify-content-sm-end align-items-center">
+                                    <a href="{{ path('sessioncoaching_new') }}" class="cmn-btn">Add new Session</a>
+                                </div>
+                                <img src="{{ asset( "front/images/call-to-action-right.png") }}" alt="image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    {% endif %}
+
+
+    <!-- banner-section end -->
+
+    <section id="tournaments-section" class="pt-120 tournaments">
+        <div class="overlay pt-120 pb-120">
+            <div class="container wow fadeInUp">
+    {% for c in sessioncoachings %}
+                <div class="single-item">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 d-flex align-items-center">
+                            <img src="https://avatars.dicebear.com/api/bottts/{{ c.coach.user.username }}.svg"
+                                 style="width: 70px;height: 70px; margin: 30%;" alt="Image">
+                        </div>
+                        <div class="col-lg-6 col-md-9 d-flex align-items-center">
+                            <div class="mid-area">
+                                <h4>{{c.coach.user.username}}</h4>
+                                <div class="title-bottom d-flex">
+                                    <div class="time-area bg">
+                                        <img src="{{ asset("front/images/waitng-icon.png")}}" alt="image">
+                                        <span>Starts in</span>
+                                        <span class="time">{{ c.getDateDebut()|date('d/m/Y') }}</span>
+                                    </div>
+                                    <div class="date-area bg">
+                                        <span>Ends in</span>
+                                        <span class="date">{{ c.getDateFin()|date('d/m/Y') }}</span>
+                                    </div>
+                                </div>
+                                <div class="single-box d-flex">
+                                    <div class="box-item">
+                                        <span class="head">Who will be coached</span>
+                                        <span class="sub">{{ c.user.username }}</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">Description</span>
+                                        <span class="sub">{{c.description}}</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">Enrolled</span>
+                                        <span class="sub">11</span>
+                                    </div>
+                                    <div class="box-item">
+                                        <span class="head">skill Level</span>
+                                        <span class="sub">All</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 d-flex align-items-center">
+                            <div class="prize-area text-center">
+                                <div class="contain-area">
+                                    <span class="prize"><img src="{{ asset("front/images/price-coin.png")}}" alt="image">prize</span>
+                                    <h4 class="dollar">${{ c.prix }}</h4>
+                                    {% if c.coach.user.id == user.id %}
+                                    <a href="{{ path('sessioncoaching_edit',{'id':c.id}) }}" class="cmn-btn">Update</a>
+                                    <a href="{{ path('sessioncoaching_delete',{'id':c.id}) }}" class="cmn-btn">Delete</a>
+                                    {% endif %}
+                                    <a href="{{ path('calendrier',{'id':c.id})}}" class="cmn-btn">View Calendar</a>
+                                    <p>You Won't Regret</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

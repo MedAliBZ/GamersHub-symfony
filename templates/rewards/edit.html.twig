@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Rewards</title>
+
+{% block body %}
+    <h1>Edit Rewards</h1>
+
+    {{ include('rewards/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('rewards_index') }}">back to list</a>
+
+    {{ include('rewards/_delete_form.html.twig') }}
+{% endblock %}

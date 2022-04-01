@@ -1,0 +1,138 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}shop{% endblock %}
+
+{% block content %}
+
+
+<!-- banner-section start -->
+<section id="banner-section" class="inner-banner profile features shop">
+    <div class="ani-img">
+        <img class="img-1" src="{{asset('front/images/banner-circle-1.png')}}" alt="icon">
+        <img class="img-2" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+        <img class="img-3" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+    </div>
+    <div class="banner-content d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="main-content">
+                        <h1>Shop</h1>
+                        <div class="breadcrumb-area">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb d-flex justify-content-center">
+                                    <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Products</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner-section end -->
+
+
+
+<!-- Featured Products Start -->
+<section id="featured-products" class="pt-120 pb-120">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 d-flex align-items-center">
+                <div class="section-header text-center">
+                    <h2 class="title">Featured Products</h2>
+                    <p>Our goal is to deliver high quality gaming apparel and help grow the gaming community!</p>
+                </div>
+            </div>
+        </div>
+        <div class="row cus-m">
+
+            {% for product in products %}
+
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="single-item" style="min-height: 450px;max-height: 450px">
+                    <a href="{{path('productsdetailProduct',{ id:product.getId() })}}">
+                        <span class="new">New</span>
+                        <div class="img-area text-center" style="min-height: 250px;max-height:250px">
+                            {% set images = product.image| trim('*') | split("*") %}
+                            <img src="{{asset('shop/images/'~images[0])}}" alt="image" width="90%" >
+                        </div>
+                        <div class="bottom-item text-center js-like">
+                            
+
+                                <a href="shop-details.html">
+                                    <h6>{{ product.getNameProduct() }}</h6>
+                            
+                            <p class="text-sm">{{ product.getCategory()}}</p>
+
+                            <div class="bottom-area d-flex align-items-center justify-content-between">
+                                <h5>{{ product.getPrice() }} COINS</h5>
+                                {% if user is not null %}
+                                <a href="{{path('cartadd',{ id:product.getId()})}}" class="cmn-btn">Add to Cart</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Featured Products End -->
+
+
+<!-- Policy Start -->
+<section id="policy-section" class="pb-120">
+    <div class="container">
+        <div class="main-content">
+            <div class="row cus-m">
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="{{asset('front/images/policy-icon-1.png')}}" alt="image">
+                        </div>
+                        <h5>Free Shipping</h5>
+                        <p class="text-sm">on all orders over 500 Coins</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="{{asset('front/images/policy-icon-2.png')}}" alt="image">
+                        </div>
+                        <h5>30 Days returns</h5>
+                        <p class="text-sm">Moneyback guarantee</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="{{asset('front/images/policy-icon-3.png')}}" alt="image">
+                        </div>
+                        <h5>Secure checkout</h5>
+                        <p class="text-sm">100% Protectted </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="single-box text-center">
+                        <div class="img-area text-center">
+                            <img src="{{asset('front/images/policy-icon-4.png')}}" alt="image">
+                        </div>
+                        <h5>Save Money</h5>
+                        <p class="text-sm">Save 10% money</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Policy End -->
+
+
+{% endblock %}

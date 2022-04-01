@@ -1,0 +1,294 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Tournaments{% endblock %}
+{% block extraStyle %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	
+
+	<!-- Bootstrap -->
+	<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+	<!-- iCheck -->
+	<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- starrr -->
+	<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="../build/css/custom.min.css" rel="stylesheet">
+    {% endblock %}
+
+    {% block content %}
+    <!--start form-->
+<div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>TOURNAMENTS</h3>
+						</div>
+
+						<div class="title_right">
+							<div class="col-md-5 col-sm-5  form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Search for...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Tournaments form <small></small></h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+										</li>
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+											<ul class="dropdown-menu" role="menu">
+												<li><a class="dropdown-item" href="#">Settings 1</a>
+												</li>
+												<li><a class="dropdown-item" href="#">Settings 2</a>
+												</li>
+											</ul>
+										</li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="name">Tournament name <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_errors(form.name) }}
+											{{ form_widget(form.name) }}
+											{{ form_errors(form.name)}}
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="decription">Tournament description <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_widget(form.decription) }}
+											
+											</div>
+										</div>
+										<div class="item form-group">
+											<label for="TeamSize" class="col-form-label col-md-3 col-sm-3 label-align">Team size </label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_widget(form.teamSize) }}
+											{{ form_errors(form.teamSize)}}
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">Start date <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_widget(form.startDate,{'attr':{'class':'form-control'}}) }}
+												<script>
+													function timeFunctionLong(input) {
+														setTimeout(function() {
+															input.type = 'text';
+														}, 60000);
+													}
+												</script>
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align">Finish date <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_widget(form.finishDate,{'attr':{'class':'form-control'}}) }}
+												<script>
+													function timeFunctionLong(input) {
+														setTimeout(function() {
+															input.type = 'text';
+														}, 60000);
+													}
+												</script>
+											</div>
+										</div>
+									<div class="item form-group">
+										<div class="col-md-6 col-sm-6 ">
+											<label class="col-form-labelcol-md-3 col-sm-3 label-align">{{ form_label(form.images,"Image") }}</label>
+
+											{{ form_widget (form.images,{'attr':{'class':'form-control'}}) }}div>
+									</div>
+
+										 <div class="item form-group">
+										     <label class="col-form-label col-md-3 col-sm-3 label-align" for="maxT">Max Tournament</label> <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+											{{ form_widget(form.maxT) }}
+											{{ form_errors(form.maxT)}}
+											</div>
+											 <div class="ln_solid"></div>
+										<div class="item form-group">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+												<button type="submit" class="btn btn-success">Add</button>
+											</div>
+										</div>
+									{{ form_end(form) }}
+								</div>
+							</div>
+						</div>
+					</div>
+							
+	</div>
+</div>
+                    <!--end form-->
+<!--start table-->
+	<div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>TOURNAMENTS TABLE</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tournament Name</th>
+                                    <th>Description</th>
+                                    <th>Team Size</th>
+                                    <th>Start date</th>
+                                    <th>Finish Date</th>
+									<th>Max Tournament</th>
+                                </tr>
+                                </thead>
+								<tbody>
+								{% if(tournaments is not null) %}
+                                    {% for tr in tournaments %}
+                                        <tr>
+								<td>{{ tr.id }}</td>
+								<td>{{ tr.name }}</td>
+								<td>{{ tr.decription }}</td>
+								<td>{{ tr.teamSize }}</td>
+								<td>{{ tr.startDate |date("m/d/Y") }}</td>
+								<td>{{ tr.finishDate |date("m/d/Y") }}</td>
+								<td>{{ tr.maxT }}</td>
+											<td>{{ tr.images }}</td>
+											<td><a type="Update" href="{{ path("tournaments_edit" ,  {'id': tr.id}) }}" class="fa fa-pencil"></a></td>
+								<td><a href="{{ path("tournaments_delete" ,  {'id': tr.id}) }}" class="fa fa-trash-o"></a></td>
+								
+                                {# <div class="ln_solid"></div>
+										<div class="item form-group">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+                                                <button type="Update" class="btn btn-success">Update</button>
+                                                <button type="Delete" class="btn btn-success">Delete</button>
+											</div>
+										</div> #}
+									
+									{% endfor %}
+									{% endif %}
+								</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+	<div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>TOURNAMENTS HISTORY TABLE</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>action</th>
+                                    <th>model</th>
+                                </tr>
+                                </thead>
+								<tbody>
+								{% if(historique is not null) %}
+                                    {% for tr in historique %}
+                                        <tr>
+								<td>{{ tr.id }}</td>
+								<td>{{ tr.action }}</td>
+								<td>{{ tr.model }}</td>
+                                {# <div class="ln_solid"></div>
+										<div class="item form-group">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+                                                <button type="Update" class="btn btn-success">Update</button>
+                                                <button type="Delete" class="btn btn-success">Delete</button>
+											</div>
+										</div> #}
+									
+									{% endfor %}
+									{% endif %}
+								</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+									
+    {% endblock %}
+    {% block extraScripts %}
+    <script src="{{ asset('back/vendors/fastclick/lib/fastclick.js') }}"></script>
+    <script src="{{ asset('back/vendors/nprogress/nprogress.js') }}"></script>
+    <script src="{{ asset('back/vendors/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script src="{{ asset('back/vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/jszip/dist/jszip.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('back/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('back/build/js/custom.min.js') }}"></script>
+{% endblock %}

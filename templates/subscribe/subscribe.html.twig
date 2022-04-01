@@ -1,0 +1,29 @@
+{% extends 'authBase.html.twig ' %}
+
+{% block title %}Subscribe{% endblock %}
+
+{% block auth %}
+    <h4>To the next level !</h4>
+    <div class="form-area">
+        {% if form is defined %}
+            {{ form_start(form)}}
+            <div class="form-group">
+                {{ form_label(form.teamName) }}
+                {{ form_widget(form.teamName,{'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.size) }}
+                {{ form_widget(form.size,{'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="form-group">
+
+            {{ form_row(form.captchaCode) }}
+            </div>
+            <div class="form-group">
+                 <button type="submit" class="cmn-btn" href="frontBase.html">Subscribe</button> 
+                
+            </div>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
+{% endblock %}

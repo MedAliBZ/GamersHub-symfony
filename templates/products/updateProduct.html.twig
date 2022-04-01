@@ -1,0 +1,163 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<!-- page content -->
+<br>
+
+<div class="col-md-12 col-sm-12 " style="width: fit-co;">
+    <div class="x_panel">
+
+        <h2>Product Form </h2>
+        <div class="x_title"></div>
+
+        <div>
+            <div class="x_content">
+                {{ form_start(formProduct1,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+
+                <form class="form-horizontal">
+
+                    <div class="item form-group">
+
+
+                        <label class="col-form-label
+                                   col-md-3 col-sm-3 label-align">{{ form_label (formProduct1.nameProduct,"Product
+                            Name") }}</label>
+
+                        {{ form_widget (formProduct1.nameProduct,{'attr':{'class':'col-md-6 col-sm-6
+                        form-control'}}) }}
+
+                    </div>
+                    <div style="margin-left:25% ;color:red;">
+                        {{ form_errors (formProduct1.nameProduct) }}
+                    </div>
+
+                    
+                    <div class="item form-group">
+
+
+                        <label class="col-form-label
+                                   col-md-3 col-sm-3 label-align">{{ form_label (formProduct1.description,"
+                                   description") }}</label>
+
+                        {{ form_widget (formProduct1.description,{'attr':{'class':'col-md-6 col-sm-6
+                        form-control'}}) }}
+
+                    </div>
+                    <div style="margin-left:25% ;color:red;">
+                        {{ form_errors (formProduct1.description) }}
+                    </div>
+
+                    <div class="item form-group" style="margin-left:14% ;">
+                        <div class="col-md-6 col-sm-6">
+
+                            <label class="col-form-label
+                        col-md-3 col-sm-3 label-align">{{ form_label
+                                (formProduct1.price,"Price")
+                                }}</label>
+                            {{ form_widget (formProduct1.price,{'attr':{'class':'col-md-6 col-sm-6
+                            form-control'}}) }}
+
+
+                        </div>
+                    </div>
+
+                    <div style="margin-left:25% ;color:red;">
+                        {{ form_errors (formProduct1.price) }}
+                    </div>
+
+                    <div class="item form-group" style="margin-left:14% ;">
+                        <div class="col-md-6 col-sm-6">
+
+                            <label class="col-form-label
+                        col-md-3 col-sm-3 label-align">{{ form_label
+                                (formProduct1.quantityStocked,"Quantity Stocked")
+                                }}</label>
+                            {{ form_widget (formProduct1.quantityStocked,{'attr':{'class':'col-md-6 col-sm-6
+                            form-control'}}) }}
+
+
+                        </div>
+                    </div>
+                    
+
+                    <div style="margin-left:25% ;color:red;">
+                        {{ form_errors (formProduct1.quantityStocked) }}
+                    </div>
+
+
+                    <div class="item form-group">
+
+
+                        <label class="col-form-label
+                        col-md-3 col-sm-3 label-align">{{ form_label(formProduct1.image,"Image") }}</label>
+
+                        {{ form_widget (formProduct1.image,{'attr':{'class':'col-md-6 col-sm-6
+                        form-control'}}) }}
+ 
+
+
+                    </div>
+                    <div style="margin-left:25% ;color:red;">{{ form_errors (formProduct1.image) }} </div>
+
+
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3" style="margin-left:17% ;">{{
+                            form_label(formProduct1.category,"Category")
+                            }}</label>
+                        <div >
+                            {{ form_widget (formProduct1.category,{'attr':{'class':'col-md-9 col-sm-9
+                            form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div style="margin-left:25% ;color:red;">{{ form_errors (formProduct1.category) }} </div>
+
+
+                    <div style="display: none;">
+                        {{ form_row (formProduct1.creationDate )}}
+                        {{ form_row (formProduct1.modificationDate )}}
+                        {{ form_row (formProduct1.isEnabled )}}
+                    </div>
+
+                    <div class="item form-group" style="margin-left: 58%;">
+                        <a href="{{path('productscancel')}}"><button class="btn btn-primary"
+                                type="button">Cancel</button></a>
+                        {{ form_row (formProduct1.update,{'attr':{'class':'btn btn-success'}} )}}
+
+                    </div>
+                    {{form_rest (formProduct1)}}
+
+
+                </form>
+                {{ form_end (formProduct1)}}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+{% block extraStyle %}
+<!-- bootstrap-wysiwyg -->
+<script src="{{asset('back/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')}}"></script>
+<script src="{{asset('back/vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
+<script src="{{asset('back/vendors/google-code-prettify/src/prettify.js')}}"></script>
+<!-- jQuery Tags Input -->
+<script src="{{asset('back/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script>
+<!-- Switchery -->
+<script src="{{asset('back/vendors/switchery/dist/switchery.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('back/vendors/select2/dist/js/select2.full.min.js')}}"></script>
+<!-- Parsley -->
+<script src="{{asset('back/vendors/parsleyjs/dist/parsley.min.js')}}"></script>
+<!-- Autosize -->
+<script src="{{asset('back/vendors/autosize/dist/autosize.min.js')}}"></script>
+<!-- jQuery autocomplete -->
+<script src="{{asset('back/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
+<!-- starrr -->
+<script src="{{asset('back/vendors/starrr/dist/starrr.js')}}"></script>
+
+
+{% endblock %}

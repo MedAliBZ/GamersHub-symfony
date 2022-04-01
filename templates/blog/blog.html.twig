@@ -1,0 +1,198 @@
+{% extends 'frontBase.html.twig' %}
+{% block extraStyle %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- START: Styles -->
+
+    <!-- Google Fonts -->
+    {# <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css"> #}
+      <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+
+    <!-- GoodGames -->
+    <link rel="stylesheet" href="{{ asset("front/css/goodgames.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/custom.css") }}">
+
+
+
+
+    
+{% endblock %}
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+
+<section id="banner-section" class="inner-banner profile">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>Blog</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ path("home") }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+ </section>
+ {# <div id="colorlib-page">
+	<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+	<section>
+	<div id="colorlib-main">
+		<section class="ftco-section ftco-no-pt ftco-no-pb">
+		<div class="container">
+			<div class="row d-flex">
+				<div class="col-xl-8 py-5 px-md-5">
+					<div class="row pt-md-4">
+						<div class="col-md-12">
+								<div class="blog-entry ftco-animate d-md-flex">
+									<a href="single.html" class="img img-2" style="background-image: url(images/image_1.jpg);"></a>
+									<div class="text text-2 pl-md-4">
+                                    {% if(publicationList is not null) %}
+                                        {% for pub in publicationList %}
+                                        <div class="avatar">
+                                        <img src="https://avatars.dicebear.com/api/bottts/{{ pub.user.username}}.svg" style="width: 70px;height: 70px;" alt="Image">
+                                        {% if pub.user %}
+                                            <p class="text-sm title">{{pub.user.username}}</p>
+                                        {% endif %}
+                                        
+                                        </div>
+						                    <div class="meta-wrap">
+											    <p class="meta">
+								                <span><i class="icon-calendar mr-2"></i>{{pub.publishedAt|date('Y-m-d H:i:s')}}</span>
+							                     </p>
+						                    </div>
+                                                <p class="text-sm title">{{pub.title}}</p>
+						                        <p class="mb-4">{{pub.description}}</p>
+						                {% endfor %}
+                                    {% endif %}
+                                    </div>
+								</div>
+						</div>
+							
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	 #}
+{% if(publicationList is not null) %}
+{% for pub in publicationList %}
+
+ <div class="container">
+
+    <div class="nk-gap-2"></div>
+    <ul class="nk-forum nk-forum-topic">
+            <li>
+                <div class="nk-forum-topic-author">
+                    <a href="{{ path('profile')}}">
+                        <img src="https://avatars.dicebear.com/api/bottts/{{ pub.user.username}}.svg">
+                    </a>
+                    <div class="nk-forum-topic-author-name" title="name">
+                        <a>{{pub.user.username}}</a>
+                    </div>
+                    <div class="nk-forum-topic-author-role">{{ pub.user.roles | join('') | split('_') | last }}</div>
+                    <div class="nk-forum-topic-author-since">
+                        {{pub.user.createdAt|date('Y-m-d H:i:s')}}
+                    </div>
+                </div>
+                <div class="nk-forum-topic-content">
+                    <a href="#" class="para-blog-title">
+                          {{pub.title}}
+                    </a>
+
+                    <p class="para-blog-text">{{pub.description}}</p>
+
+                    <div class="nk-forum-topic-attachments"> 
+                        {# <a href="#">goodgames-free.zip</a>
+                        <br>
+                        (14.86 MiB) Downloaded 185 times #}
+                        {% set images = pub.image| trim('*') | split("*") %}
+                            <img src="{{asset('img/blog/') ~ pub.getImage() }}" class="centerBlog" alt="Image">
+
+                    </div>
+                </div>
+                <div class="nk-forum-topic-footer">
+                    <span class="nk-forum-topic-date">{{pub.publishedAt|date('M ,d Y 
+                     h:m T')}}</span>
+
+                    <span class="nk-forum-action-btn">
+                        <a href="{{ path('Post', {"id": pub.id}) }}" class="nk-anchor"><span class="fa fa-reply"></span> Reply</a>
+                    </span>
+                    <span class="nk-forum-action-btn">
+                        <a href="{{ path('newSpam', {"id": pub.id}) }}"><span class="fa fa-flag"></span> Report</a>
+                    </span>
+                </div>
+                  <span class="nk-forum-topic">
+                        <a  class="nk-anchor"><span class="fas fa-eye"></span> Views</a>
+                         <td>{{ pub.views }}</td>
+                    </span>
+                <div class="nk-forum-topic-footer"></div>
+            </li>
+    </ul>
+</div>
+
+{% endfor %}
+ {% endif %}
+<section>
+<div class="container">
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+                    <div class="nk-gap-2"></div>
+             <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Share</span> a Post</span></h3>
+            <div class="comment-form">
+                <div class="container">
+                {% if form is defined %}
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.Title) }}
+                        {{ form_widget(form.Title,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="item form-group">
+
+
+                        <label class="col-form-labelcol-md-3 col-sm-3 label-align">{{ form_label(form.image,"Image") }}</label>
+
+                        {{ form_widget (form.image,{'attr':{'class':'form-control'}}) }}
+
+
+
+                    </div>
+                    
+                    <div class="form-group">
+                            <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-main-1" href="blog.html">Post</button> 
+                            
+                        </div>
+                        {{ form_end(form) }}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+    {% endblock %}

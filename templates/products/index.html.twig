@@ -1,0 +1,97 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Products{% endblock %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">{% endblock %}
+{% block content %}
+    <br>
+
+    <div class="col-md-12 col-sm-12 ">
+        <div class="x_panel">
+            <div class="x_title" style="display: inline-flex;">
+                <h2>Products Table </h2>
+                <div class="clearfix"></div>
+                <a href="{{ path('productscreate') }}">
+                    <button type="button" class="btn btn-info btn-xs"
+                            style="position:absolute;top:15px;right:3%;">Add product
+                    </button>
+                </a>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+                            <table id="datatable-keytable" class="table table-striped table-bordered"
+                                   style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name Product</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Quantity stocked</th>
+                                    <th>Image</th>
+                                    <th>Description</th>
+                                    <th>Creation Date</th>
+                                    <th>Modification Date</th>
+                                    <th>IsEnabled</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+
+                                <tbody>
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{ product.getId() }}</td>
+                                        <td>{{ product.getNameProduct() }}</td>
+                                        <td>{{ product.getPrice() }}</td>
+                                        <td>{{ product.getCategory() }}</td>
+                                        <td>{{ product.getQuantityStocked() }}</td>
+
+                                        <td>
+
+                                            {% set images = product.image| trim('*') | split("*") %}
+                                            <picture>
+                                                {% for image in images %}
+                                                    <img src="{{ asset('shop/images/'~image) }}" alt="image"
+                                                         style="width:100px ;margin-bottom:20%">
+
+                                                {% endfor %}
+
+                                            </picture>
+                                        </td>
+                                        <td>{{ product.getDescription() }}</td>
+                                        <td>{{ product.getCreationDate()| date }}</td>
+                                        <td>{{ product.getModificationDate()| date }}</td>
+                                        <td>{% if product.getIsEnabled() == 0 %}
+                                                <span class="badge badge-danger">isDisabled</span>
+                                            {% else %}
+                                                <span class="badge badge-success">isEnabled</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="fa fa-pencil"
+                                               href="{{ path('productsupdate',{ id:product.getId() }) }}"></a>
+                                            <a class="fa fa-trash"
+                                               href="{{ path('productsdelete',{ id:product.getId() }) }}"></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<title>Spam</title>
+
+{% block body %}
+    <h1>Spam</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ spam.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_spam_index') }}">back to list</a>
+
+    <a href="{{ path('app_spam_edit', {'id': spam.id}) }}">edit</a>
+
+    {{ include('spam/_delete_form.html.twig') }}
+{% endblock %}

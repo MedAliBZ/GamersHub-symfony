@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Sessioncoaching</title>
+
+{% block body %}
+    <h1>Create new Sessioncoaching</h1>
+
+    {{ include('sessioncoaching/_form.html.twig') }}
+
+    <a href="{{ path('sessioncoaching_index') }}">back to list</a>
+{% endblock %}

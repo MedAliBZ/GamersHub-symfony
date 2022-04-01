@@ -1,0 +1,108 @@
+{% extends 'frontBase.html.twig' %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block title %}{{ game.name }}{% endblock %}
+
+{% block content %}
+    <!-- banner-section start -->
+    <section id="banner-section" class="inner-banner">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset('front/images/banner-circle-1.png') }}" alt="icon">
+            <img class="img-2" src="{{ asset('front/images/banner-circle-2.png') }}" alt="icon">
+            <img class="img-3" src="{{ asset('front/images/banner-circle-2.png') }}" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6" style="width: 800px;max-width: 100%;">
+                        <div class="main-content" style="width: 800px;">
+                            <h1 id="gameName">{{ game.name }}</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ path("home") }}">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ path("games") }}">Games</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{{ game.name }}</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner-section end -->
+    {% if user is defined and user is not null %}
+    <p id="username" style="display: none">{{ user.username }}</p>
+    {% endif %}
+    <!-- Game start -->
+    <section id="features-section" style="padding: 70px">
+        <div class="container wow fadeInUp">
+            <div class="main-container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <img style="width: 390px;height: 500px;margin-bottom: 40px;border: 10px;border-radius: 20px;"
+                             src="{{ '../games/images'~asset(game.image) }}" alt="image">
+                    </div>
+                    <div class="col col-lg-7 align-items-center d-flex">
+                        <div style="display: flex;flex-direction: column;align-items: center;">
+                            <h3>Description</h3>
+                            <p style="margin: 30px 0;text-align: center;min-width: 600px;">{{ game.description | raw }}</p>
+                            <div style="margin-top: 20px;display: flex;justify-content: center;align-items: center;">
+                                {% if user is defined %}
+                                    {% if user is not null %}
+                                        {% if user.username in game.users %}
+                                            {# <a id="like" href="{{ path('unfollowGame', {"id":game.id}) }}"> #}
+                                            <i class="fas fa-heart" id="like"
+                                               style="color: #d50000;font-size: 40px;cursor:pointer;"></i>
+                                            {# </a> #}
+                                        {% else %}
+                                            {# <a id="like" href="{{ path('followGame', {"id":game.id}) }}"> #}
+                                            <i class="far fa-heart" id="like"
+                                               style="color: #d50000;font-size: 40px;cursor:pointer;"></i>
+                                            {# </a> #}
+                                        {% endif %}
+                                        <p id="numberLikes"
+                                           style="font-size: 25px;margin-left: 10px;color: #d50000">{{ game.users | length }}
+                                            {% if game.users | length == 1 %}
+                                                {{ " like" }}
+                                            {% else %}
+                                                {{ " likes" }}
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div style="display: flex;flex-direction: column;align-items: center;justify-content: center;">
+                        <h2 style="margin-bottom: 50px">Articles</h2>
+                        <div id="all-articles">
+                            {# <div class="articles-game"> #}
+                            {# <h3>title here</h3> #}
+                            {# <p>2022-02-16</p> #}
+                            {# <div style="display: flex;justify-content: space-between;align-items: center;width: 100%;"> #}
+                            {# <div style="display: flex;"> #}
+                            {# <h6 style="margin-right: 10px">Source: </h6> <h6 id="article-source">Dot #}
+                            {# Esports</h6> #}
+                            {# </div> #}
+                            {# <div style="display: flex;"> #}
+                            {# <a href="https://www.test.com">Visit Article <i class="fas fa-arrow-right"></i></a> #}
+                            {# </div> #}
+                            {# </div> #}
+                            {# </div> #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Game end -->
+{% endblock %}
+
+{% block extraScript %}
+    <script src="{{ asset("front/js/extraScripts.js") }}"></script>
+{% endblock %}

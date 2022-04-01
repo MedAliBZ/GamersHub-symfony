@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Rewards</title>
+
+   {% block mainContent %}
+    <h1>Create new Tournaments</h1>
+
+    {{ include('tournaments/_form.html.twig') }}
+
+    <a href="{{ path('tournaments_index') }}">back to list</a>
+{% endblock %}

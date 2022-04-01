@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<title>Matchs index</title>
+
+{% block body %}
+    <h1>Matchs index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Match Name</th>
+                <th>Match_date</th>
+                <th>Result</th>
+                <th>Team</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for match in matchs %}
+            <tr>
+                <td>{{ match.id }}</td>
+                <td>{{ match.MatchName }}</td>
+                <td>{{ match.matchDate ? match.matchDate|date('Y-m-d')}}</td>
+                <td>{{ match.result }}</td>
+                 <td>{{ match.teams | join(", ")}}</td>
+
+                <td>
+                    <a href="{{ path('matchs_show', {'id': match.id}) }}">show</a>
+                    <a href="{{ path('matchs_edit', {'id': match.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('matchs_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'frontBase.html.twig' %}
+   {% block title %}{{blog.title}}{% endblock %}
+{% block extraStyle %}
+    <!-- Google Fonts -->
+    {# <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css"> #}
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+
+          
+
+        <!-- GoodGames -->
+    <link rel="stylesheet" href="{{ asset("front/css/goodgames.css") }}">
+    <link rel="stylesheet" href="{{ asset("front/css/custom.css") }}">
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+
+    <div class="nk-gap-20"></div>
+    <ul class="nk-forum nk-forum-topic">
+            <li>
+                <div class="nk-forum-topic-author">
+                    <a href="{{ path('profile')}}">
+                        <img src="https://avatars.dicebear.com/api/bottts/{{ blog.user.username}}.svg">
+                    </a>
+                    <div class="nk-forum-topic-author-name" title="name">
+                        <a>{{blog.user.username}}</a>
+                    </div>
+                    <div class="nk-forum-topic-author-role">{{ blog.user.roles | join('') | split('_') | last }}</div>
+                    <div class="nk-forum-topic-author-since">
+                        Member since <br> 
+                        {{blog.user.createdAt|date('Y-m-d')}}
+                    </div>
+                </div>
+                <div class="nk-forum-topic-content">
+                    <a href="{{ path('blog_index') }}" class="para-blog-title">
+                          {{blog.title}}
+                    </a>
+
+                    <p class="para-blog-text">{{blog.description}}</p>
+
+                    <div class="nk-forum-topic-attachments"> 
+                        {# <a href="#">goodgames-free.zip</a>
+                        <br>
+                        (14.86 MiB) Downloaded 185 times #}
+                        {% set images = blog.image| trim('*') | split("*") %}
+                            <img src="{{asset('img/blog/') ~ blog.getImage() }}" class="centerBlog" alt="Image">
+
+                    </div>
+                </div>
+                <div class="nk-forum-topic-footer">
+                    <span class="nk-forum-topic-date2">{{blog.publishedAt|date('M ,d Y h:m T')}}</span>
+
+                </div>
+                <div class="nk-forum-topic-footer"></div>
+            </li>
+    </ul>
+</div>
+ </div>
+                    </div>
+                </div>
+            
+</section>
+<!-- Comment Section Start -->
+{% if(commentsList is not null) %}
+                        {% for comment in blogList.comments %}
+<div class="container">
+
+    <div class="nk-gap-2"></div>
+    <ul class="nk-forum nk-forum-topic">
+            <li>
+                <div class="nk-comments">
+                    <!-- START: Comment -->
+                    
+                    
+                    <div class="nk-comment">
+                        <div class="nk-comment-meta">
+                            <img src="https://avatars.dicebear.com/api/bottts/{{ comment.user.username }}.svg" alt="Witch Murder" class="rounded-circle" width="35"> by <a href="{{ path('profile') }}">{{ comment.user.username | upper}}</a> {{ comment.commentedAt |date('M ,d Y h:m T')}}
+                        </div>
+                        <div class="nk-comment-text">
+                            <p>{{ comment.comment }}</p>
+                        </div>
+                    </div>
+                        
+                </div>
+            </li>
+    </ul>
+    </div>
+</div>
+                        {% endfor %}
+{% endif %}
+
+<div class="container">
+    <div class="row vertical-gap">
+        <div class="col-lg-8">
+            <div class="nk-gap-2"></div>
+                            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Leave</span> a Reply</span></h3>
+                            <div class="nk-gap"></div>
+                            <div class="nk-reply">
+                            
+                                {% if form is defined %}
+		                            {{ form_start(form) }}
+                                    <div class="nk-gap-1"></div>
+                                    <div class="form-group">
+			                        {{ form_widget(form.comment,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                    <div class="nk-gap-1"></div>
+                                    <div class="form-group">
+                                    <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-main-1">Post Comment</button>
+                                    </div>
+                                    {{ form_end(form) }}
+	                            {% endif %}
+                            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+            
+

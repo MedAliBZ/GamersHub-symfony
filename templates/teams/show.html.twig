@@ -1,0 +1,63 @@
+
+
+
+{% extends 'authBase.html.twig ' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block extraStyle %} <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block content %}
+
+
+ 
+               <div class="form-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table">
+
+         <thead>
+                                            <tr>
+                                                <th scope="col"><h8>Team ID      </h8></th>
+                                                <th scope="col"><h8>Team Name    </h8</th>
+                                                <th scope="col"><h8>Gamers Number</h8</th>
+                                                <th scope="col"><h8>Rank         </h8</th>
+                                                <th scope="col"><h8>verified     </h8</th>
+                                            </tr>
+         </thead>
+        <tbody>
+            <tr>
+                
+                <td>{{ team.id }}</td>
+                
+                <td>{{ team.TeamName }}</td>
+                
+                <td>{{ team.gamersNb }}</td>
+                 
+                <td>{{ team.rank }}</td>
+                
+                <td>{{ team.verified ? 'Yes' : 'No' }}</td>
+            </tr>
+           
+            
+        </tbody>
+    </table>
+       <tr>
+    <th><a href="{{ path('teams_index') }}">back to list</a></th>
+
+    <th><a href="{{ path('teams_edit', {'id': team.id}) }}">edit</a></th>
+    
+  
+   <th> <a> {{ include('teams/_delete_form.html.twig') }}</a></th>
+        </tr>
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+             
+</div>
+            {% endblock %}
+
+            

@@ -1,0 +1,125 @@
+{% extends 'frontBase.html.twig' %}
+{% block extraStyle %}
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">{% endblock %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <section id="banner-section" class="inner-banner profile">
+        <div class="ani-img">
+            <img class="img-1" src="{{ asset("front/images/banner-circle-1.png") }}" alt="icon">
+            <img class="img-2" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+            <img class="img-3" src="{{ asset("front/images/banner-circle-2.png") }}" alt="icon">
+        </div>
+        <div class="banner-content d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main-content">
+                            <h1>My Profile</h1>
+                            <div class="breadcrumb-area">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb d-flex justify-content-center">
+                                        <li class="breadcrumb-item"><a href="{{ path("home") }}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="heading-area">
+                <div class="row justify-content-between">
+                    <div class="col-md-6" style="flex: 1 1 0!important;">
+                        <div class="profile-area d-flex align-items-center">
+                            <div class="photo">
+                                <img src="https://avatars.dicebear.com/api/bottts/{{ user.username }}.svg"
+                                     style="width: 70px;height: 70px;min-width: 70px!important;" alt="Image">
+                            </div>
+                            <div style="display: flex;flex-direction: column;">
+                                <div style="display: flex;align-items: last baseline;">
+                                    <div>
+                                        <h4>{{ user.username }}</h4>
+                                    </div>
+                                    {% if user.isVerified %}
+                                        <div class="name-area">
+                                            <h4></h4>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div style="display: flex;">
+                                    <p style="color: lightgray;margin-right: 30px;">{{ user.name }} {{ user.secondName }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;justify-content: flex-start;align-items: center;flex: 1 1 0;">
+                        {% for mission in missionsDone %}
+                            <div>
+                                <img class='defaultImage' style="height:auto;"
+                                     src="{{ asset("missions/badges/"~mission.mission.badge) }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center justify-content-md-end" style="flex: 1 1 0;">
+                        <div class="right d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <p style="margin-right: 5px">{{ user.coins }}</p>
+                                <img src="{{ asset("front/images/coin.png") }}" style="width: 30px;height: 30px"
+                                     alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="all-trophies" class="pb-120">
+        <div class="container">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="overview-tab">
+                    <div class="row">
+                        <div class="col-sm" style="display: flex;justify-content: center;">
+                            <a href="{{ path("updateProfileInfo") }}" class="cmn-btn profile-btn">Update Profile</a>
+                        </div>
+                        {% if user.oauth == false %}
+                            <div class="col-sm" style="display: flex;justify-content: center;">
+                                <a href="{{ path("updatePass") }}" class="cmn-btn passwd-btn">Update Password</a>
+                            </div>
+                        {% endif %}
+                        <div class="col-sm" style="display: flex;justify-content: center;">
+                            <a href="{{ path("deleteProfile") }}" class="cmn-btn delete-btn">Delete account</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {# <section id="available-game-section"> #}
+    {# <div class="overlay pb-120"> #}
+    {# <div class="container wow fadeInUp"> #}
+    {# <div class="main-container"> #}
+    {# <div class="row justify-content-between"> #}
+    {# <div class="col-lg-10"> #}
+    {# <div class="section-header"> #}
+    {# <h2 class="title">Badges Earned</h2> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# <div class="available-game-carousel"> #}
+    {# {% for mission in missionsDone %} #}
+    {# <div class="single-item"> #}
+    {# <div> #}
+    {# <img class='defaultImage' style="height:auto;" #}
+    {# src="{{ asset("missions/badges/"~mission.mission.badge) }}"> #}
+    {# </div> #}
+    {# </div> #}
+    {# {% endfor %} #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+    {# </section> #}
+{% endblock %}

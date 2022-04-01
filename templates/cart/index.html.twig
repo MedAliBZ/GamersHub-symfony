@@ -1,0 +1,162 @@
+{% extends 'frontBase.html.twig' %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<!-- banner-section start -->
+<section id="banner-section" class="inner-banner profile features shop">
+    <div class="ani-img">
+        <img class="img-1" src="{{asset('front/images/banner-circle-1.png')}}" alt="icon">
+        <img class="img-2" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+        <img class="img-3" src="{{asset('front/images/banner-circle-2.png')}}" alt="icon">
+    </div>
+    <div class="banner-content d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="main-content">
+                        <h1>Cart Page</h1>
+                        <div class="breadcrumb-area">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb d-flex justify-content-center">
+                                    <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Cart </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner-section end -->
+{% if items| length >0 %}
+
+<!-- Shop Cart Start -->
+<section id="shop-cart-section" class="pt-120 pb-120">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shop-cart-top">
+                        <div class="row align-items-center">
+                            <div class="col-sm-8">
+                                <div class="shop-cart-left">
+                                    <p class="text-sm">This Is The List Of Products That Has Been Added To Your
+                                        Cart.</p>
+                                </div>
+                            </div>
+                         
+                            <div class="col-sm-4 d-flex justify-content-sm-end justify-content-center">
+                                <div class="shop-cart-right">
+                                    <a href="{{ path('categoryshow_front') }}" class="text-sm">Continue shopping<img
+                                            src="{{asset('front/images/right-icon.png')}}" alt="image"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                 {% if item.product is not null %}
+                                    <th scope="row" style="margin-bottom: 5%;display:flex;">
+
+                                        {% set images = item.product.image| trim('*') | split("*") %}
+                                        <img src="{{asset('shop/images/'~images[0])}}" alt="image"
+                                            style="width: 150px;height:100px">
+
+                                        <p
+                                            style="display: ruby;margin-right: -80px;margin-left: 10px;margin-top: 40px;">
+                                            {{ item.product.getNameProduct() }}</p>
+                                    </th>
+                                    <td style="margin-bottom: 5%;">{{ item.product.getPrice() }} COINS</td>
+                                    <td>
+                                        <form action="{{ path('cartupdate')}}" method="get">
+                                        <div class="qtySelector text-center">
+                                            
+                                            <i class="fas fa-minus decreaseQty"></i> </a>
+                                                <input type="text" class="qtyValue" value="{{ item.quantity }}" name="data[]">
+                                                <i class="fas fa-plus increaseQty "> </i>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="cart-dismiss" style="margin-bottom: 5%;">
+                                            <a href="{{ path('cartremove',{ id:item.product.getId() })}}"> <i
+                                                    class="fas fa-times"></i></a>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                {% endif %}
+                                {% endfor %}
+                               
+                               
+                                
+                            </tbody>
+                        </table>
+                     
+                    </div>
+                    <input type="submit"  class="cmn-btn" value=" Update Cart" style="color: white;width:fit-content">
+                </form>
+                </div>
+                <div class="col-lg-4">
+                    <div class="right-sidebar">
+                        <div class="top-area">
+                            <h5>Order Summary</h5>
+                            <p>Price can change depending on shipping
+                                method and taxes of your state.</p>
+                        </div>
+                        <div class="bottom-side text-center">
+                            <ul>
+                                <li>
+                                    <span>UserName</span>
+                                    <span>{{user.userName}}</span>
+                                </li>
+
+                            </ul>
+
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <span>Total Order</span>
+                                    <h4> {{ total }} COINS</h4>
+                                </li>
+                            </ul>
+                            <a href="{{ path('orderadd') }}" class="cmn-btn checkout">proceed to checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Cart End -->
+{% else %}
+<!-- Error Start -->
+<section id="error-section">
+    <div class="overlay pb-120 pt-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="main-content pt-120 pb-120 text-center">
+                        <h3>Whoops..</h3>
+                        <h5>cart is empty</h5>
+                        <a href="{{ path('categoryshow_front') }}" class="cmn-btn">add products now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Error End -->
+{% endif %}
+{% endblock %}

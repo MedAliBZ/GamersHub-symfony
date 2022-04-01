@@ -1,0 +1,80 @@
+{% extends 'backBase.html.twig' %}
+{% block title %}Matchs{% endblock %}
+{% block extraStyle %}
+    <link href="{{ asset('back/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link href="{{ asset('back/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("front/css/extraStyle.css") }}">
+{% endblock %}
+{% block content %}
+   <div class="col-md-12 col-sm-12" style="margin-top: 20px;">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Matchs TABLE</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-success"> {{ message }}
+                </div>
+            {% endfor %}
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                            <p class="text-muted font-13 m-b-30">
+
+                            </p>
+                            <table id="datatable" class="table table-striped table-bordered" style="width:95%">
+                                <thead>
+                                <tr>
+                                    <th>MATCH ID</th>
+                                    <th>MATCH NAME</th>
+                                    <th>MATCH RESULT </th>
+                                    <th>MATCH DATE </th>
+                                     <th>TEAM 1 NAME</th>
+                                    <th>TEAM 2 NAME</th>
+                           
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if(MatchsList is not null) %}
+                                    {% for match in MatchsList %}
+                                        
+                                        <tr>
+                                            <td>{{match.id}}</td>
+                                            <td>{{match.MatchName}}</td>
+                                            <td>{{match.result }}</td>
+                                            <td>{{match.matchDate | date('d/m/Y')}}</td>
+{#                                             {% for match in match.getTeams() %}#}
+                                            <td>{{match.teams | length > 1 ? match.teams[0].TeamName : ""}}</td>
+
+                                            <td>{{ match.teams | length < 2 ? "" : match.teams[1].TeamName }}</td>
+
+                                            <td><a type="Update" href="{{ path("matchs_edit", {'id': match.id}) }}" class="btn btn-success">Update</a></td>
+                                            <td><a href="{{ path("matchs_delete" ,  {'id': match.id}) }}" class="btn btn-success">Delete</a></td>
+
+                                        </tr>
+
+                                    {% endfor %}
+                                {% endif %}
+                                <td><a href="{{ path("matchs_new" ,  {'id': match.id}) }}" class="btn btn-success">New</a></td>
+                                <td><a href="{{ path("matchs_pdf")}}" class="btn btn-success">PDF</a></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
