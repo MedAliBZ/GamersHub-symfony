@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+  
 /**
  * @ORM\Entity(repositoryClass=ProductsRepository::class)
  */
@@ -18,6 +19,7 @@ class Products
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -27,6 +29,7 @@ class Products
      * @Assert\Length (min=5)
      * @Assert\Length (max=20)
      * @Assert\Regex(pattern="/[a-zA-Z]/" , message="the name cannot be a number")
+     * @Groups("post:read")
      */
     private $nameProduct;
 
@@ -34,12 +37,14 @@ class Products
      * @ORM\Column(type="float")
      * @Assert\NotBlank (message="this field is required")
      * @Assert\PositiveOrZero
+     * @Groups("post:read")
      */
     private $price;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class,inversedBy="products")
      * @Assert\NotBlank (message="this field is required")
+     * @Groups("post:read")
      */
     private $category;
 
@@ -47,11 +52,13 @@ class Products
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\NotBlank (message="this field is required")
      * @Assert\PositiveOrZero
+     * @Groups("post:read")
      */
     private $quantityStocked;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("post:read")
      */
     private $image;
 
@@ -60,6 +67,7 @@ class Products
      * @Assert\NotBlank (message="this field is required")
      * @Assert\Length (min=10)
      * @Assert\Length (max=300)
+     * @Groups("post:read")
      */
 
     private $description;
