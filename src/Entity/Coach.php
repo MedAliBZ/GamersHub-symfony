@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=CoachRepository::class)
  */
@@ -16,6 +17,7 @@ class Coach
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("api:coach")
      */
     private $id;
 
@@ -23,6 +25,7 @@ class Coach
      * @ORM\Column(type="string", length=1000)
      * @Assert\NotBlank (message="this field is required")
      * @Assert\Length (min=5)
+     * @Groups("api:coach")
      */
     private $description;
 
@@ -34,12 +37,15 @@ class Coach
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="coach")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("api:coach")
+     * * @Groups("api:session")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="coaches")
      * @ORM\JoinColumn(nullable=true, onDelete="set null")
+     * @Groups("api:coach")
      */
     private $game;
 

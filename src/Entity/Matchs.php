@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\MatchsRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+use App\Repository\MatchsRepository;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=MatchsRepository::class)
@@ -17,11 +24,14 @@ class Matchs
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
+
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("post:read")
      */
     private $match_date;
 
@@ -32,7 +42,8 @@ class Matchs
      *      min = 3,
      *      minMessage = "Your result must be at least {{ limit }} characters long",
      * )
-     
+
+     * @Groups("post:read")
      */
     private $result;
 
@@ -41,6 +52,7 @@ class Matchs
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $MatchName;
 

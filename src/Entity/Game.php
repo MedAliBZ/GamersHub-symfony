@@ -27,6 +27,7 @@ class Game
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="This field cannot be empty!")
      * @Groups("api:game")
+     * @Groups("api:coach")
      */
     private $name;
 

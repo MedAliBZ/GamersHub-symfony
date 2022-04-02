@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SessioncoachingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SessioncoachingRepository::class)
@@ -15,19 +16,21 @@ class Sessioncoaching
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("api:session")
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Coach::class, inversedBy="sessioncoachings")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("api:session")
      */
     private $coach;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sessioncoachings")
      * @ORM\JoinColumn(nullable=true)
-     *
+     * @Groups("api:session")
      */
     private $user;
 
@@ -35,13 +38,15 @@ class Sessioncoaching
      * @ORM\Column(type="date")
      * @Assert\GreaterThanOrEqual("today")
      * @Assert\NotBlank (message="this field is required")
+     * @Groups("api:session")
      */
     private $date_debut;
 
     /**
      * @ORM\Column(type="date")
-     * * @Assert\GreaterThanOrEqual("today")
+     * @Assert\GreaterThanOrEqual("today")
      * @Assert\NotBlank (message="this field is required")
+     * @Groups("api:session")
      */
     private $date_fin;
 
@@ -49,6 +54,7 @@ class Sessioncoaching
      * @ORM\Column(type="float", nullable=true)
      * @Assert\GreaterThan(value=0,message="price should be greater than 0")
      * @Assert\NotBlank (message="this field is required")
+     * @Groups("api:session")
      */
     private $prix;
 
@@ -66,6 +72,7 @@ class Sessioncoaching
      * @ORM\Column(type="string", length=1000)
      * @Assert\NotBlank (message="this field is required")
      * @Assert\Length (min=5)
+     * @Groups("api:session")
      */
     private $description;
 

@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TeamsRepository;
+use  App\Repository\TeamsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,11 +19,13 @@ class Teams
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      *
      * @Assert\NotBlank (message="this field is required")
      * @Assert\Length(
@@ -36,6 +40,7 @@ class Teams
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      * 
      *@Assert\NotBlank (message="this field is required")
      * @Assert\Length(
@@ -50,6 +55,7 @@ class Teams
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $rank
     ;
@@ -66,6 +72,7 @@ class Teams
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("post:read")
      */
     private $image;
 
