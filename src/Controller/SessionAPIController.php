@@ -94,16 +94,14 @@ class SessionAPIController extends AbstractController
      */
     public function updateSession(Request $request, NormalizerInterface $normalizer): Response
     {
-        if (!($request->request->get('username') && $request->request->get('description') && $request->request->get('coachname')&& $request->request->get('prix')&& $request->request->get('date_debut')&& $request->request->get('date_fin') ))
+        if (!($request->request->get('username') && $request->request->get('description') && $request->request->get('prix')&& $request->request->get('date_debut')&& $request->request->get('date_fin') ))
             return new Response(
                 '{"error": "Missing username or coachname or description or price of date debut or date fin."}',
                 400, ['Accept' => 'application/json',
                 'Content-Type' => 'application/json']);
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getDoctrine()->getRepository(Sessioncoaching::class)->findOneBy(["id" => $request->query->get('id')]);
+        $session = $this->getDoctrine()->getRepository(Sessioncoaching::class)->findOneBy(["id" => $request->request->get('id')]);
         $session->setUser($this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$request->request->get('username')]));
-        $session->setCoach($this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$request->request->get('coachname')])->getCoach());
-        //dd($this->getDoctrine()->getRepository(User::class)->findOneBy(["username"=>$request->request->get('coachname')])->getCoach());
         $session->setDescription($request->request->get('description'));
         // date_create_immutable_from_format('m/d/Y H:i:s', date('m/d/Y H:i:s', $request->request->get('date_debut')."0:0:0"));
         $session->setDateDebut(new \DateTime($request->request->get('date_debut')));
@@ -112,6 +110,7 @@ class SessionAPIController extends AbstractController
         $session->setBackgroundColor("#00000");
         $session->setBorderColor('#00000');
         $session->setTextColor('#00000');
+
         $em->persist($session);
         $em->flush();
         return new Response(

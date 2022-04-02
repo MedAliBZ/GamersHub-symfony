@@ -22,7 +22,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 class UserAPIController extends AbstractController
 {
     /**
-     * @Route("/users", name="api_users", methods={"GET"})
+     * @Route("/users", name="api_users")
      */
     public function allUsers(NormalizerInterface $normalizer): Response
     {

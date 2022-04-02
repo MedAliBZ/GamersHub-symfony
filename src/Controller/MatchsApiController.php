@@ -57,7 +57,7 @@ class MatchsApiController extends AbstractController
 
     }
     /**
-     * @Route("/api/matchs/updatematch", name="updatematch")
+     * @Route("/api/matchs/updatematch/{id}", name="updatematch")
      */
     public function updatematch($id,Request $request,NormalizerInterface $normalizer)
     {$em=$this->getDoctrine()->getManager();

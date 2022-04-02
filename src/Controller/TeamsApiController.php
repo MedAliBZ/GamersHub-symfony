@@ -64,9 +64,9 @@ class TeamsApiController extends AbstractController
     {$em=$this->getDoctrine()->getManager();
         $team=$em->getRepository(Teams::class)->find($id);
         $team->setTeamName($request->get('TeamName'));
-        $team->setGamersNb($request->get('gamersNb'));
+        $team->setGamersNb(3);
         $team->setRank($request->get('rank'));
-        $team->setVerified($request->get('verified'));
+        $team->setVerified(1);
 
         $em->persist($team);
         $em->flush();
