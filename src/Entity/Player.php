@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -18,6 +19,7 @@ class Player
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -25,6 +27,7 @@ class Player
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="this field is required")
+     * @Groups("post:read")
      */
     
     private $rank;
@@ -37,6 +40,7 @@ class Player
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="player")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("post:read")
      */
     private $user;
 
