@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 /**
@@ -18,6 +20,7 @@ class Tournaments
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -30,6 +33,7 @@ class Tournaments
      *      minMessage = "Oupsss too short!!{{ limit }} characters long",
      *      maxMessage = "Oupsss too long!! {{ limit }} characters"
      * )
+     * @Groups("post:read")
      */
 
     private $name;
@@ -37,6 +41,7 @@ class Tournaments
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="this field is required")
      * @Assert\NotBlank(message = "Oupsss write something ")
+     * @Groups("post:read")
      */
     private $decription;
 
@@ -47,6 +52,7 @@ class Tournaments
      *      min= 6,
      *      notInRangeMessage ="Oupsss you must have at least {{ min }} teams in a tournament" ,
      * )
+     * @Groups("post:read")
      */
     private $teamSize;
 
@@ -80,6 +86,7 @@ class Tournaments
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $images;
 

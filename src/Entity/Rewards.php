@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\RewardsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=RewardsRepository::class)
@@ -15,6 +17,7 @@ class Rewards
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
@@ -26,11 +29,13 @@ class Rewards
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
     private $type;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $quantity;
 
